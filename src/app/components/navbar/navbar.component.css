@@ -1,0 +1,104 @@
+.navbar-vetor {
+  display: flex;
+  width: 100%;
+  height: 5rem;
+  background-color: #00420C;
+  justify-content: start;
+  align-items: center;
+}
+
+.icon-logo {
+  height: 4rem;
+  margin: 1rem;
+}
+
+.icon-home {
+  height: 2rem;
+  margin: 1rem;
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 80%;
+  height: 100vh;
+  background-color: #000000;
+  opacity: 0.6;
+}
+
+.menu-siderbar {
+  position: fixed;
+  top: 0;
+  right: left;
+  width: 20%;
+  height: 100vh;
+  background-color: #00420C;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.menu-siderbar .active {
+  display: flex;
+}
+
+.header-side {
+  width: 85%;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: 1rem 0;
+  background-color: #388A2B;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+}
+
+ul a {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover li {
+  background-color: #fff;
+  color: #000000;
+  transform: scale(1.1);
+  transition: all 0.5s
+}
+
+.menu-siderbar .footer-side {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+  padding: 0.7rem;
+  align-items: center;
+  background-color: #388A2B;
+}
+
+.footer-side .icone-sair {
+  width: 2rem;
+}
+
+.footer-side span {
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.footer-side img {
+  width: 3rem;
+}
+.footer-side .bloco-nomes {
+  display: flex;
+  flex-direction: column;
+}
+
+
