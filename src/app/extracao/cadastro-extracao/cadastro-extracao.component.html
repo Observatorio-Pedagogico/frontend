@@ -14,19 +14,19 @@
               <mat-form-field>
                 <mat-label>Tipo do Período</mat-label>
                 <mat-select formControlName="periodoLetivoTipo" required>
-                  <mat-option value="one">Bimestre</mat-option>
-                  <mat-option value="two">Semestre</mat-option>
-                  <mat-option value="three">Trimestre</mat-option>
+                  <mat-option value="BIMESTRE">Bimestre</mat-option>
+                  <mat-option value="TRIMESTE">Trimestre</mat-option>
+                  <mat-option value="SEMESTRE">Semestre</mat-option>
                 </mat-select>
               </mat-form-field>
           </div>
 
           <div class="bloco-file">
-              <label for="myfile">Anexar arquivos (.XLS .XLSX) </label>
-              <div class="item-file">
-                <label class="estilo-label-file" for="arquivoOne">Anexar Arquivo 1</label>
-                <input type="file" name="arquivoOne" id="arquivoOne" accept=".xls, .xlsx" (change)="onFileChange($event)" required/>
-              </div>
+            <label for="myfile">Anexar arquivos (.XLS .XLSX) </label>
+            <div class="item-file">
+              <label class="estilo-label-file" for="primeiroArquivo">Anexar Arquivo 1</label>
+                <input type="file" name="primeiroArquivo" id="primeiroArquivo" accept=".xls, .xlsx" required/>
+            </div>
 
              <!--  <div class="item-file">
                 <label class="estilo-label-file" for="arquivoTwo">Anexar Arquivo 2</label>
@@ -39,7 +39,9 @@
             <textarea rows="10" matInput formControlName="descricao" required></textarea>
           </mat-form-field>
 
-          <button type="submit">Finalizar Cadastro</button>
-
+          <div>
+            <button (click)="voltarButtonEvent()">Voltar</button>
+            <button type="submit" (click)="salvarExtracaoEvent()">Finalizar Cadastro</button>
+          </div>
     </form>
   </div>
