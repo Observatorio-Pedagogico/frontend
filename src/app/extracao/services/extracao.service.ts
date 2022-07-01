@@ -8,7 +8,6 @@ import { first, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class ExtracaoService {
-
   private readonly ENVIAR = '/extracao/enviar';
   private readonly GET_TODOS = '/extracao/get-todos';
 

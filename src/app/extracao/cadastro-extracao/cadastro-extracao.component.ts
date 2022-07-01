@@ -29,15 +29,14 @@ export class CadastroExtracaoComponent implements OnInit {
     salvarExtracaoEvent(): void {
         // if (this.form.status !== 'VALID') return;
 
-        let extracaoForm = this.form.value as Extracao;
+        let extracao = this.form.value as Extracao;
 
         var primeiroArquivo = (document.getElementById("primeiroArquivo") as HTMLInputElement).files?.item(0);
         if (primeiroArquivo) {
-        extracaoForm.arquivo.conteudo = primeiroArquivo;
+            extracao.arquivo.conteudo = primeiroArquivo;
         }
 
-        console.log(extracaoForm.arquivo);
-        this.extracaoService;
+        this.extracaoService.salvar(extracao);
     }
 
     voltarButtonEvent(): void {
