@@ -1,10 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Extracao } from '../model/extracao';
+import { URL_BASE } from 'src/environments/environment';
+import { first, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExtracaoService {
 
-  constructor() { }
+  private readonly ENVIAR = '/extracao/enviar';
+  private readonly GET_TODOS = '/extracao/get-todos';
+
+  constructor(private httpClient: HttpClient) { }
+
+  listar() {
+    return this.httpClient.get<Extracao[]>(URL_BASE.concat(this.GET_TODOS))
+    .pipe(
+      first(),
+      tap(extracoes => console.log(extracoes))
+    );
+  }
+
+  salvar(registro: Extracao) {
+    return this.httpClient.post<Extracao>(URL_BASE.concat(this.ENVIAR), registro);
+  }
+
 }
