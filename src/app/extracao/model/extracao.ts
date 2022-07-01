@@ -1,4 +1,4 @@
-export interface extracao {
+export interface Extracao {
     id: number,
     titulo: string,
     periodoLetivoTipo: string,
