@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ExtracaoService } from '../services/extracao.service';
-import { Extracao } from '../model/extracao';
+import { Arquivo, Extracao } from '../model/extracao';
 
 @Component({
   selector: 'app-cadastro-extracao',
@@ -33,10 +33,17 @@ export class CadastroExtracaoComponent implements OnInit {
 
         var primeiroArquivo = (document.getElementById("primeiroArquivo") as HTMLInputElement).files?.item(0);
         if (primeiroArquivo) {
-            extracao.arquivo.conteudo = primeiroArquivo;
+            let arquivo: Arquivo = {
+                conteudo: primeiroArquivo
+            }
+            extracao.arquivo = arquivo;
         }
 
-        this.extracaoService.salvar(extracao);
+        console.log(extracao.arquivo.conteudo)
+        this.extracaoService.salvar(extracao).subscribe({
+            next: (response) => console.log(response),
+            error: (error) => console.log(error),
+        });
     }
 
     voltarButtonEvent(): void {

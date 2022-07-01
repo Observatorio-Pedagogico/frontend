@@ -22,7 +22,10 @@ export class ExtracaoService {
   }
 
   salvar(registro: Extracao) {
-    return this.httpClient.post<Extracao>(URL_BASE.concat(this.ENVIAR), registro);
+    var formData = new FormData();
+    formData.append("titulo", registro.titulo);
+    formData.append("arquivo.conteudo", registro.arquivo.conteudo);
+    return this.httpClient.post<Extracao>(URL_BASE.concat(this.ENVIAR), formData);
   }
 
 }
