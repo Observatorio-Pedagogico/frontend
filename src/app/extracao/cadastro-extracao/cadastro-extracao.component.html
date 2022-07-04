@@ -24,8 +24,8 @@
           <div class="bloco-file">
             <label for="myfile">Anexar arquivos (.XLS .XLSX) </label>
             <div class="item-file">
-              <label class="estilo-label-file" for="primeiroArquivo">Anexar Arquivo 1</label>
-                <input type="file" name="primeiroArquivo" id="primeiroArquivo" accept=".xls, .xlsx" required/>
+              <label class="estilo-label-file" id="selectedFile" for="primeiroArquivo">Anexar Arquivo 1</label>
+              <input type="file" name="primeiroArquivo" id="primeiroArquivo" accept=".xls, .xlsx" (change)="alteraNomeArquivoSelecionado('primeiroArquivo', 'selectedFile')" required/>
             </div>
 
              <!--  <div class="item-file">
