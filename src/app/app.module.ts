@@ -14,7 +14,8 @@ import { SolicitacoesUsuariosComponent } from './usuario/solicitacoes-usuarios/s
 import { GerenciarUsuariosComponent } from './usuario/gerenciar-usuarios/gerenciar-usuarios.component';
 import { LoginComponent } from './login/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ListagemStatusEnvioComponent } from './extracao/listagem-status-envio/listagem-status-envio.component';
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,14 +27,16 @@ import { HttpClientModule } from '@angular/common/http';
     DetalhesAlunoComponent,
     SolicitacoesUsuariosComponent,
     GerenciarUsuariosComponent,
-    LoginComponent
+    LoginComponent,
+    ListagemStatusEnvioComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
