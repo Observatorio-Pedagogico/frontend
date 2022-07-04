@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ExtracaoService } from '../services/extracao.service';
 import { Arquivo, Extracao } from '../model/extracao';
+import { StringUtils } from 'src/app/shared/utils/string-utils';
 
 @Component({
   selector: 'app-cadastro-extracao',
@@ -16,7 +17,8 @@ export class CadastroExtracaoComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private location: Location,
-        private extracaoService: ExtracaoService
+        private extracaoService: ExtracaoService,
+        private stringUtils: StringUtils
     ) {
         this.form = this.formBuilder.group({
         titulo: [null],
@@ -24,6 +26,16 @@ export class CadastroExtracaoComponent implements OnInit {
         periodoLetivo: [null],
         descricao: [null]
         });
+    }
+
+    alteraNomeArquivoSelecionado(_idInput: string, _idText: string): void {
+        var arquivo = (document.getElementById(_idInput) as HTMLInputElement).files?.item(0);
+        var text = document.getElementById(_idText) as HTMLInputElement;
+        if (arquivo) {
+            text.textContent = this.stringUtils.truncate(arquivo.name, 20).toLowerCase();
+        } else {
+            text.textContent = "Anexar Arquivo 1";
+        }
     }
 
     salvarExtracaoEvent(): void {
