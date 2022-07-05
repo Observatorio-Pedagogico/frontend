@@ -52,7 +52,7 @@ export class CadastroExtracaoComponent implements OnInit {
         }
 
         console.log(extracao.arquivo.conteudo)
-        this.extracaoService.salvar(extracao).subscribe({
+        this.extracaoService.salvarExtracao(extracao).subscribe({
             next: (response) => console.log(response),
             error: (error) => console.log(error),
         });
