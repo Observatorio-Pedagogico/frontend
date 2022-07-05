@@ -16,7 +16,7 @@ import {MatTableModule} from '@angular/material/table';
     MatSelectModule,
     MatBottomSheetModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
   ],
 })
 export class AppMaterialModule { }

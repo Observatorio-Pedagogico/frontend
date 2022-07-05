@@ -1,12 +1,47 @@
 <div class="bloco-titulo">
   <h1>Tabela de envios</h1>
-  <button>NOVA EXTRAÇÃO</button>
+    <button class="btn-secondary">NOVA EXTRAÇÃO SUAP</button>
 </div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        FILTROS
+        <mat-icon>filter_list</mat-icon>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
+    <mat-form-field>
+      <mat-label>Titulo</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Periodo Letivo</mat-label>
+      <input matInput type="number" min="1">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Periodo Letivo Tipo</mat-label>
+      <mat-select required>
+        <mat-option value="BIMESTRE">Bimestre</mat-option>
+        <mat-option value="TRIMESTE">Trimestre</mat-option>
+        <mat-option value="SEMESTRE">Semestre</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select required>
+        <mat-option value="BIMESTRE">ATIVA</mat-option>
+        <mat-option value="TRIMESTE">CANCELADA</mat-option>
+        <mat-option value="SEMESTRE">ENVIANDO</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-expansion-panel>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!-- Position Column -->
   <ng-container matColumnDef="titulo">
@@ -41,6 +76,8 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 
 
 

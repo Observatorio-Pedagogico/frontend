@@ -20,10 +20,19 @@ mat-form-field {
   margin: 1rem 1rem;
 }
 
-button, submit {
-  background-color: #9EBE88;
+button {
   padding: 1em;
   border-radius: 0.8em;
   cursor: pointer;
-  border: none;
+}
+
+.btn-primary {
+  background-color: #9EBE88;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  border-style: solid;
+  border-color: #000;
+  border-width: 1px;
 }

@@ -8,7 +8,6 @@ import { AppMaterialModule } from '../shared/app-material/app-material.module';
 import { ListagemExtracoesComponent } from './listagem-extracoes/listagem-extracoes.component';
 import { DetalhesExtracaoComponent } from './detalhes-extracao/detalhes-extracao.component';
 
-
 @NgModule({
   declarations: [
     CadastroExtracaoComponent,
@@ -19,7 +18,7 @@ import { DetalhesExtracaoComponent } from './detalhes-extracao/detalhes-extracao
     CommonModule,
     ExtracaoRoutingModule,
     AppMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class ExtracaoModule { }
