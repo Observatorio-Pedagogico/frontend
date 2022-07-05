@@ -1,32 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Extracao } from '../model/extracao';
+import { Extracao, ExtracaoThread } from '../model/extracao';
 import { URL_BASE } from 'src/environments/environment';
-import { first, tap } from 'rxjs';
+import { first, Observable, tap } from 'rxjs';
+import { ResponseBody } from 'src/app/shared/interfaces/response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExtracaoService {
 
-  private readonly ENVIAR = '/extracao/enviar';
-  private readonly GET_TODOS = '/extracao/get-todos';
+  private readonly EXTRACAO_ENVIAR = '/extracao/enviar';
+  private readonly EXTRACAO_GET_TODOS = '/extracao/get-todos';
+  private readonly EXTRACAO_STATUS_ENVIO_GET_TODOS = '/extracao/envio-status';
 
   constructor(private httpClient: HttpClient) { }
 
-  listar() {
-    return this.httpClient.get<Extracao[]>(URL_BASE.concat(this.GET_TODOS))
-    .pipe(
-      first(),
-      tap(extracoes => console.log(extracoes))
-    );
+  listarExtracao() {
+    return this.httpClient.get<Extracao[]>(URL_BASE.concat(this.EXTRACAO_GET_TODOS));
   }
 
-  salvar(registro: Extracao) {
+  listarStatusEnvio(): Observable<ResponseBody<ExtracaoThread[]>> {
+    return this.httpClient.get<ResponseBody<ExtracaoThread[]>>(URL_BASE.concat(this.EXTRACAO_STATUS_ENVIO_GET_TODOS));
+  }
+
+  salvarExtracao(registro: Extracao): Observable<Extracao> {
     var formData = new FormData();
     formData.append("titulo", registro.titulo);
     formData.append("arquivo.conteudo", registro.arquivo.conteudo);
-    return this.httpClient.post<Extracao>(URL_BASE.concat(this.ENVIAR), formData);
+    return this.httpClient.post<Extracao>(URL_BASE.concat(this.EXTRACAO_ENVIAR), formData);
   }
 
 }
