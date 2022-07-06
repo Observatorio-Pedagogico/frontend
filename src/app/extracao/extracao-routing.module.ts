@@ -9,7 +9,8 @@ const routes: Routes = [
 
   { path: '', component: ListagemExtracoesComponent },
   { path: 'nova-extracao', component: CadastroExtracaoComponent },
-  { path: 'listagem-envio', component: ListagemStatusEnvioComponent }
+  { path: 'listagem-envio', component: ListagemStatusEnvioComponent },
+  { path: 'listagem-extracoes', component: ListagemExtracoesComponent }
 ];
 
 

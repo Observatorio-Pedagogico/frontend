@@ -7,6 +7,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppMaterialModule } from '../shared/app-material/app-material.module';
 import { ListagemExtracoesComponent } from './listagem-extracoes/listagem-extracoes.component';
 import { DetalhesExtracaoComponent } from './detalhes-extracao/detalhes-extracao.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -19,6 +25,13 @@ import { DetalhesExtracaoComponent } from './detalhes-extracao/detalhes-extracao
     ExtracaoRoutingModule,
     AppMaterialModule,
     ReactiveFormsModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatPaginatorModule
   ]
 })
 export class ExtracaoModule { }
