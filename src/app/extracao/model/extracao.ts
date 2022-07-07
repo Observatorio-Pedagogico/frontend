@@ -8,13 +8,13 @@ export interface Extracao {
 }
 
 export interface ExtracaoResumido {
-  id: number,
+  id: BigInt,
   titulo: string,
   periodoLetivoTipo: string,
   periodoLetivo: string,
   status: string,
   dataCadastro: Date,
-  dataUltimaAtualizacao: Date
+  ultimaDataHoraAtualizacao: Date
 }
 
 export interface Arquivo {

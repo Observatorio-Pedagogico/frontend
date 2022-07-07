@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Extracao, ExtracaoThread } from '../model/extracao';
+import { Extracao, ExtracaoResumido, ExtracaoThread } from '../model/extracao';
 import { URL_BASE } from 'src/environments/environment';
-import { first, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ResponseBody } from 'src/app/shared/interfaces/response';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class ExtracaoService {
   constructor(private httpClient: HttpClient) { }
 
   listarExtracao() {
-    return this.httpClient.get<Extracao[]>(URL_BASE.concat(this.EXTRACAO_GET_TODOS));
+    return this.httpClient.get<ResponseBody<ExtracaoResumido[]>>(URL_BASE.concat(this.EXTRACAO_GET_TODOS));
   }
 
   listarStatusEnvio(): Observable<ResponseBody<ExtracaoThread[]>> {
@@ -27,6 +27,8 @@ export class ExtracaoService {
   salvarExtracao(registro: Extracao): Observable<Extracao> {
     var formData = new FormData();
     formData.append("titulo", registro.titulo);
+    formData.append("descricao", registro.descricao);
+    formData.append("periodoLetivo", registro.periodoLetivo);
     formData.append("arquivo.conteudo", registro.arquivo.conteudo);
     return this.httpClient.post<Extracao>(URL_BASE.concat(this.EXTRACAO_ENVIAR), formData);
   }

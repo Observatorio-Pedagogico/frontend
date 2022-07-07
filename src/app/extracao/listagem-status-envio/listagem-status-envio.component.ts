@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { EXTRACAO_NOVA_EXTRACAO } from 'src/app/shared/utils/routes';
 import { ExtracaoThread } from '../model/extracao';
 import { ExtracaoService } from '../services/extracao.service';
 
@@ -12,11 +13,6 @@ import { ExtracaoService } from '../services/extracao.service';
 export class ListagemStatusEnvioComponent implements OnInit {
 
   segundoAtualizacao = 1;
-
-  // arquivosEnviados: ExtracaoThread[] = [
-  //   {porcentagemEnvio:10, extracao:{titulo: 'Angular', periodoLetivoTipo: '12', periodoLetivo: '1', status: "ENVIANDO"}},
-  //   {porcentagemEnvio:50, extracao:{titulo: 'Java', periodoLetivoTipo: '5', periodoLetivo: '2', status: "ENVIANDO"}}
-  // ];
   arquivosEnviados: ExtracaoThread[] = [];
 
   displayedColumns = ['titulo', 'periodoLetivoTipo', 'periodoLetivo', 'status','porcentagemEnvio'];
@@ -34,6 +30,10 @@ export class ListagemStatusEnvioComponent implements OnInit {
     .catch(() => {
       this.arquivosEnviados = [];
     })
+  }
+
+  moverParaNovaExtracao() {
+    window.location.href = EXTRACAO_NOVA_EXTRACAO;
   }
 
   ngOnInit(): void {

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { EXTRACAO_NOVA_EXTRACAO } from 'src/app/shared/utils/routes';
 import { ExtracaoResumido } from '../model/extracao';
+import { ExtracaoService } from '../services/extracao.service';
 
 @Component({
   selector: 'app-listagem-extracoes',
@@ -12,9 +15,21 @@ export class ListagemExtracoesComponent implements OnInit {
 
   displayedColumns = ['codigo','titulo', 'status', 'periodoLetivo', 'dataCadastro','dataUltimaAtualizacao','visualizacao','deletar'];
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private extracaoService: ExtracaoService) { }
+  
+  moverParaNovaExtracao() {
+    window.location.href = EXTRACAO_NOVA_EXTRACAO;
   }
 
+  async listarStatusEnvio(): Promise<void> {
+    await firstValueFrom(this.extracaoService.listarExtracao())
+    .then(response => {
+      this.extracoes = response.data;
+    })
+    .catch(() => {})
+  }
+
+  ngOnInit(): void {
+    this.listarStatusEnvio();
+  }
 }

@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { ExtracaoService } from '../services/extracao.service';
 import { Arquivo, Extracao } from '../model/extracao';
 import { StringUtils } from 'src/app/shared/utils/string-utils';
+import { EXTRACAO_LISTAGEM_ENVIO } from 'src/app/shared/utils/routes';
 
 @Component({
   selector: 'app-cadastro-extracao',
@@ -51,9 +52,11 @@ export class CadastroExtracaoComponent implements OnInit {
             extracao.arquivo = arquivo;
         }
 
-        console.log(extracao.arquivo.conteudo)
         this.extracaoService.salvarExtracao(extracao).subscribe({
-            next: (response) => console.log(response),
+            next: (response) => {
+                console.log(response)
+                window.location.href = EXTRACAO_LISTAGEM_ENVIO
+            },
             error: (error) => console.log(error),
         });
     }
