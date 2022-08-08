@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, Router } from '@angular/router';
 import { LoginComponent } from './login/login/login.component';
 
 const routes: Routes = [
@@ -17,4 +17,17 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+  constructor(private router: Router) { }
+
+  private listaRotas: string[] = ['/login'];
+
+  isRotaValida(): boolean {
+    const rotaSplit = this.router.url.split('/');
+    console.log(rotaSplit);
+    const path = rotaSplit[rotaSplit.length-1];
+    return !this.listaRotas.includes('/'.concat(path));
+  }
+
+}
