@@ -25,7 +25,6 @@ export class AppRoutingModule {
 
   isRotaValida(): boolean {
     const rotaSplit = this.router.url.split('/');
-    console.log(rotaSplit);
     const path = rotaSplit[rotaSplit.length-1];
     return !this.listaRotas.includes('/'.concat(path));
   }
