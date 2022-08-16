@@ -32,7 +32,6 @@
 }
 
 .container-button-entrar {
-  margin-top: 80px;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -44,8 +43,8 @@
 }
 
 .container-button-entrar button {
-  margin-top: 15px;
   font-size: larger;
+  margin-top: 0.6rem;
   padding: 0.6rem;
   display: flex;
   justify-content: center;
@@ -56,6 +55,26 @@
 }
 
 .container-button-entrar button:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   transition: all 0.5s;
 }
+
+.container-interno .bloco-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-interno .bloco-form a {
+  color: rgb(226, 221, 221);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.container-interno .bloco-form input {
+  background-color: #fff;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin: 1rem 0 1rem 0;
+  width: 280px;
+}
+

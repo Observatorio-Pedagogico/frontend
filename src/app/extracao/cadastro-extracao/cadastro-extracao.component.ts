@@ -30,8 +30,8 @@ export class CadastroExtracaoComponent implements OnInit {
     }
 
     alteraNomeArquivoSelecionado(_idInput: string, _idText: string): void {
-        var arquivo = (document.getElementById(_idInput) as HTMLInputElement).files?.item(0);
-        var text = document.getElementById(_idText) as HTMLInputElement;
+        let arquivo = (document.getElementById(_idInput) as HTMLInputElement).files?.item(0);
+        let text = document.getElementById(_idText) as HTMLInputElement;
         if (arquivo) {
             text.textContent = this.stringUtils.truncate(arquivo.name, 20).toLowerCase();
         } else {
@@ -44,7 +44,7 @@ export class CadastroExtracaoComponent implements OnInit {
 
         let extracao = this.form.value as Extracao;
 
-        var primeiroArquivo = (document.getElementById("primeiroArquivo") as HTMLInputElement).files?.item(0);
+        let primeiroArquivo = (document.getElementById("primeiroArquivo") as HTMLInputElement).files?.item(0);
         if (primeiroArquivo) {
             let arquivo: Arquivo = {
                 conteudo: primeiroArquivo

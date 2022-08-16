@@ -6,12 +6,22 @@
       <h1>Instituto Federal da Paraíba</h1>
     </div>
 
-    <div class="container-button-entrar">
-      <h3>Logar com a conta acadêmica</h3>
-      <button routerLink="/extracoes">
-        <img src="../../../assets/google-icon.svg" alt="icon-google">
-        Entrar
-      </button>
-    </div>
+    <form class="bloco-form" [formGroup]="form">
+
+      <input type="email" placeholder="E-mail" formControlName="email" required>
+
+      <input type="password" placeholder="Senha" formControlName="senha" required>
+
+      <a mat-list-item routerLink="/login">
+        cadastre-se aqui
+      </a>
+
+      <div class="container-button-entrar">
+        <button type="submit" routerLink="/extracoes" (click)="fazerLogin()">
+          Entrar
+        </button>
+      </div>
+    </form>
+
   </div>
 </div>
