@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { UsuarioCadastro } from './../shared/interfaces/cadastro';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_BASE } from '../../environments/environment';
@@ -10,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private router:Router) { }
 
   logar(login: LoginForm) : Observable<LoginForm> {
 
@@ -24,6 +26,14 @@ export class LoginService {
     }
     let header: HttpHeaders = new HttpHeaders({'Authorization':`Bearer ${token}`});
     return header;
+  }
+
+  cadastrarUsuario(usuario: UsuarioCadastro){
+    this.httpClient.post(`${ URL_BASE }/login/cadastrar`, usuario)
+    .subscribe(resultado => {
+      this.router.navigate(['/login']);
+      console.log('usuario cadastrado com sucesso.')
+    });
   }
 
 }

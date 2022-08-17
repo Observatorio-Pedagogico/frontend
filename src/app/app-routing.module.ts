@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
-import { LoginComponent } from './login/login/login.component';
+import { CadastrarUsuarioComponent } from './authenticacao/cadastrar-usuario/cadastrar-usuario.component';
+import { LoginComponent } from './authenticacao/login/login.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'extracoes' },
@@ -10,6 +11,7 @@ const routes: Routes = [
 
   },
   { path: 'login', component: LoginComponent },
+  { path: 'login/cadastrar', component: CadastrarUsuarioComponent },
 ];
 
 
@@ -21,11 +23,13 @@ export class AppRoutingModule {
 
   constructor(private router: Router) { }
 
-  private listaRotas: string[] = ['/login'];
+  private listaRotas: string[] = ['/login','/cadastrar'];
 
   isRotaValida(): boolean {
     const rotaSplit = this.router.url.split('/');
+    
     const path = rotaSplit[rotaSplit.length-1];
+    
     return !this.listaRotas.includes('/'.concat(path));
   }
 
