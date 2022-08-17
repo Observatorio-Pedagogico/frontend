@@ -4,7 +4,8 @@ import { Extracao, ExtracaoResumido, ExtracaoThread } from '../model/extracao';
 import { URL_BASE } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { ResponseBody } from 'src/app/shared/interfaces/response';
-import { LoginService } from '../../login/login.service';
+import { LoginService } from 'src/app/authenticacao/login.service';
+
 
 @Injectable({
   providedIn: 'root'

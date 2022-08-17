@@ -9,12 +9,12 @@
     margin: auto;
     overflow: hidden;
   }
-   
+
   .container-form{
     display: flex;
     flex-direction: column;
   }
-  
+
   .container-interno {
     padding-top: 10px;
     width: 60%;
@@ -22,32 +22,32 @@
     flex-direction: column;
     align-items: center;
   }
-    
+
   .container-interno .container-title {
     display: flex;
     align-items: center;
   }
-    
+
   .container-interno .container-title h1 {
     padding-inline: 30px;
     color: #fff;
   }
-  
+
   h2{
     color: #ffffff;
     margin-top: 1rem;
     margin-bottom: 1.5rem;
   }
-  
+
   /* estilo dos campos de input */
   .field {
     margin-bottom: 25px;
   }
-  
+
   .field label {
     position: relative;
   }
-  
+
   .field label input {
     font-size: 1rem;
     color: #ffffff;
@@ -55,11 +55,11 @@
     padding: 1rem 1.2rem;
     min-width: 24rem;
     height: 2rem;
-    border-radius: 0.2rem; 
+    border-radius: 0.2rem;
     border: 2px solid #ffffff;
     transition: border-color 0.2s;
   }
-  
+
   .field label input:focus {
     border-color: #4766ff;
   }
@@ -76,7 +76,7 @@
     transition: top 0.2s, font-size 0.2s, color 0.2s;
     pointer-events: none;
   }
-  
+
   .field label input:focus + p,
   .field label input:not(:placeholder-shown) + p {
     top: -20px;
@@ -86,7 +86,7 @@
   .field label input:not(:focus) + p {
     color: #ffffff;
   }
-  
+
   /* estilo dos select */
   .field select {
     font-size: 1rem;
@@ -94,11 +94,11 @@
     background: #ffffff00;
     min-width: 24rem;
     height: 2rem;
-    border-radius: 0.2rem; 
+    border-radius: 0.2rem;
     border: 2px solid #ffffff;
     transition: border-color 0.2s;
   }
-  
+
   .field select option {
     border-color: #ffffff;
     color: rgb(7, 7, 7);

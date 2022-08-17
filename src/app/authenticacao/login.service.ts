@@ -31,8 +31,7 @@ export class LoginService {
   cadastrarUsuario(usuario: UsuarioCadastro){
     this.httpClient.post(`${ URL_BASE }/login/cadastrar`, usuario)
     .subscribe(resultado => {
-      this.router.navigate(['/login']);
-      console.log('usuario cadastrado com sucesso.')
+      location.href = '/login';
     });
   }
 

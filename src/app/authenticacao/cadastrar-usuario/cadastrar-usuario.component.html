@@ -1,11 +1,11 @@
 <div class="container-plano-fundo">
     <div class="container-interno">
-  
+
       <div class="container-title">
         <img src="../../../assets/icon-IFPB.svg" alt="IFPB">
         <h1>Instituto Federal da Paraíba</h1>
       </div>
-      
+
       <form #userForm="ngForm" (ngSubmit)="cadastrarUsuario(userForm.value)" class="container-form">
         <h2>Cadastrar Conta</h2>
         <div class="field">
@@ -14,28 +14,28 @@
             <p>Digite sua matricula</p>
           </label>
         </div>
-  
+
         <div class="field">
           <label>
             <input type="text" placeholder=" " name="email" id="email" ngModel>
             <p>Digite seu email</p>
           </label>
         </div>
-  
+
         <div class="field">
           <label>
             <input type="password" placeholder=" " name="senha" id="senha" ngModel>
             <p>Digite sua senha</p>
           </label>
         </div>
-        
+
         <div class="field">
           <label>
             <input type="text" placeholder=" " name="nome" id="nome" ngModel>
             <p>Digite seu nome</p>
           </label>
         </div>
-  
+
         <div class="field">
           <select name="sexo" id="sexo" ngModel required="">
             <option value="">Selecione o seu sexo</option>
@@ -43,7 +43,7 @@
             <option value="FEMININO">FEMININO</option>
           </select>
         </div>
-  
+
         <div class="field">
           <select name="tipo" id="tipo" ngModel>
             <option value="">Selecione o seu cargo</option>
@@ -55,4 +55,3 @@
       </form>
     </div>
   </div>
-  
