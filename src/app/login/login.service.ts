@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_BASE } from '../../environments/environment';
 import { LoginForm, LoginResponse } from '../shared/interfaces/login';
 import { ResponseBody } from '../shared/interfaces/response';
@@ -14,11 +14,16 @@ export class LoginService {
 
   logar(login: LoginForm) : Observable<LoginForm> {
 
-    let formData = new FormData();
-      formData.append("email", login.email);
-      formData.append("senha", login.senha);
+    return this.httpClient.post<LoginForm>(URL_BASE.concat('/login'), login);
+  }
 
-    return this.httpClient.post<LoginForm>(URL_BASE.concat('/login'), formData);
+  criarHeaderAuth(): HttpHeaders {
+    const token: string | null = localStorage.getItem("data");
+    if (token === null) {
+      return new HttpHeaders();
+    }
+    let header: HttpHeaders = new HttpHeaders({'Authorization':`Bearer ${token}`});
+    return header;
   }
 
 }

@@ -28,6 +28,9 @@ export class ListagemExtracoesComponent implements OnInit {
       console.log(response);
     })
     .catch((response) => {
+      if (response.status === 401) {
+        location.href = '/login';
+      }
       console.log(response);
     })
   }

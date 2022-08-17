@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { LoginForm } from 'src/app/shared/interfaces/login';
 import { LoginService } from '../login.service';
+import { LoginResponse } from '../../shared/interfaces/login';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
 
     this.loginService.logar(login).subscribe({
       next: (response) => {
-          console.log(response)
+          localStorage.setItem("data",response.data.token);
       },
       error: (error) => console.log(error),
     });

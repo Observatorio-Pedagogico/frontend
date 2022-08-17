@@ -4,6 +4,7 @@ import { Extracao, ExtracaoResumido, ExtracaoThread } from '../model/extracao';
 import { URL_BASE } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { ResponseBody } from 'src/app/shared/interfaces/response';
+import { LoginService } from '../../login/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,23 +15,24 @@ export class ExtracaoService {
   private readonly EXTRACAO = '/extracao';
   private readonly EXTRACAO_STATUS_ENVIO_GET_TODOS = '/extracao/envio-status';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private loginService: LoginService) { }
 
   listarExtracao() {
-    return this.httpClient.get<ResponseBody<ExtracaoResumido[]>>(URL_BASE.concat().concat(this.EXTRACAO));
+    console.log(this.loginService.criarHeaderAuth());
+    return this.httpClient.get<ResponseBody<ExtracaoResumido[]>>(URL_BASE.concat().concat(this.EXTRACAO), {headers: this.loginService.criarHeaderAuth()});
   }
 
   listarStatusEnvio(): Observable<ResponseBody<ExtracaoThread[]>> {
-    return this.httpClient.get<ResponseBody<ExtracaoThread[]>>(URL_BASE.concat(this.EXTRACAO_STATUS_ENVIO_GET_TODOS));
+    return this.httpClient.get<ResponseBody<ExtracaoThread[]>>(URL_BASE.concat(this.EXTRACAO_STATUS_ENVIO_GET_TODOS), {headers: this.loginService.criarHeaderAuth()});
   }
 
   salvarExtracao(registro: Extracao): Observable<Extracao> {
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append("titulo", registro.titulo);
     formData.append("descricao", registro.descricao);
     formData.append("periodoLetivo", registro.periodoLetivo);
     formData.append("arquivo.conteudo", registro.arquivo.conteudo);
-    return this.httpClient.post<Extracao>(URL_BASE.concat(this.EXTRACAO_ENVIAR), formData);
+    return this.httpClient.post<Extracao>(URL_BASE.concat(this.EXTRACAO_ENVIAR), formData, {headers: this.loginService.criarHeaderAuth()});
   }
 
 }

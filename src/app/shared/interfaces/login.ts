@@ -1,14 +1,9 @@
 export interface LoginForm {
+  data: LoginResponse;
   email: string;
   senha: string;
 }
 
 export interface LoginResponse {
-  data: Data;
-  errors: any[];
-  links: any[];
-}
-
-export interface Data {
   token: string;
 }
