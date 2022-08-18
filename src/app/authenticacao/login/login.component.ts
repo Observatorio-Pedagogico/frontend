@@ -11,7 +11,7 @@ import { LoginResponse } from '../../shared/interfaces/login';
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup = new FormGroup([]);
+  form: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService) {
     this.form = this.formBuilder.group({
@@ -28,9 +28,12 @@ export class LoginComponent implements OnInit {
 
     let login = this.form.value as LoginForm;
 
+    console.log(login);
+
     this.loginService.logar(login).subscribe({
       next: (response) => {
           localStorage.setItem("data",response.data.token);
+          location.href = "/extracoes"
       },
       error: (error) => console.log(error),
     });
