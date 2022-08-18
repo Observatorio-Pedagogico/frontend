@@ -8,33 +8,14 @@
 
       <form #userForm="ngForm" (ngSubmit)="cadastrarUsuario(userForm.value)" class="container-form">
         <h2>Cadastrar Conta</h2>
-        <div class="field">
-          <label>
-            <input type="text" placeholder=" " name="matricula" id="matricula" ngModel>
-            <p>Digite sua matricula</p>
-          </label>
-        </div>
+        
+        <input type="text" placeholder="Digite sua matricula" name="matricula" id="matricula" ngModel>
 
-        <div class="field">
-          <label>
-            <input type="text" placeholder=" " name="email" id="email" ngModel>
-            <p>Digite seu email</p>
-          </label>
-        </div>
+        <input type="text" placeholder="Digite seu email" name="email" id="email" ngModel>
 
-        <div class="field">
-          <label>
-            <input type="password" placeholder=" " name="senha" id="senha" ngModel>
-            <p>Digite sua senha</p>
-          </label>
-        </div>
-
-        <div class="field">
-          <label>
-            <input type="text" placeholder=" " name="nome" id="nome" ngModel>
-            <p>Digite seu nome</p>
-          </label>
-        </div>
+        <input type="password" placeholder="Digite sua senha" name="senha" id="senha" ngModel>
+        
+        <input type="text" placeholder="Digite seu nome" name="nome" id="nome" ngModel>
 
         <div class="field">
           <select name="sexo" id="sexo" ngModel required="">
@@ -51,7 +32,7 @@
             <option value="COPED">COPED</option>
           </select>
         </div>
-        <input type="submit" value="Cadastrar">
+        <input type="submit" class="submit-Botton" value="Cadastrar">
       </form>
     </div>
   </div>

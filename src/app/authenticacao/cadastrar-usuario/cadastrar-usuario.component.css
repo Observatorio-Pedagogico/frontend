@@ -1,107 +1,86 @@
 
 .container-plano-fundo {
-    background-image: url('../../../assets/login-plano-fundo.svg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    overflow: hidden;
-  }
+  background-image: url('../../../assets/login-plano-fundo.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  overflow: hidden;
+}
 
-  .container-form{
-    display: flex;
-    flex-direction: column;
-  }
+.container-form{
+  display: flex;
+  flex-direction: column;
+}
 
-  .container-interno {
-    padding-top: 10px;
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.container-interno {
+  padding-top: 10px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .container-interno .container-title {
-    display: flex;
-    align-items: center;
-  }
+.container-interno .container-title {
+  display: flex;
+  align-items: center;
+}
 
-  .container-interno .container-title h1 {
-    padding-inline: 30px;
-    color: #fff;
-  }
+.container-interno .container-title h1 {
+  padding-inline: 30px;
+  color: #fff;
+}
 
-  h2{
-    color: #ffffff;
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-  }
+h2{
+  color: #fff;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 
-  /* estilo dos campos de input */
-  .field {
-    margin-bottom: 25px;
-  }
+/* estilo dos campos de input */
+.field label {
+  position: relative;
+}
 
-  .field label {
-    position: relative;
-  }
+.container-form input {
+  background-color: #fff;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin: 0.5rem 0 0.5rem 0;
+  width: 280px;
+  transition: all 0.5s;
+}
 
-  .field label input {
-    font-size: 1rem;
-    color: #ffffff;
-    background: transparent;
-    padding: 1rem 1.2rem;
-    min-width: 24rem;
-    height: 2rem;
-    border-radius: 0.2rem;
-    border: 2px solid #ffffff;
-    transition: border-color 0.2s;
-  }
+.field label input:focus {
+  border-color: #4766ff;
+}
 
-  .field label input:focus {
-    border-color: #4766ff;
-  }
-  .field label p {
-    color: #4766ff;
-    font-size: 1rem;
-    user-select: none;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-left: 0.8rem;
-    padding: 0 0.4rem;
-    background: #f1f1f100;
-    transition: top 0.2s, font-size 0.2s, color 0.2s;
-    pointer-events: none;
-  }
+/* estilo dos select */
+.field select {
+  background-color: #fff;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin: 0.5rem 0 0.5rem 0;
+  color: #696969;
+  width: 280px;
+  transition: all 0.5s;
+}
 
-  .field label input:focus + p,
-  .field label input:not(:placeholder-shown) + p {
-    top: -20px;
-    font-size: 0.9rem;
-    color: #ffffff;
-  }
-  .field label input:not(:focus) + p {
-    color: #ffffff;
-  }
+.field select option {
+  border-color: #fff;
+  color: #696969;
+  background-color: #fff;
+  font-size: 1rem;
+  padding: 1rem 1.2rem;
+}
 
-  /* estilo dos select */
-  .field select {
-    font-size: 1rem;
-    color: #ffffff;
-    background: #ffffff00;
-    min-width: 24rem;
-    height: 2rem;
-    border-radius: 0.2rem;
-    border: 2px solid #ffffff;
-    transition: border-color 0.2s;
-  }
-
-  .field select option {
-    border-color: #ffffff;
-    color: rgb(7, 7, 7);
-    background-color: #ffffff;
-    padding: 1rem 1.2rem;
-  }
+/* estilo dos input de submit */
+.container-interno .container-form .submit-Botton {
+  background-color: #fff;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin: 0.5rem 0 0.5rem 0;
+  width: 280px;
+}
