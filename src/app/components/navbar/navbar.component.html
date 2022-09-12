@@ -1,0 +1,70 @@
+<!-- <nav class="navbar-vetor">
+
+  <img class="icon-logo" src="../../../assets/LogoObservatorioNavBar.svg" alt="">
+
+  <div class="menu-overlay" *ngIf="sideActive"></div>
+
+  <div class="menu-siderbar">
+    <div class="header-side">
+      <img class="icon-logo" src="../../../assets/LogoObservatorioNavBar.svg" alt="">
+      <ul>
+        <a href=""><li>Dashboard</li></a>
+        <a href=""><li>Disciplinas</li></a>
+        <a href=""><li>Alunos</li></a>
+        <a href=""><li>Monitoramento</li></a>
+      </ul>
+    </div>
+
+    <div class="footer-side">
+      <img src="../../../assets/foto-perfil.svg" alt="">
+      <div class="bloco-nomes">
+        <span>Nome</span>
+        <span>Sobrenome</span>
+      </div>
+      <img class="icone-sair" src="../../../assets/icon-logout.svg" alt="">
+    </div>
+
+  </div>
+</nav> -->
+
+<mat-toolbar class="navbar-vetor mat-elevation-z4">
+
+  <mat-drawer-container autosize>
+    <mat-drawer #drawer mode="side">
+      <mat-sidenav-container class="container" autosize>
+        <mat-sidenav class="sidenav" mode="side" opened fixedInViewport="true">
+            <mat-nav-list class="side-list">
+                <a mat-list-item>
+                    Dashboard
+                </a>
+                <a mat-list-item>
+                    Disciplinas
+                </a>
+                <a mat-list-item>
+                    Alunos
+                </a>
+                <a mat-list-item >
+                    Monitoramento
+                </a>
+              </mat-nav-list>
+              <div class="container-perfil-logout">
+                <a mat-list-item routerLink="/login" (click)="logout()">
+                  Sair
+                </a>
+              </div>
+            </mat-sidenav>
+    </mat-sidenav-container>
+    </mat-drawer>
+  </mat-drawer-container>
+
+  <a class="item-menu-icon" (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </a>
+
+    <span>
+      <a>
+        <img class="icon-logo" src="../../../assets/LogoObservatorioNavBar.svg" alt="Logo">
+      </a>
+    </span>
+
+</mat-toolbar>

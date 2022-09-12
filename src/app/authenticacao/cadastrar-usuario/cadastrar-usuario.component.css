@@ -1,0 +1,90 @@
+
+.container-plano-fundo {
+  background-image: url('../../../assets/login-plano-fundo.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.container-form{
+  display: flex;
+  flex-direction: column;
+}
+
+.container-interno {
+  padding-top: 10px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-interno .container-title {
+  display: flex;
+  align-items: center;
+}
+
+.container-interno .container-title h1 {
+  padding-inline: 30px;
+  color: #fff;
+}
+
+h2{
+  color: #fff;
+}
+
+/* estilo dos campos de input */
+.field label {
+  position: relative;
+}
+
+.container-form input {
+  background-color: #fff;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin: 0.5rem 0 0.5rem 0;
+  width: 280px;
+  transition: all 0.5s;
+}
+
+.field label input:focus {
+  border-color: #4766ff;
+}
+
+/* estilo dos select */
+.field select {
+  background-color: #fff;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin: 0.5rem 0 0.5rem 0;
+  color: #696969;
+  width: 280px;
+  transition: all 0.5s;
+}
+
+.field select option {
+  border-color: #fff;
+  color: #696969;
+  background-color: #fff;
+  font-size: 1rem;
+  padding: 1rem 1.2rem;
+}
+
+/* estilo dos input de submit */
+.container-interno .container-form .submit-Botton {
+  background-color: #fff;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin: 0.5rem 0 0.5rem 0;
+  width: 180px;
+  cursor: pointer;
+}
+
+.btn-submit-voltar {
+  display: flex;
+  width: 78%;
+}

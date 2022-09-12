@@ -1,0 +1,27 @@
+<div class="container-plano-fundo">
+  <div class="container-interno">
+
+    <div class="container-title">
+      <img src="../../../assets/icon-IFPB.svg" alt="IFPB">
+      <h1>Instituto Federal da Paraíba</h1>
+    </div>
+
+    <form class="bloco-form" [formGroup]="form">
+
+      <input type="email" placeholder="E-mail" formControlName="email" required>
+
+      <input type="password" placeholder="Senha" formControlName="senha" required>
+
+      <a mat-list-item routerLink="/login/cadastrar">
+        cadastre-se aqui
+      </a>
+
+      <div class="container-button-entrar">
+        <button type="submit" (click)="fazerLogin()">
+          Entrar
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="container-plano-fundo">
+    <div class="container-interno">
+
+      <div class="container-title">
+        <img src="../../../assets/icon-IFPB.svg" alt="IFPB">
+        <h1>Instituto Federal da Paraíba</h1>
+      </div>
+
+      <form #userForm="ngForm" (ngSubmit)="cadastrarUsuario(userForm.value)" class="container-form">
+        <h2>Cadastrar Conta</h2>
+
+        <input type="text" placeholder="Digite sua matricula" name="matricula" id="matricula" ngModel>
+
+        <input type="text" placeholder="Digite seu email" name="email" id="email" ngModel>
+
+        <input type="password" placeholder="Digite sua senha" name="senha" id="senha" ngModel>
+
+        <input type="text" placeholder="Digite seu nome" name="nome" id="nome" ngModel>
+
+        <div class="field">
+          <select name="sexo" id="sexo" ngModel required="">
+            <option value="">Selecione o seu sexo</option>
+            <option value="MASCULINO">MASCULINO</option>
+            <option value="FEMININO">FEMININO</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <select name="tipo" id="tipo" ngModel>
+            <option value="">Selecione o seu cargo</option>
+            <option value="PROFESSOR">PROFESSOR</option>
+            <option value="COPED">COPED</option>
+          </select>
+        </div>
+        <div class="btn-submit-voltar">
+          <input type="button" class="submit-Botton" value="Voltar" (click)="onVoltar()">
+          <input type="submit" class="submit-Botton" value="Cadastrar">
+        </div>
+      </form>
+    </div>
+  </div>
