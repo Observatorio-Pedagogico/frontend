@@ -35,8 +35,6 @@
 
 h2{
   color: #fff;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
 
 /* estilo dos campos de input */
@@ -82,5 +80,11 @@ h2{
   padding: 0.8rem;
   border-radius: 0.6rem;
   margin: 0.5rem 0 0.5rem 0;
-  width: 280px;
+  width: 180px;
+  cursor: pointer;
+}
+
+.btn-submit-voltar {
+  display: flex;
+  width: 78%;
 }

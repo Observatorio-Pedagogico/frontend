@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { LoginForm } from 'src/app/shared/interfaces/login';
 import { LoginService } from '../login.service';
-import { LoginResponse } from '../../shared/interfaces/login';
 
 @Component({
   selector: 'app-login',

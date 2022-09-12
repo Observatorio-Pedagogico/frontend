@@ -18,4 +18,8 @@ export class CadastrarUsuarioComponent implements OnInit {
   cadastrarUsuario(usuario: UsuarioCadastro) {
     this.loginService.cadastrarUsuario(usuario);
   }
+
+  onVoltar(): void {
+    location.href = '\login';
+  }
 }
