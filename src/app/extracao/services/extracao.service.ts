@@ -32,7 +32,8 @@ export class ExtracaoService {
     formData.append("titulo", registro.titulo);
     formData.append("descricao", registro.descricao);
     formData.append("periodoLetivo", registro.periodoLetivo);
-    formData.append("arquivo.conteudo", registro.arquivo.conteudo);
+    formData.append("arquivoDisciplina.conteudo", registro.arquivoDisciplina.conteudo);
+    formData.append("arquivoAluno.conteudo", registro.arquivoAluno.conteudo);
     return this.httpClient.post<Extracao>(URL_BASE.concat(this.EXTRACAO_ENVIAR), formData, {headers: this.loginService.criarHeaderAuth()});
   }
 

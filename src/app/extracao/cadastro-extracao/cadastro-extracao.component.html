@@ -1,49 +1,45 @@
-<div class="container">
-  <h1>Cadastro de Extração SUAP</h1>
-  <form [formGroup]="form">
+<ng-container>
+  <h1 class="text-3xl text-center m-6">Cadastro de Extração SUAP</h1>
+  <form [formGroup]="form" class="bg-[#F0EFEE] grid gap-5 grid-cols-3 w-3/5 m-auto p-6 rounded-md border-double border-4 border-[#9EBE88]">
+    <mat-form-field>
+      <input matInput placeholder="Titulo" formControlName="titulo" required>
+    </mat-form-field>
 
-          <div class="bloco-input">
-              <mat-form-field>
-                <input matInput placeholder="Titulo" formControlName="titulo" required>
-              </mat-form-field>
+    <mat-form-field>
+      <input type="number" matInput placeholder="Período Letivo" formControlName="periodoLetivo" required>
+    </mat-form-field>
 
-              <mat-form-field>
-                <input matInput placeholder="Período Letivo" formControlName="periodoLetivo" required>
-              </mat-form-field>
+    <mat-form-field>
+      <mat-label>Tipo do Período</mat-label>
+      <mat-select formControlName="periodoLetivoTipo" required>
+        <mat-option value="BIMESTRE">Bimestre</mat-option>
+        <mat-option value="TRIMESTE">Trimestre</mat-option>
+        <mat-option value="SEMESTRE">Semestre</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-              <mat-form-field>
-                <mat-label>Tipo do Período</mat-label>
-                <mat-select formControlName="periodoLetivoTipo" required>
-                  <mat-option value="BIMESTRE">Bimestre</mat-option>
-                  <mat-option value="TRIMESTE">Trimestre</mat-option>
-                  <mat-option value="SEMESTRE">Semestre</mat-option>
-                </mat-select>
-              </mat-form-field>
-          </div>
-
-          <div class="bloco-file">
-            <label for="myfile">Anexar arquivos (.XLS .XLSX) </label>
-            <div class="item-file">
-              <label class="estilo-label-file" id="selectedFile" for="primeiroArquivo">Anexar Arquivo 1</label>
-              <input type="file" name="primeiroArquivo" id="primeiroArquivo" accept=".xls, .xlsx" (change)="alteraNomeArquivoSelecionado('primeiroArquivo', 'selectedFile')" required/>
-            </div>
-
-             <!--  <div class="item-file">
-                <label class="estilo-label-file" for="arquivoTwo">Anexar Arquivo 2</label>
-                <input type="file" name="arquivoTwo" id="arquivoTwo" accept=".xls, .xlsx" (change)="onFileChange($event)" required/>
-              </div> -->
-          </div>
-
-          <mat-form-field class="bloco-descricao">
-            <mat-label>Descrição</mat-label>
-            <textarea rows="10" matInput formControlName="descricao" required></textarea>
-          </mat-form-field>
-
-          <div>
-            <button (click)="voltarButtonEvent()">Voltar</button>
-            <button class="btn-primary" type="submit" (click)="salvarExtracaoEvent()">Finalizar Cadastro</button>
-          </div>
-        </form>
+    <div class="flex flex-wrap justify-center col-span-3">
+      <div>
+        <label class="flex text-center items-center bg-none m-5 p-1 px-3 rounded-full border-solid border-opacity-70 border-2 border-[#337940]" id="selectedFileDisciplina" for="arquivoDisciplina"><mat-icon>attach_file</mat-icon>Anexar Arquivo Disciplina</label>
+        <input class="hidden" type="file" name="arquivoDisciplina" id="arquivoDisciplina" accept=".xls, .xlsx" (change)="alteraNomeArquivoSelecionado('arquivoDisciplina', 'selectedFileDisciplina', 'Anexar Arquivo Disciplina')" required/>
       </div>
 
-      <app-alert></app-alert>
+      <div>
+        <label class="flex text-center items-center bg-none m-5 p-1 px-3 rounded-full border-solid border-opacity-70 border-2 border-[#337940]" id="selectedFileAluno" for="arquivoAluno"><mat-icon> attach_file</mat-icon>Anexar Arquivo Aluno</label>
+        <input class="hidden" type="file" name="arquivoAluno" id="arquivoAluno" accept=".xls, .xlsx" (change)="alteraNomeArquivoSelecionado('arquivoAluno', 'selectedFileAluno', 'Anexar Arquivo Aluno')" required/>
+      </div>
+    </div>
+
+    <mat-form-field class="col-start-1 col-end-4">
+      <mat-label>Descrição</mat-label>
+      <textarea rows="10" matInput formControlName="descricao" required></textarea>
+    </mat-form-field>
+
+    <div class="flex justify-center col-span-3">
+      <button class="p-2 mx-1 rounded-xl bg-[#9EBE88] border-opacity-70 border-2 border-[#337940]" (click)="voltarButtonEvent()">Voltar</button>
+      <button [ngClass]="form.invalid ? 'border-none opacity-50' : 'bg-[#9EBE88]'" class="p-2 mx-1 rounded-xl bg-[#9EBE88] border-solid border-opacity-70 border-2 border-[#337940]" type="submit" [disabled]="form.invalid" (click)="salvarExtracaoEvent()">Finalizar Cadastro</button>
+    </div>
+  </form>
+</ng-container>
+
+<app-alert></app-alert>

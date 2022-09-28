@@ -4,39 +4,5 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { height: 100vh; }
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Varela Round", sans-serif;
-
-}
-
-body {
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  align-items: center;
-}
-
-mat-form-field {
-  margin: 1rem 1rem;
-}
-
-button {
-  padding: 1em;
-  border-radius: 0.8em;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background-color: #9EBE88;
-}
-
-.btn-secondary {
-  background-color: #fff;
-  border-style: solid;
-  border-color: #000;
-  border-width: 1px;
-}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
