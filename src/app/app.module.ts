@@ -15,19 +15,20 @@ import { GerenciarUsuariosComponent } from './usuario/gerenciar-usuarios/gerenci
 import { LoginComponent } from './authenticacao/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ListagemStatusEnvioComponent } from './extracao/listagem-status-envio/listagem-status-envio.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatIconModule} from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
+import { MatInputModule} from '@angular/material/input';
+import { MatSelectModule} from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { CadastrarUsuarioComponent } from './authenticacao/cadastrar-usuario/cadastrar-usuario.component';
+import { ExtracaoModule } from './extracao/extracao.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { CadastrarUsuarioComponent } from './authenticacao/cadastrar-usuario/cad
     GerenciarUsuariosComponent,
     LoginComponent,
     ListagemStatusEnvioComponent,
-    CadastrarUsuarioComponent
+    CadastrarUsuarioComponent,
 
   ],
   imports: [
@@ -61,7 +62,8 @@ import { CadastrarUsuarioComponent } from './authenticacao/cadastrar-usuario/cad
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    FormsModule
+    FormsModule,
+    ExtracaoModule
   ],
   providers: [],
   bootstrap: [AppComponent]

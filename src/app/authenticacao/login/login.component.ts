@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { LoginForm } from 'src/app/shared/interfaces/login';
 import { LoginService } from '../login.service';
 
@@ -10,9 +10,9 @@ import { LoginService } from '../login.service';
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService) {
+  constructor(private formBuilder: UntypedFormBuilder, private loginService: LoginService) {
     this.form = this.formBuilder.group({
       email: [null],
       senha: [null]

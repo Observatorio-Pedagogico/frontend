@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ExtracaoService } from '../services/extracao.service';
 import { Arquivo, Extracao } from '../model/extracao';
@@ -13,10 +13,10 @@ import { EXTRACAO_LISTAGEM_ENVIO } from 'src/app/shared/utils/routes';
 })
 export class CadastroExtracaoComponent implements OnInit {
 
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     constructor(
-        private formBuilder: FormBuilder,
+        private formBuilder: UntypedFormBuilder,
         private location: Location,
         private extracaoService: ExtracaoService,
         private stringUtils: StringUtils
