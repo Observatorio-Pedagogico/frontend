@@ -55,7 +55,7 @@ export class CadastroExtracaoComponent implements OnInit {
         let arquivoDisciplina = (document.getElementById("arquivoDisciplina") as HTMLInputElement).files?.item(0);
         let arquivoAluno = (document.getElementById("arquivoAluno") as HTMLInputElement).files?.item(0);
         if (this.uploadedFiles.length < 2) {
-          this.openAlert("error", "É Preciso Enviar dois arquivos!");
+          this.openAlert("error", "É Preciso Enviar dois arquivos!", "");
         }//TODO continuar daqui (arquivos vai receber o conteudo de uploadedFiles)
 
         if (arquivoDisciplina && arquivoAluno) {
@@ -74,7 +74,7 @@ export class CadastroExtracaoComponent implements OnInit {
           next: () => {
             this.form.reset();
             this.resetFiles();
-            this.openAlert("sucess", "Extração Cadastrada!");
+            this.openAlert("sucess", "Extração Cadastrada!", "");
           },
           error: (error) => console.log(error),
         });
@@ -84,8 +84,8 @@ export class CadastroExtracaoComponent implements OnInit {
         this.location.back();
       }
 
-    openAlert(_severity: string, _summary: string) {
-      this.messageService.add({severity: _severity, summary: _summary});
+    openAlert(_severity: string, _summary: string, _detail: string) {
+      this.messageService.add({severity: _severity, summary: _summary, detail: _detail});
     }
 
     resetFiles() {
@@ -99,8 +99,7 @@ export class CadastroExtracaoComponent implements OnInit {
       for(let file of event.files) {
           this.uploadedFiles.push(file);
       }
-
-      this.messageService.add({severity: 'warn', summary: 'Arquivo Carregado', detail: event.files[0].name});
+      this.openAlert("info", "Arquivo Carregado", event.files[0].name);
     }
 
 }
