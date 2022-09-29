@@ -29,6 +29,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { CadastrarUsuarioComponent } from './authenticacao/cadastrar-usuario/cadastrar-usuario.component';
 import { ExtracaoModule } from './extracao/extracao.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,7 @@ import { ExtracaoModule } from './extracao/extracao.module';
     FormsModule,
     ExtracaoModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

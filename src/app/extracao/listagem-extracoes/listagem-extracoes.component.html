@@ -1,6 +1,6 @@
 <div class="bloco-titulo">
-  <h1>Tabela de Extrações SUAP</h1>
-    <button class="btn-secondary" routerLink="nova-extracao">NOVA EXTRAÇÃO SUAP</button>
+  <h1 class="text-3xl">Tabela de Extrações SUAP</h1>
+    <button class="p-2 border-solid border-[#000] border-2 rounded-md" routerLink="nova-extracao">NOVA EXTRAÇÃO SUAP</button>
 </div>
 
 <mat-accordion class="example-headers-align" multi>
@@ -65,12 +65,12 @@
 
   <ng-container matColumnDef="dataCadastro">
     <th mat-header-cell *matHeaderCellDef> DATA DE CADASTRO </th>
-    <td mat-cell *matCellDef="let extracao"> {{extracao.dataCadastro}} </td>
+    <td mat-cell *matCellDef="let extracao"> {{ converterData(extracao.dataCadastro) }} </td>
   </ng-container>
 
   <ng-container matColumnDef="dataUltimaAtualizacao">
     <th mat-header-cell *matHeaderCellDef> DATA ULTIMA ATUALIZAÇÃO </th>
-    <td mat-cell *matCellDef="let extracao"> {{extracao.ultimaDataHoraAtualizacao}} </td>
+    <td mat-cell *matCellDef="let extracao"> {{ converterData(extracao.ultimaDataHoraAtualizacao) }} </td>
   </ng-container>
 
   <ng-container matColumnDef="visualizacao">

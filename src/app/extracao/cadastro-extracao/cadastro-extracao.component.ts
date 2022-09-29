@@ -16,6 +16,8 @@ export class CadastroExtracaoComponent implements OnInit {
 
     form: UntypedFormGroup;
 
+    uploadedFiles: any[] = [];
+
     constructor(
         private formBuilder: UntypedFormBuilder,
         private location: Location,
@@ -33,6 +35,9 @@ export class CadastroExtracaoComponent implements OnInit {
         });
     }
 
+    ngOnInit(): void {
+    }
+
     alteraNomeArquivoSelecionado(_idInput: string, _idText: string, _nome: string): void {
         let arquivo = (document.getElementById(_idInput) as HTMLInputElement).files?.item(0);
         let text = document.getElementById(_idText) as HTMLInputElement;
@@ -44,10 +49,15 @@ export class CadastroExtracaoComponent implements OnInit {
     }
 
     salvarExtracaoEvent(): void {
+      console.log(this.uploadedFiles);
         let extracao = this.form.value as Extracao;
 
         let arquivoDisciplina = (document.getElementById("arquivoDisciplina") as HTMLInputElement).files?.item(0);
         let arquivoAluno = (document.getElementById("arquivoAluno") as HTMLInputElement).files?.item(0);
+        if (this.uploadedFiles.length < 2) {
+          this.openAlert("error", "É Preciso Enviar dois arquivos!");
+        }//TODO continuar daqui (arquivos vai receber o conteudo de uploadedFiles)
+
         if (arquivoDisciplina && arquivoAluno) {
           let _arquivoDisciplina: Arquivo = {
             conteudo: arquivoDisciplina
@@ -64,7 +74,7 @@ export class CadastroExtracaoComponent implements OnInit {
           next: () => {
             this.form.reset();
             this.resetFiles();
-            this.openAlert();
+            this.openAlert("sucess", "Extração Cadastrada!");
           },
           error: (error) => console.log(error),
         });
@@ -74,9 +84,9 @@ export class CadastroExtracaoComponent implements OnInit {
         this.location.back();
       }
 
-      openAlert() {
-        this.messageService.add({severity:'success', summary:'Extração Cadastrada!', id:'success'});
-      }
+    openAlert(_severity: string, _summary: string) {
+      this.messageService.add({severity: _severity, summary: _summary});
+    }
 
     resetFiles() {
       (document.getElementById("arquivoDisciplina") as HTMLInputElement).value = '';
@@ -85,6 +95,12 @@ export class CadastroExtracaoComponent implements OnInit {
       this.alteraNomeArquivoSelecionado('arquivoAluno', 'selectedFileAluno', 'Anexar Arquivo Aluno');
     }
 
-    ngOnInit(): void {
+    onChoose(event: any) {
+      for(let file of event.files) {
+          this.uploadedFiles.push(file);
+      }
+
+      this.messageService.add({severity: 'warn', summary: 'Arquivo Carregado', detail: event.files[0].name});
     }
+
 }

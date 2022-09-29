@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AlertModule } from '../components/alert/alert.module';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AlertModule } from '../components/alert/alert.module';
     MatInputModule,
     MatSelectModule,
     MatPaginatorModule,
-    AlertModule
+    AlertModule,
+    FileUploadModule
   ]
 })
 export class ExtracaoModule { }
