@@ -1,11 +1,11 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
-import { ExtracaoService } from '../services/extracao.service';
-import { Arquivo, Extracao } from '../model/extracao';
-import { StringUtils } from 'src/app/shared/utils/string-utils';
-import { EXTRACAO_LISTAGEM_ENVIO } from 'src/app/shared/utils/routes';
 import { MessageService } from 'primeng/api';
+import { StringUtils } from 'src/app/shared/utils/string-utils';
+
+import { Arquivo, Extracao } from '../model/extracao';
+import { ExtracaoService } from '../services/extracao.service';
 
 @Component({
   selector: 'app-cadastro-extracao',
@@ -16,7 +16,7 @@ export class CadastroExtracaoComponent implements OnInit {
 
     form: UntypedFormGroup;
 
-    uploadedFiles: any[] = [];
+    uploadedFiles: File[] = [];
 
     constructor(
         private formBuilder: UntypedFormBuilder,
@@ -49,26 +49,22 @@ export class CadastroExtracaoComponent implements OnInit {
     }
 
     salvarExtracaoEvent(): void {
-      console.log(this.uploadedFiles);
         let extracao = this.form.value as Extracao;
 
-        let arquivoDisciplina = (document.getElementById("arquivoDisciplina") as HTMLInputElement).files?.item(0);
-        let arquivoAluno = (document.getElementById("arquivoAluno") as HTMLInputElement).files?.item(0);
         if (this.uploadedFiles.length < 2) {
           this.openAlert("error", "É Preciso Enviar dois arquivos!", "");
-        }//TODO continuar daqui (arquivos vai receber o conteudo de uploadedFiles)
-
-        if (arquivoDisciplina && arquivoAluno) {
-          let _arquivoDisciplina: Arquivo = {
-            conteudo: arquivoDisciplina
-          }
-
-          let _arquivoAluno: Arquivo = {
-            conteudo: arquivoAluno
-          }
-          extracao.arquivoDisciplina = _arquivoDisciplina;
-          extracao.arquivoAluno = _arquivoAluno;
+          return;
         }
+
+        const arquivos: Arquivo[] = [];
+
+        this.uploadedFiles.forEach(file => {
+          let arquivo: Arquivo = {conteudo: file}
+          arquivos.push(arquivo);
+        })
+
+        extracao.arquivosMultipartFile = arquivos;
+        console.log(extracao);
 
         this.extracaoService.salvarExtracao(extracao).subscribe({
           next: () => {

@@ -3,8 +3,7 @@ export interface Extracao {
   titulo: string,
   periodoLetivoTipo: string,
   periodoLetivo: string,
-  arquivoDisciplina: Arquivo,
-  arquivoAluno: Arquivo,
+  arquivosMultipartFile: Arquivo[],
   descricao: string
 }
 

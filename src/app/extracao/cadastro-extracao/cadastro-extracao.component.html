@@ -18,20 +18,8 @@
       </mat-select>
     </mat-form-field>
 
-    <div class="flex flex-wrap justify-center col-span-3">
-      <div>
-        <label class="flex text-center items-center bg-none m-5 p-1 px-3 rounded-full border-solid border-opacity-70 border-2 border-[#337940]" id="selectedFileDisciplina" for="arquivoDisciplina"><mat-icon>attach_file</mat-icon>Anexar Arquivo Disciplina</label>
-        <input class="hidden" type="file" name="arquivoDisciplina" id="arquivoDisciplina" accept=".xls, .xlsx" (change)="alteraNomeArquivoSelecionado('arquivoDisciplina', 'selectedFileDisciplina', 'Anexar Arquivo Disciplina')" required/>
-      </div>
-
-      <div>
-        <label class="flex text-center items-center bg-none m-5 p-1 px-3 rounded-full border-solid border-opacity-70 border-2 border-[#337940]" id="selectedFileAluno" for="arquivoAluno"><mat-icon> attach_file</mat-icon>Anexar Arquivo Aluno</label>
-        <input class="hidden" type="file" name="arquivoAluno" id="arquivoAluno" accept=".xls, .xlsx" (change)="alteraNomeArquivoSelecionado('arquivoAluno', 'selectedFileAluno', 'Anexar Arquivo Aluno')" required/>
-      </div>
-    </div>
-
-    <p-fileUpload class="col-start-1 col-end-4" name="demo[]" [showUploadButton]="false" chooseLabel="Anexar" cancelLabel="Limpar"
-            [multiple]="true" accept=".xls, .xlsx, image/*" [maxFileSize]="1000000000"  (onSelect)="onChoose($event)">
+    <p-fileUpload class="col-start-1 col-end-4" name="demo[]" [showUploadButton]="false" chooseLabel="Anexar" styleClass="classe" cancelLabel="Limpar" [previewWidth]="200"
+            [multiple]="true" accept=".xls, .xlsx" [maxFileSize]="1000000000"  (onSelect)="onChoose($event)">
     </p-fileUpload>
 
     <mat-form-field class="col-start-1 col-end-4">
