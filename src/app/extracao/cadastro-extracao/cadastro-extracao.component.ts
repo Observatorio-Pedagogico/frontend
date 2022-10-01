@@ -64,13 +64,12 @@ export class CadastroExtracaoComponent implements OnInit {
         })
 
         extracao.arquivosMultipartFile = arquivos;
-        console.log(extracao);
 
         this.extracaoService.salvarExtracao(extracao).subscribe({
           next: () => {
             this.form.reset();
-            this.resetFiles();
-            this.openAlert("sucess", "Extração Cadastrada!", "");
+            this.clearFilesViewList();
+            this.openAlert("success", "Extração Cadastrada!", "");
           },
           error: (error) => console.log(error),
         });
@@ -84,18 +83,56 @@ export class CadastroExtracaoComponent implements OnInit {
       this.messageService.add({severity: _severity, summary: _summary, detail: _detail});
     }
 
-    resetFiles() {
-      (document.getElementById("arquivoDisciplina") as HTMLInputElement).value = '';
-      (document.getElementById("arquivoAluno") as HTMLInputElement).value = '';
-      this.alteraNomeArquivoSelecionado('arquivoDisciplina', 'selectedFileDisciplina', 'Anexar Arquivo Disciplina');
-      this.alteraNomeArquivoSelecionado('arquivoAluno', 'selectedFileAluno', 'Anexar Arquivo Aluno');
-    }
-
     onChoose(event: any) {
-      for(let file of event.files) {
-          this.uploadedFiles.push(file);
+      if (event.files.length > 2) {
+        this.clearFilesViewList();
+        this.openAlert("error", "Permitido máximo de 2(dois) arquivos.", "")
+        return;
       }
+
+      const array = [];
+      for (let file of event.files) {
+          array.push(file);
+      }
+      this.uploadedFiles = array;
+      this.atualizarButtonAnexarArquivo();
       this.openAlert("info", "Arquivo Carregado", event.files[0].name);
     }
 
-}
+    onClear() {
+      this.uploadedFiles = [];
+      this.atualizarButtonAnexarArquivo();
+    }
+
+    onRemove(event: any) {
+      const index = this.uploadedFiles.indexOf(event.file, 0);
+      if (index > -1) {
+        this.uploadedFiles.splice(index, 1);
+      }
+      this.atualizarButtonAnexarArquivo();
+    }
+
+    onValidarForm(): boolean {
+      return this.form.invalid || this.uploadedFiles.length < 2;
+    }
+
+    getElementByXpath(path: string) {
+      return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    }
+
+    atualizarButtonAnexarArquivo() {
+      const buttonUpload = this.getElementByXpath("/html/body/app-root/app-cadastro-extracao/form/p-fileupload/div/div[1]/span") as HTMLSpanElement;
+      if (this.uploadedFiles.length >= 2) {
+        buttonUpload.style.display = "none";
+      } else {
+        buttonUpload.style.display = "inline-flex";
+      }
+    }
+
+    clearFilesViewList() {
+      const buttonClean = this.getElementByXpath("/html/body/app-root/app-cadastro-extracao/form/p-fileupload/div/div[1]/p-button/button") as HTMLButtonElement;
+      setTimeout(() => {
+        buttonClean.click();
+      }, 0.5);
+    }
+  }

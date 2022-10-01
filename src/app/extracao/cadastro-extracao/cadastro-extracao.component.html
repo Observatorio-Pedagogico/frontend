@@ -19,7 +19,10 @@
     </mat-form-field>
 
     <p-fileUpload class="col-start-1 col-end-4" name="demo[]" [showUploadButton]="false" chooseLabel="Anexar" styleClass="classe" cancelLabel="Limpar" [previewWidth]="200"
-            [multiple]="true" accept=".xls, .xlsx" [maxFileSize]="1000000000"  (onSelect)="onChoose($event)">
+            [multiple]="true" accept=".xls, .xlsx" [maxFileSize]="1000000000"  (onSelect)="onChoose($event)" (onClear)="onClear()" (onRemove)="onRemove($event)">
+            <!-- <ng-template *ngIf="!onValidarForm()" pTemplate="toolbar">
+              <div class="text-[#d63131] flex mt-1">2 arquivos necessários <mat-icon class="text-[#d63131] rotate-45">add_circle_outline</mat-icon></div>
+            </ng-template>  TODO continuar daqui -->
     </p-fileUpload>
 
     <mat-form-field class="col-start-1 col-end-4">
@@ -29,7 +32,7 @@
 
     <div class="flex justify-center col-span-3">
       <button class="p-2 mx-1 rounded-xl bg-[#9EBE88] border-opacity-70 border-2 border-[#337940]" (click)="voltarButtonEvent()">Voltar</button>
-      <button [ngClass]="form.invalid ? 'border-none opacity-50' : 'bg-[#9EBE88]'" class="p-2 mx-1 rounded-xl bg-[#9EBE88] border-solid border-opacity-70 border-2 border-[#337940]" type="submit" [disabled]="form.invalid" (click)="salvarExtracaoEvent()">Finalizar Cadastro</button>
+      <button [ngClass]="onValidarForm() ? 'border-none opacity-50' : 'bg-[#9EBE88]'" class="p-2 mx-1 rounded-xl bg-[#9EBE88] border-solid border-opacity-70 border-2 border-[#337940]" type="submit" [disabled]="onValidarForm()" (click)="salvarExtracaoEvent()">Finalizar Cadastro</button>
     </div>
   </form>
 </ng-container>
