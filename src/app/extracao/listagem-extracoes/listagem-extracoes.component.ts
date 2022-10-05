@@ -26,13 +26,11 @@ export class ListagemExtracoesComponent implements OnInit {
     await firstValueFrom(this.extracaoService.listarExtracao())
     .then(response => {
       this.extracoes = response.data;
-      console.log(response);
     })
     .catch((response) => {
       if (response.status === 401) {
         location.href = '/login';
       }
-      console.log(response);
     })
   }
 

@@ -1,11 +1,11 @@
-import { Router } from '@angular/router';
-import { UsuarioCadastro } from './../shared/interfaces/cadastro';
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { URL_BASE } from '../../environments/environment';
-import { LoginForm, LoginResponse } from '../shared/interfaces/login';
-import { ResponseBody } from '../shared/interfaces/response';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { URL_BASE } from '../../environments/environment';
+import { LoginForm } from '../shared/interfaces/login';
+import { UsuarioCadastro } from './../shared/interfaces/cadastro';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,8 @@ export class LoginService {
   }
 
   criarHeaderAuth(): HttpHeaders {
-    const token: string | null = localStorage.getItem("data");
+    const token: string | null = sessionStorage.getItem("token");
+
     if (token === null) {
       return new HttpHeaders();
     }

@@ -18,7 +18,7 @@
       </mat-select>
     </mat-form-field>
 
-    <p-fileUpload class="col-start-1 col-end-4" name="demo[]" [showUploadButton]="false" chooseLabel="Anexar" styleClass="classe" cancelLabel="Limpar" [previewWidth]="200"
+    <p-fileUpload class="col-start-1 col-end-4" id="uploadFile" name="demo[]" [showUploadButton]="false" chooseLabel="Anexar" styleClass="classe" cancelLabel="Limpar" [previewWidth]="200"
             [multiple]="true" accept=".xls, .xlsx" [maxFileSize]="1000000000"  (onSelect)="onChoose($event)" (onClear)="onClear()" (onRemove)="onRemove($event)">
             <!-- <ng-template *ngIf="!onValidarForm()" pTemplate="toolbar">
               <div class="text-[#d63131] flex mt-1">2 arquivos necessários <mat-icon class="text-[#d63131] rotate-45">add_circle_outline</mat-icon></div>

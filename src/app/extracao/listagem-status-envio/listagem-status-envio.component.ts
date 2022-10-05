@@ -53,7 +53,6 @@ export class ListagemStatusEnvioComponent implements OnInit {
     this.arquivosEnviados.forEach(element => {
       if (!extracaoThread.includes(element)) {
         this.arquivosEnviados.splice(this.arquivosEnviados.indexOf(element), 1);
-        console.log(this.arquivosEnviados)
       }
     });
     return extracaoNova;

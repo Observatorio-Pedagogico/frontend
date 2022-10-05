@@ -19,7 +19,6 @@ export class ExtracaoService {
   constructor(private httpClient: HttpClient, private loginService: LoginService) { }
 
   listarExtracao() {
-    console.log(this.loginService.criarHeaderAuth());
     return this.httpClient.get<ResponseBody<ExtracaoResumido[]>>(URL_BASE.concat().concat(this.EXTRACAO), {headers: this.loginService.criarHeaderAuth()});
   }
 

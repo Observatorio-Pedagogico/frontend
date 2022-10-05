@@ -71,7 +71,7 @@ export class CadastroExtracaoComponent implements OnInit {
             this.clearFilesViewList();
             this.openAlert("success", "Extração Cadastrada!", "");
           },
-          error: (error) => console.log(error),
+          error: (error) => console.error(error),
         });
       }
 
