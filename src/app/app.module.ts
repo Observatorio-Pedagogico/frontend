@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -28,6 +28,7 @@ import { DetalhesDisciplinaComponent } from './disciplina/detalhes-disciplina/de
 import { ListagemDisciplinasComponent } from './disciplina/listagem-disciplinas/listagem-disciplinas.component';
 import { ExtracaoModule } from './extracao/extracao.module';
 import { ListagemStatusEnvioComponent } from './extracao/listagem-status-envio/listagem-status-envio.component';
+import { ErrorInterceptorService } from './shared/utils/services/error-Interceptor.service';
 import { GerenciarUsuariosComponent } from './usuario/gerenciar-usuarios/gerenciar-usuarios.component';
 import { SolicitacoesUsuariosComponent } from './usuario/solicitacoes-usuarios/solicitacoes-usuarios.component';
 
@@ -67,7 +68,7 @@ import { SolicitacoesUsuariosComponent } from './usuario/solicitacoes-usuarios/s
     ExtracaoModule,
     MatCardModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

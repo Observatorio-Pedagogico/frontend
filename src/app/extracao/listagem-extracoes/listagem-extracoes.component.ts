@@ -27,11 +27,11 @@ export class ListagemExtracoesComponent implements OnInit {
     .then(response => {
       this.extracoes = response.data;
     })
-    .catch((response) => {
+    /* .catch((response) => {
       if (response.status === 401) {
         location.href = '/login';
       }
-    })
+    }) */
   }
 
   ngOnInit(): void {
