@@ -29,27 +29,6 @@
   transform: scale(1.5);
 }
 
-.mat-sidenav {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.sidenav .container-perfil-logout a {
-  background-color: rgb(229, 255, 0);
-  color: #000;
-  cursor: pointer;
-}
-
-.sidenav {
-  background-color: #00420C;
-  width: 200px;
-  display: flex;
-  align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
 .sidenav a {
   background-color: #388A2B;
   color: #fff;

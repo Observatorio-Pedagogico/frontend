@@ -3,27 +3,34 @@
   <mat-drawer-container autosize>
     <mat-drawer #drawer mode="side">
       <mat-sidenav-container class="container" autosize>
-        <mat-sidenav class="sidenav" mode="side" opened fixedInViewport="true">
-            <mat-nav-list class="side-list">
-                <a mat-list-item>
-                    Dashboard
+        <mat-sidenav class="w-72" mode="side" opened fixedInViewport="true">
+          <div class="h-full px-1 grid content-between bg-[#76ff8f]">
+            <div class="grid gap-4 mt-2 px-2">
+              <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]">
+                  Dashboard
+              </a>
+              <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]">
+                  Disciplinas
+              </a>
+              <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]">
+                  Alunos
+              </a>
+              <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]">
+                  Monitoramento
+              </a>
+            </div>
+            <div class="flex justify-between mb-2 p-3 bg-[#00420C] rounded-md">
+              <img class="w-10 p-0.5 rounded-full bg-cyan-600" src="../../../assets/icon-masculino.svg" alt="">
+                <div class="grid capitalize text-sm text-[#ffffffb9]">
+                  <span class="break-all">Lucas Nascimento</span>
+                  <span class="font-light">Professor</span>
+                </div>
+                <a mat-list-item routerLink="/login" (click)="logout()" title="Sair">
+                  <mat-icon class="text-3xl text-[#fff]" >exit_to_app</mat-icon>
                 </a>
-                <a mat-list-item>
-                    Disciplinas
-                </a>
-                <a mat-list-item>
-                    Alunos
-                </a>
-                <a mat-list-item >
-                    Monitoramento
-                </a>
-              </mat-nav-list>
-              <div class="container-perfil-logout">
-                <a mat-list-item routerLink="/login" (click)="logout()">
-                  Sair
-                </a>
-              </div>
-            </mat-sidenav>
+            </div>
+          </div>
+        </mat-sidenav>
     </mat-sidenav-container>
     </mat-drawer>
   </mat-drawer-container>

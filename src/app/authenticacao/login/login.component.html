@@ -1,9 +1,9 @@
 <div class="container-plano-fundo">
   <div class="container-interno">
 
-    <div class="container-title">
+    <div class="flex justify-between items-center gap-3">
       <img src="../../../assets/icon-IFPB.svg" alt="IFPB">
-      <h1>Instituto Federal da Paraíba</h1>
+      <span class="text-2xl text-white">Instituto Federal da Paraíba</span>
     </div>
 
     <form class="bloco-form" [formGroup]="form">
@@ -17,7 +17,7 @@
       </a>
 
       <div class="container-button-entrar">
-        <button type="submit" (click)="fazerLogin()">
+        <button class="bg-[#71C837] rounded-lg" type="submit" (click)="fazerLogin()">
           Entrar
         </button>
       </div>
