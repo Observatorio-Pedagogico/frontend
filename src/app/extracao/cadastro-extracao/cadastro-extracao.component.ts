@@ -36,6 +36,7 @@ export class CadastroExtracaoComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      console.log(sessionStorage.getItem('logado'));
     }
 
     alteraNomeArquivoSelecionado(_idInput: string, _idText: string, _nome: string): void {
