@@ -91,7 +91,7 @@
 <mat-paginator [pageSizeOptions]="[2, 5, 10, 25, 50]" [length]="pagesTotal" [pageSize]="pageSize" [pageIndex]="pageIndex"(page)="montarPagina($event)"></mat-paginator> -->
 
 <p-table #dt [value]="extracoes" dataKey="id" styleClass="p-datatable-extracoes" [rowHover]="true"
-    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" responsiveLayout="scroll"
+    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" responsiveLayout="scroll"
     [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
     <!-- <ng-template pTemplate="caption">

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Profile } from '../../shared/interfaces/login';
-import { Observable } from 'rxjs';
+import { Funcionario, EnvelopeFuncionario } from '../../shared/interfaces/login';
 import { URL_BASE } from 'src/environments/environment';
 import { ResponseBody } from 'src/app/shared/interfaces/response';
 
@@ -15,6 +14,6 @@ export class NavbarService {
   setProfile() {
     const token = sessionStorage.getItem('token');
     let header: HttpHeaders = new HttpHeaders({'token':`${token}`, 'Authorization': `Bearer ${token}`});
-    return this.httpClient.get<ResponseBody<Profile>>(URL_BASE.concat('/funcionario/token'), {headers:header});
+    return this.httpClient.get<ResponseBody<EnvelopeFuncionario>>(URL_BASE.concat('/funcionario/token'), {headers:header});
   }
 }

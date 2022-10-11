@@ -20,10 +20,10 @@
               </a>
             </div>
             <div class="flex justify-between p-3 bg-[rgb(18,107,34)] rounded-md">
-              <img [ngClass]="profile.sexo === 'MASCULINO' ? 'bg-cyan-600' : 'bg-[#ee67f3]'" class="w-10 p-0.5 rounded-full" [src]="profile.sexo === 'MASCULINO' ? '../../../assets/icon-masculino.svg' : '../../../assets/icon-feminino.svg'" alt="">
+              <img [ngClass]="envelopeFuncionario.funcionario.sexo === 'MASCULINO' ? 'bg-cyan-600' : 'bg-[#ee67f3]'" class="w-10 p-0.5 rounded-full" [src]="envelopeFuncionario.funcionario.sexo === 'MASCULINO' ? '../../../assets/icon-masculino.svg' : '../../../assets/icon-feminino.svg'" alt="">
                 <div class="grid capitalize text-sm text-[#ffffffb9]">
-                  <span class="break-all">{{ profile.nome }}</span>
-                  <span class="font-light">Professor</span>
+                  <span class="break-all">{{ envelopeFuncionario.funcionario.nome }}</span>
+                  <span class="font-light">{{ envelopeFuncionario.tipoFuncionario.replace('_', ' ') }}</span>
                 </div>
                 <a mat-list-item routerLink="/login" (click)="logout()" title="Sair">
                   <mat-icon class="text-3xl text-[#fff]" >exit_to_app</mat-icon>

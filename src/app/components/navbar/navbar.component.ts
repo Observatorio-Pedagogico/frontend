@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from './navbar.service';
-import { Profile } from '../../shared/interfaces/login';
+import { EnvelopeFuncionario, Funcionario, TipoFuncionario } from '../../shared/interfaces/login';
 
 @Component({
   selector: 'app-navbar',
@@ -12,13 +12,21 @@ export class NavbarComponent implements OnInit {
 
   sideActive: boolean = false;
 
-  profile!: Profile;
+  envelopeFuncionario: EnvelopeFuncionario = {
+    funcionario: {
+      email: '',
+      matricula: '',
+      nome: '',
+      sexo: ''
+    },
+    tipoFuncionario: TipoFuncionario.FUNCIONARIO_COPED
+  };
 
   constructor(private router: Router, private navBarService: NavbarService) { }
 
   ngOnInit(): void {
     this.navBarService.setProfile().subscribe(response => {
-      this.profile = response.data;
+      this.envelopeFuncionario = response.data;
     });
   }
 

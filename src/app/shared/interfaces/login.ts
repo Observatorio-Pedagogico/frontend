@@ -8,10 +8,19 @@ export interface LoginResponse {
   token: string;
 }
 
-
-export interface Profile {
+export interface Funcionario {
   matricula: string;
   email: string;
   nome: string;
   sexo: string;
+}
+
+export interface EnvelopeFuncionario {
+  funcionario: Funcionario;
+  tipoFuncionario: TipoFuncionario;
+}
+
+export enum TipoFuncionario {
+  FUNCIONARIO_COPED = "COPED",
+  PROFESSOR = "Professor"
 }
