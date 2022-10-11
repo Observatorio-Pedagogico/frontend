@@ -104,9 +104,6 @@
     </ng-template> -->
     <ng-template pTemplate="header">
         <tr>
-            <th style="width: 3rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
             <th pSortableColumn="codigo">
                 <div class="flex justify-content-between align-items-center">
                     Código
@@ -152,9 +149,9 @@
             </th>
             <th pSortableColumn="ultimaDataHoraAtualizacao">
                 <div class="flex justify-content-between align-items-center">
-                    Última data e hora atualização
-                    <p-sortIcon field="dataCadastro"></p-sortIcon>
-                    <p-columnFilter type="date" field="dataCadastro" display="menu" class="ml-auto"></p-columnFilter>
+                    Data última atualização
+                    <p-sortIcon field="ultimaDataHoraAtualizacao"></p-sortIcon>
+                    <p-columnFilter type="date" field="ultimaDataHoraAtualizacao" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th style="width: 8rem"></th>
@@ -162,9 +159,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-extracao>
         <tr class="p-selectable-row">
-            <td>
-                <p-tableCheckbox [value]="extracao"></p-tableCheckbox>
-            </td>
             <td>
                 <span class="p-column-title">codigo</span>
                 {{extracao.id}}
@@ -188,7 +182,7 @@
             <td>
                 <span class="p-column-title">ultimaDataHoraAtualizacao</span>
                 {{extracao.ultimaDataHoraAtualizacao | date: 'dd/MM/yyyy'}}
-
+            </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
