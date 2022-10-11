@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AlertModule } from '../components/alert/alert.module';
 import { FileUploadModule } from 'primeng/fileupload';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     MatSelectModule,
     MatPaginatorModule,
     AlertModule,
-    FileUploadModule
+    FileUploadModule,
+    TableModule
   ]
 })
 export class ExtracaoModule { }

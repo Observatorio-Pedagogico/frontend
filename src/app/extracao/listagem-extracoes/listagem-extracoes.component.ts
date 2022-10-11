@@ -47,9 +47,4 @@ export class ListagemExtracoesComponent implements OnInit {
     this.pageSize = event.pageSize;
     this.listarExtracoes(vetor);
   }
-
-
-  converterData(date: Date) {
-    return this.datepipe.transform(date, 'dd/MM/yyyy');
-  }
 }
