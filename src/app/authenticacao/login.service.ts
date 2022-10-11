@@ -15,7 +15,6 @@ export class LoginService {
   constructor(private httpClient: HttpClient,private router:Router) { }
 
   logar(login: LoginForm) : Observable<LoginForm> {
-
     return this.httpClient.post<LoginForm>(URL_BASE.concat('/login'), login);
   }
 

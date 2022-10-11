@@ -20,9 +20,9 @@
               </a>
             </div>
             <div class="flex justify-between p-3 bg-[rgb(18,107,34)] rounded-md">
-              <img class="w-10 p-0.5 rounded-full bg-cyan-600" src="../../../assets/icon-masculino.svg" alt="">
+              <img [ngClass]="profile.sexo === 'MASCULINO' ? 'bg-cyan-600' : 'bg-[#ee67f3]'" class="w-10 p-0.5 rounded-full" [src]="profile.sexo === 'MASCULINO' ? '../../../assets/icon-masculino.svg' : '../../../assets/icon-feminino.svg'" alt="">
                 <div class="grid capitalize text-sm text-[#ffffffb9]">
-                  <span class="break-all">Lucas Nascimento</span>
+                  <span class="break-all">{{ profile.nome }}</span>
                   <span class="font-light">Professor</span>
                 </div>
                 <a mat-list-item routerLink="/login" (click)="logout()" title="Sair">
