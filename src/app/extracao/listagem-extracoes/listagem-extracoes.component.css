@@ -2,36 +2,42 @@
   stroke: #00420C!important;
 }
 
-table {
-  width: 100%;
-}
-.mat-row .mat-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-  cursor: pointer;
-}
-
-.mat-row:hover .mat-cell {
-  border-color: currentColor;
+.extracao-badge {
+  border-radius: 2px;
+  padding: 0.25em 0.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .3px;
 }
 
-.demo-row-is-clicked {
-  font-weight: bold;
+.mat-menu-item .mat-icon {
+  margin-right: 0px !important;
+  vertical-align: middle;
 }
 
-.bloco-titulo {
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem;
+.extracao-badge.status-CANCELADA {
+  background-color: #ffcdd2;
+  color: #c63737;
 }
 
-.example-headers-align .mat-expansion-panel-header-title {
-  justify-content: end;
-  display: flex;
-  align-items: flex-end;
+.extracao-badge.status-ATIVA {
+  background-color: #c8e6c9;
+  color: #256029;
 }
 
-th {
-  font-weight: bold;
-  color: black;
+.extracao-badge.status-ENVIANDO {
+  background-color: #c8e6c9;
+  color: #0a5ac4;
 }
+
+.extracao-badge.status-SALVANDO {
+  background-color: #c8e6c9;
+  color: #dbec3e;
+}
+
+.extracao-badge.status-AGUARDANDO_PROCESSAMENTO {
+  background-color: #c8e6c9;
+  color: #981ad3;
+}
+

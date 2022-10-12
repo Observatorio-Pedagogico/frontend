@@ -12,7 +12,7 @@ export interface ExtracaoResumido {
   titulo: string,
   periodoLetivoTipo: string,
   periodoLetivo: string,
-  status: string,
+  status: Status,
   dataCadastro: Date,
   ultimaDataHoraAtualizacao: Date
 }
@@ -24,4 +24,12 @@ export interface Arquivo {
 export interface ExtracaoThread {
   porcentagemEnvio: number,
   extracao: ExtracaoResumido
+}
+
+export enum Status {
+  ATIVA,
+  CANCELADA,
+  ENVIANDO,
+  AGUARDANDO_PROCESSAMENTO,
+  SALVANDO
 }
