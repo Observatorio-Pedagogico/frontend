@@ -6,12 +6,13 @@ import { EXTRACAO_NOVA_EXTRACAO } from 'src/app/shared/utils/routes';
 import { ExtracaoResumido } from '../model/extracao';
 import { ExtracaoService } from '../services/extracao.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { AlertComponent } from '../../components/alert/alert/alert.component';
 
 @Component({
   selector: 'app-listagem-extracoes',
   templateUrl: './listagem-extracoes.component.html',
   styleUrls: ['./listagem-extracoes.component.css'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, AlertComponent ]
 })
 export class ListagemExtracoesComponent implements OnInit {
 
@@ -29,7 +30,10 @@ export class ListagemExtracoesComponent implements OnInit {
   pageSize: number = 2;
   pagesTotal: number = 0;
 
-  constructor(private extracaoService: ExtracaoService, private datepipe: DatePipe, private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(private extracaoService: ExtracaoService,
+              private datepipe: DatePipe,
+              private confirmationService: ConfirmationService,
+              private alert: AlertComponent) { }
 
   ngOnInit(): void {
     this.listarExtracoes([]);
@@ -62,10 +66,7 @@ export class ListagemExtracoesComponent implements OnInit {
         message: 'Deseja realmente cancelar essa extração?',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
-            this.messageService.add({severity:'success', summary:'Confirmed', detail:'You have accepted'});
-        },
-        reject: () => {
-            this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+          this.alert.openAlert("success", "Extração Cancelada!", "");
         }
     });
   }

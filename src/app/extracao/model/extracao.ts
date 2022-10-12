@@ -28,8 +28,5 @@ export interface ExtracaoThread {
 
 export enum Status {
   ATIVA,
-  CANCELADA,
-  ENVIANDO,
-  AGUARDANDO_PROCESSAMENTO,
-  SALVANDO
+  CANCELADA
 }

@@ -18,8 +18,6 @@ export class GuardaAutenticacaoService implements CanLoad {
 
   private isAutenticado(): boolean {
     const key = sessionStorage.getItem("logado");
-    console.log('isAutenticado', key);
-
     if (key) {
       return key.toLowerCase() === 'true';
     }
