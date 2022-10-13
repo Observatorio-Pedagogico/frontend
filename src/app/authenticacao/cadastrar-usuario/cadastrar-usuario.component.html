@@ -1,11 +1,6 @@
 <div class="container-plano-fundo">
     <div class="container-interno">
 
-      <div class="container-title">
-        <img src="../../../assets/icon-IFPB.svg" alt="IFPB">
-        <h1>Instituto Federal da Paraíba</h1>
-      </div>
-
       <form #userForm="ngForm" (ngSubmit)="cadastrarUsuario(userForm.value)" class="container-form">
         <h2>Cadastrar Conta</h2>
 
@@ -33,8 +28,8 @@
           </select>
         </div>
         <div class="btn-submit-voltar">
-          <input type="button" class="submit-Botton" value="Voltar" (click)="onVoltar()">
-          <input type="submit" class="submit-Botton" value="Cadastrar">
+          <input type="button" value="Voltar" (click)="onVoltar()">
+          <input type="submit" class="submit-button" value="Cadastrar">
         </div>
       </form>
     </div>
