@@ -37,6 +37,14 @@ export class ExtracaoService {
     return this.httpClient.post<Extracao>(URL_BASE.concat(this.EXTRACAO_ENVIAR), formData, {headers: this.loginService.criarHeaderAuth()});
   }
 
+  ativarExtracao(id: string): Observable<string> {
+    return this.httpClient.post<string>(URL_BASE.concat(this.EXTRACAO).concat('/').concat(id).concat('/').concat('ativar'), id, {headers: this.loginService.criarHeaderAuth()});
+  }
+
+  cancelarExtracao(id: string): Observable<string> {
+    return this.httpClient.post<string>(URL_BASE.concat(this.EXTRACAO).concat('/').concat(id).concat('/').concat('cancelar'), id, {headers: this.loginService.criarHeaderAuth()});
+  }
+
   montarArgumentos(argumentos:string[]): string {
     if (argumentos.length === 0) {
       return '';

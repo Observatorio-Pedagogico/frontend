@@ -12,7 +12,7 @@ import { AlertComponent } from '../../components/alert/alert/alert.component';
   selector: 'app-listagem-extracoes',
   templateUrl: './listagem-extracoes.component.html',
   styleUrls: ['./listagem-extracoes.component.css'],
-  providers: [ConfirmationService, AlertComponent ]
+  providers: [ConfirmationService, AlertComponent]
 })
 export class ListagemExtracoesComponent implements OnInit {
 
@@ -31,7 +31,6 @@ export class ListagemExtracoesComponent implements OnInit {
   pagesTotal: number = 0;
 
   constructor(private extracaoService: ExtracaoService,
-              private datepipe: DatePipe,
               private confirmationService: ConfirmationService,
               private alert: AlertComponent) { }
 
@@ -60,13 +59,40 @@ export class ListagemExtracoesComponent implements OnInit {
     this.listarExtracoes(vetor);
   }
 
-  confirm(event: Event) {
+  cancel(event: any) {
     this.confirmationService.confirm({
         target: event.target!,
         message: 'Deseja realmente cancelar essa extração?',
         icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Sim', rejectLabel: 'Não',
         accept: () => {
-          this.alert.openAlert("success", "Extração Cancelada!", "");
+          this.extracaoService.cancelarExtracao(event.srcElement.id).subscribe({
+            next: () => {
+              this.listarExtracoes([]);
+              setTimeout(() => {
+                this.alert.openAlert("success", "Extração Cancelada!", "")
+              }, 500);
+            }
+          });
+        }
+    });
+  }
+
+  ativar(event: any) {
+    this.confirmationService.confirm({
+        target: event.target!,
+        message: 'Deseja ativar essa extração?',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Sim', rejectLabel: 'Não',
+        accept: () => {
+          this.extracaoService.ativarExtracao(event.srcElement.id).subscribe({
+            next: () => {
+              this.listarExtracoes([]);
+              setTimeout(() => {
+                this.alert.openAlert("success", "Extração Ativada!", "")
+              }, 500);
+            }
+          });
         }
     });
   }
