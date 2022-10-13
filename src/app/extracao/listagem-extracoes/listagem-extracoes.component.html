@@ -3,30 +3,22 @@
     <button class="p-2 border-solid border-[#000] border-2 rounded-md" routerLink="nova-extracao">NOVA EXTRAÇÃO SUAP</button>
 </div>
 
-<p-table #dt [value]="extracoes" dataKey="id" styleClass="p-datatable-extracoes" [rowHover]="true" styleClass="p-datatable-extracao"
-    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[2,5,10,25,50]" responsiveLayout="scroll"
-    [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
-    <!-- <ng-template pTemplate="caption">
-        <div class="table-header">
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
-            </span>
-        </div>
-    </ng-template> -->
+<p-table #dt [loading]="loading" [value]="extracoes" dataKey="id" styleClass="p-datatable-extracao" [rowHover]="true" styleClass="p-datatable-extracao"
+    responsiveLayout="scroll"
+    [filterDelay]="0">
+    
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="codigo">
+            <th pSortableColumn="id">
                 <div class="flex justify-content-between align-items-center">
                     Código
-                    <p-sortIcon field="codigo"></p-sortIcon>
-                    <p-columnFilter type="numeric" field="codigo" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="id"></p-sortIcon>
+                    <p-columnFilter type="text" field="id" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="titulo">
                 <div class="flex justify-content-between align-items-center">
-                    Título
+                    Titulo
                     <p-sortIcon field="titulo"></p-sortIcon>
                     <p-columnFilter type="text" field="titulo" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
@@ -50,7 +42,7 @@
                 <div class="flex justify-content-between align-items-center">
                     Período
                     <p-sortIcon field="periodoLetivo"></p-sortIcon>
-                    <p-columnFilter type="date" field="periodoLetivo" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-columnFilter type="text" field="periodoLetivo" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="dataCadastro">
@@ -111,12 +103,8 @@
     </ng-template>
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="8">No customers found.</td>
+            <td colspan="8">Nenhuma extração encontrada!</td>
         </tr>
     </ng-template>
 </p-table>
-
-<!-- <div class="uploader-status">
-  <mat-spinner></mat-spinner>
-</div> -->
-
+<p-paginator (onPageChange)="montarPagina($event)" [rows]="pageSize" [totalRecords]="totalElements" [rowsPerPageOptions]="[5, 10, 25, 50]"></p-paginator>

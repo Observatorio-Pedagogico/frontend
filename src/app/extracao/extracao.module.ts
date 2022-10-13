@@ -20,6 +20,7 @@ import { CadastroExtracaoComponent } from './cadastro-extracao/cadastro-extracao
 import { DetalhesExtracaoComponent } from './detalhes-extracao/detalhes-extracao.component';
 import { ExtracaoRoutingModule } from './extracao-routing.module';
 import { ListagemExtracoesComponent } from './listagem-extracoes/listagem-extracoes.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ListagemExtracoesComponent } from './listagem-extracoes/listagem-extrac
     DropdownModule,
     MatMenuModule,
     ConfirmPopupModule,
-    ToastModule
+    ToastModule,
+    PaginatorModule
   ]
 })
 export class ExtracaoModule { }

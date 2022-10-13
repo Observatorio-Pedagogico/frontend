@@ -5,7 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { EXTRACAO_NOVA_EXTRACAO } from 'src/app/shared/utils/routes';
 import { ExtracaoResumido } from '../model/extracao';
 import { ExtracaoService } from '../services/extracao.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, PrimeNGConfig } from 'primeng/api';
 import { AlertComponent } from '../../components/alert/alert/alert.component';
 
 @Component({
@@ -19,24 +19,28 @@ export class ListagemExtracoesComponent implements OnInit {
   extracoes: ExtracaoResumido[] = [];
 
   statusExtracao = [
-    {label: 'CANCELADA', value: 'unqualified'},
-    {label: 'ATIVA', value: 'qualified'},
-    {label: 'SALVANDO', value: 'new'},
-    {label: 'ENVIANDO', value: 'negotiation'},
-    {label: 'AGUARDANDO_PROCESSAMENTO', value: 'renewal'},
+    {label: 'CANCELADA', value: 'CANCELADA'},
+    {label: 'ATIVA', value: 'ATIVA'}
   ]
 
-  pageIndex: number = 1;
-  pageSize: number = 2;
-  pagesTotal: number = 0;
+  pageSize: number = 10;
+  pageIndex: number = 0;
+  totalElements: number = 0;
+  parametrosExtracao: string[] = [`page=${this.pageIndex}`,
+                             `size=${this.pageSize}`,
+                             `sort=titulo,asc`];
+
+  loading = true;
 
   constructor(private extracaoService: ExtracaoService,
               private datepipe: DatePipe,
               private confirmationService: ConfirmationService,
-              private alert: AlertComponent) { }
+              private alert: AlertComponent,
+              private primengConfig: PrimeNGConfig) { }
 
   ngOnInit(): void {
-    this.listarExtracoes([]);
+    this.listarExtracoes(this.parametrosExtracao);
+    this.primengConfig.ripple = true;
   }
 
   moverParaNovaExtracao() {
@@ -44,20 +48,26 @@ export class ListagemExtracoesComponent implements OnInit {
   }
 
   async listarExtracoes(argumentos: string[]): Promise<void> {
+    this.loading = true;
     await firstValueFrom(this.extracaoService.listarExtracao(argumentos))
     .then(response => {
       this.extracoes = response.data.content;
-      this.pagesTotal = response.data.totalPages;
-    })
+      this.totalElements = response.data.totalElements;      
+    });
+    this.loading = false;
   }
 
-  montarPagina(event: PageEvent) {
-    const vetor: string[] = [`page=${event.pageIndex}`,
-                             `size=${event.pageSize}`,
+  montarPagina(event: any) {
+    this.parametrosExtracao = [`page=${event.page}`,
+                             `size=${event.rows}`,
                              `sort=titulo,asc`];
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.listarExtracoes(vetor);
+    this.pageSize = event.rows;
+    this.pageIndex = event.page;
+    this.listarExtracoes(this.parametrosExtracao);
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
   }
 
   confirm(event: Event) {

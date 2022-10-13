@@ -1,7 +1,3 @@
-:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-  stroke: #00420C!important;
-}
-
 .extracao-badge {
   border-radius: 2px;
   padding: 0.25em 0.5rem;
@@ -26,20 +22,47 @@
   color: #256029;
 }
 
-.extracao-badge.status-ENVIANDO {
-  background-color: #c8e6c9;
-  color: #0a5ac4;
-}
-
-.extracao-badge.status-SALVANDO {
-  background-color: #c8e6c9;
-  color: #dbec3e;
-}
-
-.extracao-badge.status-AGUARDANDO_PROCESSAMENTO {
-  background-color: #c8e6c9;
-  color: #981ad3;
-}
+:host ::ng-deep .p-paginator .p-paginator-current {
+    margin-left: auto;
+  }
+  :host ::ng-deep .p-progressbar {
+    height: 0.5rem;
+    background-color: #D8DADC;
+  }
+  :host ::ng-deep .p-progressbar .p-progressbar-value {
+    background-color: #607D8B;
+  }
+  :host ::ng-deep .table-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  :host ::ng-deep .p-calendar .p-datepicker {
+    min-width: 25rem;
+  }
+  :host ::ng-deep .p-calendar .p-datepicker td {
+    font-weight: 400;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-header {
+    padding: 1rem;
+    text-align: left;
+    font-size: 1.5rem;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-paginator {
+    padding: 1rem;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-thead > tr > th {
+    text-align: left;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-tbody > tr > td {
+    cursor: auto;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-dropdown-label:not(.p-placeholder) {
+    text-transform: uppercase;
+    /* Responsive */
+  }
+  :host ::ng-deep .p-datatable-extracao .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+  }  
 
 @media screen and (max-width: 960px) {
   :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-thead > tr > th, :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-tfoot > tr > td {
