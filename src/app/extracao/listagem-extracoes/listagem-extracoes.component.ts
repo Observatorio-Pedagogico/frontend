@@ -35,12 +35,10 @@ export class ListagemExtracoesComponent implements OnInit {
   constructor(private extracaoService: ExtracaoService,
               private datepipe: DatePipe,
               private confirmationService: ConfirmationService,
-              private alert: AlertComponent,
-              private primengConfig: PrimeNGConfig) { }
+              private alert: AlertComponent) { }
 
   ngOnInit(): void {
     this.listarExtracoes(this.parametrosExtracao);
-    this.primengConfig.ripple = true;
   }
 
   moverParaNovaExtracao() {
