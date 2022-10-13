@@ -76,7 +76,7 @@ export class ListagemExtracoesComponent implements OnInit {
         accept: () => {
           this.extracaoService.cancelarExtracao(event.srcElement.id).subscribe({
             next: () => {
-              this.listarExtracoes([]);
+              this.listarExtracoes(this.parametrosExtracao);
               setTimeout(() => {
                 this.alert.openAlert("success", "Extração Cancelada!", "")
               }, 500);
@@ -95,7 +95,7 @@ export class ListagemExtracoesComponent implements OnInit {
         accept: () => {
           this.extracaoService.ativarExtracao(event.srcElement.id).subscribe({
             next: () => {
-              this.listarExtracoes([]);
+              this.listarExtracoes(this.parametrosExtracao);
               setTimeout(() => {
                 this.alert.openAlert("success", "Extração Ativada!", "")
               }, 500);
