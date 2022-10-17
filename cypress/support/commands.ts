@@ -35,3 +35,25 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add<any>("createOng", () => {
+  cy.request({
+    method: 'POST',
+    url: 'localhost:8080/observatorio-pedagogico/api/login/cadastrar',
+    body: {
+      matricula: "201915020008",
+      email: "teste@academico.ifpb.edu.br",
+      senha: "123456",
+      nome: "Test",
+      sexo: "MASCULINO",
+      tipo: "COPED",
+    }
+  }).then(response => {
+    expect(response.body.data).is.not.null;
+    cy.log(response.body.data);
+
+    Cypress.env('createOngData', response.body.data)
+    Cypress.env('createOngEmail', response.body.data.email)
+    Cypress.env('createOngSenha', response.body.data.senha)
+  });
+})

@@ -1,37 +1,95 @@
-:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-  stroke: #00420C!important;
+.extracao-badge {
+  border-radius: 2px;
+  padding: 0.25em 0.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .3px;
 }
 
-table {
-  width: 100%;
-}
-.mat-row .mat-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-  cursor: pointer;
+.mat-menu-item .mat-icon {
+  margin-right: 0px !important;
+  vertical-align: middle;
 }
 
-.mat-row:hover .mat-cell {
-  border-color: currentColor;
+.extracao-badge.status-CANCELADA {
+  background-color: #ffcdd2;
+  color: #c63737;
 }
 
-.demo-row-is-clicked {
-  font-weight: bold;
+.extracao-badge.status-ATIVA {
+  background-color: #c8e6c9;
+  color: #256029;
 }
 
-.bloco-titulo {
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem;
+:host ::ng-deep .p-paginator .p-paginator-current {
+    margin-left: auto;
+  }
+  :host ::ng-deep .p-progressbar {
+    height: 0.5rem;
+    background-color: #D8DADC;
+  }
+  :host ::ng-deep .p-progressbar .p-progressbar-value {
+    background-color: #607D8B;
+  }
+  :host ::ng-deep .table-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  :host ::ng-deep .p-calendar .p-datepicker {
+    min-width: 25rem;
+  }
+  :host ::ng-deep .p-calendar .p-datepicker td {
+    font-weight: 400;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-header {
+    padding: 1rem;
+    text-align: left;
+    font-size: 1.5rem;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-paginator {
+    padding: 1rem;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-thead > tr > th {
+    text-align: left;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-tbody > tr > td {
+    cursor: auto;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-dropdown-label:not(.p-placeholder) {
+    text-transform: uppercase;
+    /* Responsive */
+  }
+  :host ::ng-deep .p-datatable-extracao .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+  }  
+
+@media screen and (max-width: 960px) {
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-thead > tr > th, :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-tfoot > tr > td {
+    display: none !important;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-tbody > tr {
+    border-bottom: 1px solid var(--layer-2);
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-tbody > tr > td {
+    text-align: left;
+    display: block;
+    border: 0 none !important;
+    width: 100% !important;
+    float: left;
+    clear: left;
+    border: 0 none;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-tbody > tr > td .p-column-title {
+    padding: 0.4rem;
+    min-width: 30%;
+    display: inline-block;
+    margin: -0.4rem 1rem -0.4rem -0.4rem;
+    font-weight: bold;
+  }
+  :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-tbody > tr > td .p-progressbar {
+    margin-top: 0.5rem;
+  }
 }
 
-.example-headers-align .mat-expansion-panel-header-title {
-  justify-content: end;
-  display: flex;
-  align-items: flex-end;
-}
 
-th {
-  font-weight: bold;
-  color: black;
-}

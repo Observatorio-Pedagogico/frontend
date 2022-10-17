@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Extracao, ExtracaoResumido, ExtracaoThread } from '../model/extracao';
 import { URL_BASE } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { ResponseBody } from 'src/app/shared/interfaces/response';
+import { ResponseBody, ResponsePagina } from 'src/app/shared/interfaces/response';
 import { LoginService } from 'src/app/authenticacao/login.service';
 
 
@@ -18,8 +18,8 @@ export class ExtracaoService {
 
   constructor(private httpClient: HttpClient, private loginService: LoginService) { }
 
-  listarExtracao() {
-    return this.httpClient.get<ResponseBody<ExtracaoResumido[]>>(URL_BASE.concat().concat(this.EXTRACAO), {headers: this.loginService.criarHeaderAuth()});
+  listarExtracao(argumentos:string[]) {
+    return this.httpClient.get<ResponsePagina<ExtracaoResumido[]>>(URL_BASE.concat(this.EXTRACAO).concat(this.montarArgumentos(argumentos)), {headers: this.loginService.criarHeaderAuth()});
   }
 
   listarStatusEnvio(): Observable<ResponseBody<ExtracaoThread[]>> {
@@ -35,6 +35,27 @@ export class ExtracaoService {
       formData.append("arquivosMultipartFile", arquivo.conteudo);
     }
     return this.httpClient.post<Extracao>(URL_BASE.concat(this.EXTRACAO_ENVIAR), formData, {headers: this.loginService.criarHeaderAuth()});
+  }
+
+  ativarExtracao(id: string): Observable<string> {
+    return this.httpClient.post<string>(URL_BASE.concat(this.EXTRACAO).concat('/').concat(id).concat('/').concat('ativar'), id, {headers: this.loginService.criarHeaderAuth()});
+  }
+
+  cancelarExtracao(id: string): Observable<string> {
+    return this.httpClient.post<string>(URL_BASE.concat(this.EXTRACAO).concat('/').concat(id).concat('/').concat('cancelar'), id, {headers: this.loginService.criarHeaderAuth()});
+  }
+
+  montarArgumentos(argumentos:string[]): string {
+    if (argumentos.length === 0) {
+      return '';
+    }
+
+    let args = '?';
+    argumentos.forEach(element => {
+      args+=element.concat('&');
+    });
+
+    return args;
   }
 
 }

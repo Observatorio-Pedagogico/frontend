@@ -6,11 +6,13 @@ import { StringUtils } from 'src/app/shared/utils/string-utils';
 
 import { Arquivo, Extracao } from '../model/extracao';
 import { ExtracaoService } from '../services/extracao.service';
+import { AlertComponent } from '../../components/alert/alert/alert.component';
 
 @Component({
   selector: 'app-cadastro-extracao',
   templateUrl: './cadastro-extracao.component.html',
-  styleUrls: ['./cadastro-extracao.component.css']
+  styleUrls: ['./cadastro-extracao.component.css'],
+  providers: [AlertComponent]
 })
 export class CadastroExtracaoComponent implements OnInit {
 
@@ -23,7 +25,8 @@ export class CadastroExtracaoComponent implements OnInit {
         private location: Location,
         private extracaoService: ExtracaoService,
         private stringUtils: StringUtils,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private alertComponent: AlertComponent
     ) {
         this.form = this.formBuilder.group({
         titulo: [null],
@@ -52,7 +55,7 @@ export class CadastroExtracaoComponent implements OnInit {
         let extracao = this.form.value as Extracao;
 
         if (this.uploadedFiles.length < 2) {
-          this.openAlert("error", "É Preciso Enviar dois arquivos!", "");
+          this.alertComponent.openAlert("error", "É Preciso Enviar dois arquivos!", "");
           return;
         }
 
@@ -69,7 +72,7 @@ export class CadastroExtracaoComponent implements OnInit {
           next: () => {
             this.form.reset();
             this.clearFilesViewList();
-            this.openAlert("success", "Extração Cadastrada!", "");
+            this.alertComponent.openAlert("success", "Extração Cadastrada!", "");
           },
           error: (error) => console.error(error),
         });
@@ -79,14 +82,12 @@ export class CadastroExtracaoComponent implements OnInit {
         this.location.back();
       }
 
-    openAlert(_severity: string, _summary: string, _detail: string) {
-      this.messageService.add({severity: _severity, summary: _summary, detail: _detail});
-    }
+
 
     onChoose(event: any) {
       if (event.files.length > 2) {
         this.clearFilesViewList();
-        this.openAlert("error", "Permitido máximo de 2(dois) arquivos.", "")
+        this.alertComponent.openAlert("error", "Permitido máximo de 2(dois) arquivos.", "")
         return;
       }
 
@@ -96,7 +97,7 @@ export class CadastroExtracaoComponent implements OnInit {
       }
       this.uploadedFiles = array;
       this.atualizarButtonAnexarArquivo();
-      this.openAlert("info", "Arquivo Carregado", event.files[0].name);
+      this.alertComponent.openAlert("info", "Arquivo Carregado", event.files[0].name);
     }
 
     onClear() {

@@ -1,102 +1,111 @@
-<div class="bloco-titulo">
+<div class="flex p-5 justify-between">
   <h1 class="text-3xl">Tabela de Extrações SUAP</h1>
     <button class="p-2 border-solid border-[#000] border-2 rounded-md" routerLink="nova-extracao">NOVA EXTRAÇÃO SUAP</button>
 </div>
 
-<mat-accordion class="example-headers-align" multi>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        FILTROS
-        <mat-icon>filter_list</mat-icon>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
+<p-table #dt [loading]="loading" [value]="extracoes" dataKey="id" styleClass="p-datatable-extracao" [rowHover]="true" styleClass="p-datatable-extracao"
+    responsiveLayout="scroll"
+    [filterDelay]="0">
+    
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="id">
+                <div class="flex justify-content-between align-items-center">
+                    Código
+                    <p-sortIcon field="id"></p-sortIcon>
+                    <p-columnFilter type="text" field="id" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="titulo">
+                <div class="flex justify-content-between align-items-center">
+                    Titulo
+                    <p-sortIcon field="titulo"></p-sortIcon>
+                    <p-columnFilter type="text" field="titulo" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="status">
+                <div class="flex justify-content-between align-items-center">
+                    Status
+                    <p-sortIcon field="status"></p-sortIcon>
+                    <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <p-dropdown (ngModel)="value" [options]="statusExtracao" (onChange)="filter($event.value)" placeholder="Any">
+                                <ng-template let-option pTemplate="item">
+                                    <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                </ng-template>
+                            </p-dropdown>
+                        </ng-template>
+                    </p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="periodoLetivo">
+                <div class="flex justify-content-between align-items-center">
+                    Período
+                    <p-sortIcon field="periodoLetivo"></p-sortIcon>
+                    <p-columnFilter type="text" field="periodoLetivo" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="dataCadastro">
+                <div class="flex justify-content-between align-items-center">
+                    Data de Cadastro
+                    <p-sortIcon field="dataCadastro"></p-sortIcon>
+                    <p-columnFilter type="date" field="dataCadastro" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="ultimaDataHoraAtualizacao">
+                <div class="flex justify-content-between align-items-center">
+                    Data última atualização
+                    <p-sortIcon field="ultimaDataHoraAtualizacao"></p-sortIcon>
+                    <p-columnFilter type="date" field="ultimaDataHoraAtualizacao" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th style="width: 8rem"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-extracao>
+        <tr class="p-selectable-row">
+            <td>
+                <span class="p-column-title">codigo</span>
+                {{extracao.id}}
+            </td>
+            <td>
+                <span class="p-column-title">titulo</span>
+                {{extracao.titulo}}
+            </td>
+            <td>
+                <span class="p-column-title">status</span>
+                <span [class]="'extracao-badge status-' + extracao.status">{{extracao.status}}</span>
+            </td>
+            <td>
+                <span class="p-column-title">periodoLetivo</span>
+                {{extracao.periodoLetivo}}
+            </td>
+            <td>
+                <span class="p-column-title">dataCadastro</span>
+                {{extracao.dataCadastro | date: 'dd/MM/yyyy'}}
+            </td>
+            <td>
+                <span class="p-column-title">ultimaDataHoraAtualizacao</span>
+                {{extracao.ultimaDataHoraAtualizacao | date: 'dd/MM/yyyy'}}
+            </td>
+            <td style="text-align: center">
+              <p-toast></p-toast>
 
-    <mat-form-field>
-      <mat-label>Titulo</mat-label>
-      <input matInput>
-    </mat-form-field>
+              <p-confirmPopup></p-confirmPopup>
 
-    <mat-form-field>
-      <mat-label>Periodo Letivo</mat-label>
-      <input matInput type="number" min="1">
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Periodo Letivo Tipo</mat-label>
-      <mat-select required>
-        <mat-option value="BIMESTRE">Bimestre</mat-option>
-        <mat-option value="TRIMESTE">Trimestre</mat-option>
-        <mat-option value="SEMESTRE">Semestre</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Status</mat-label>
-      <mat-select required>
-        <mat-option value="ATIVA">ATIVA</mat-option>
-        <mat-option value="CANCELADA">CANCELADA</mat-option>
-        <mat-option value="ENVIANDO">ENVIANDO</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </mat-expansion-panel>
-
-  <table mat-table [dataSource]="extracoes" class="mat-elevation-z8">
-
-  <ng-container matColumnDef="codigo">
-    <th mat-header-cell *matHeaderCellDef> CÓDIGO </th>
-    <td mat-cell *matCellDef="let extracao"> {{extracao.id}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="titulo">
-    <th mat-header-cell *matHeaderCellDef> TÍTULO </th>
-    <td mat-cell *matCellDef="let extracao"> {{extracao.titulo}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef> STATUS </th>
-    <td mat-cell *matCellDef="let extracao"> {{extracao.status}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="periodoLetivo">
-    <th mat-header-cell *matHeaderCellDef> PERÍODO </th>
-    <td mat-cell *matCellDef="let extracao"> {{extracao.periodoLetivo}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="dataCadastro">
-    <th mat-header-cell *matHeaderCellDef> DATA DE CADASTRO </th>
-    <td mat-cell *matCellDef="let extracao"> {{ converterData(extracao.dataCadastro) }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="dataUltimaAtualizacao">
-    <th mat-header-cell *matHeaderCellDef> DATA ULTIMA ATUALIZAÇÃO </th>
-    <td mat-cell *matCellDef="let extracao"> {{ converterData(extracao.ultimaDataHoraAtualizacao) }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="visualizacao">
-    <th mat-header-cell *matHeaderCellDef> VISUALIZAÇÃO </th>
-    <td mat-cell *matCellDef="let extracao"> {{extracao.visualizacao}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="deletar">
-    <th mat-header-cell *matHeaderCellDef> DELETAR </th>
-    <td mat-cell *matCellDef="let extracao"> {{extracao.deletar}} </td>
-  </ng-container>
-
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-
-
-
-<div>
-
-</div>
-
-<!-- <div class="uploader-status">
-  <mat-spinner></mat-spinner>
-</div> -->
-
+              <button mat-button title="Ações" [matMenuTriggerFor]="menu" pButton type="button" class="p-button-success p-button-rounded p-button-text p-button-lg" icon="pi pi-cog"></button>
+              <mat-menu class="text-center" #menu="matMenu">
+                <button mat-menu-item>Visualizar<mat-icon class="flex text-center px-1">remove_red_eye</mat-icon></button>
+                <button *ngIf="extracao.status === 'ATIVA'" [id]="extracao.id" mat-menu-item (click)="cancel($event)">Cancelar<mat-icon class="flex text-center px-1">cancel</mat-icon></button>
+                <button *ngIf="extracao.status === 'CANCELADA'" [id]="extracao.id" mat-menu-item (click)="ativar($event)">Ativar<mat-icon class="flex text-center px-1">check_circle</mat-icon></button>
+              </mat-menu>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">Nenhuma extração encontrada!</td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-paginator (onPageChange)="montarPagina($event)" [rows]="pageSize" [totalRecords]="totalElements" [rowsPerPageOptions]="[5, 10, 25, 50]"></p-paginator>

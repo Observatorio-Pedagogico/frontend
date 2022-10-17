@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NavbarService } from './navbar.service';
+import { EnvelopeFuncionario, Funcionario, TipoFuncionario } from '../../shared/interfaces/login';
 
 @Component({
   selector: 'app-navbar',
@@ -9,16 +12,28 @@ export class NavbarComponent implements OnInit {
 
   sideActive: boolean = false;
 
-  constructor() { }
+  envelopeFuncionario: EnvelopeFuncionario = {
+    funcionario: {
+      email: '',
+      matricula: '',
+      nome: '',
+      sexo: ''
+    },
+    tipoFuncionario: TipoFuncionario.FUNCIONARIO_COPED
+  };
+
+  constructor(private router: Router, private navBarService: NavbarService) { }
 
   ngOnInit(): void {
+    this.navBarService.setProfile().subscribe(response => {
+      this.envelopeFuncionario = response.data;
+    });
   }
-
 
   logout() {
-    localStorage.clear();
-    location.href = "/login";
+    sessionStorage.removeItem("logado");
+    sessionStorage.removeItem("token");
+    this.router.navigate(['login']);
   }
-
 
 }
