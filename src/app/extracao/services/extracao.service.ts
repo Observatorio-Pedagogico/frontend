@@ -19,7 +19,6 @@ export class ExtracaoService {
   constructor(private httpClient: HttpClient, private loginService: LoginService) { }
 
   listarExtracao() {
-    console.log(this.loginService.criarHeaderAuth());
     return this.httpClient.get<ResponseBody<ExtracaoResumido[]>>(URL_BASE.concat().concat(this.EXTRACAO), {headers: this.loginService.criarHeaderAuth()});
   }
 
@@ -32,7 +31,9 @@ export class ExtracaoService {
     formData.append("titulo", registro.titulo);
     formData.append("descricao", registro.descricao);
     formData.append("periodoLetivo", registro.periodoLetivo);
-    formData.append("arquivo.conteudo", registro.arquivo.conteudo);
+    for (const arquivo of registro.arquivosMultipartFile) {
+      formData.append("arquivosMultipartFile", arquivo.conteudo);
+    }
     return this.httpClient.post<Extracao>(URL_BASE.concat(this.EXTRACAO_ENVIAR), formData, {headers: this.loginService.criarHeaderAuth()});
   }
 

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { EXTRACAO_NOVA_EXTRACAO } from 'src/app/shared/utils/routes';
@@ -15,7 +16,7 @@ export class ListagemExtracoesComponent implements OnInit {
 
   displayedColumns = ['codigo','titulo', 'status', 'periodoLetivo', 'dataCadastro','dataUltimaAtualizacao','visualizacao','deletar'];
 
-  constructor(private extracaoService: ExtracaoService) { }
+  constructor(private extracaoService: ExtracaoService, private datepipe: DatePipe) { }
 
   moverParaNovaExtracao() {
     window.location.href = EXTRACAO_NOVA_EXTRACAO;
@@ -25,17 +26,19 @@ export class ListagemExtracoesComponent implements OnInit {
     await firstValueFrom(this.extracaoService.listarExtracao())
     .then(response => {
       this.extracoes = response.data;
-      console.log(response);
     })
     .catch((response) => {
       if (response.status === 401) {
         location.href = '/login';
       }
-      console.log(response);
     })
   }
 
   ngOnInit(): void {
     this.listarStatusEnvio();
+  }
+
+  converterData(date: Date) {
+    return this.datepipe.transform(date, 'dd/MM/yyyy');
   }
 }

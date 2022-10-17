@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { LoginForm } from 'src/app/shared/interfaces/login';
+
 import { LoginService } from '../login.service';
 
 @Component({
@@ -10,9 +11,9 @@ import { LoginService } from '../login.service';
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService) {
+  constructor(private formBuilder: UntypedFormBuilder, private loginService: LoginService) {
     this.form = this.formBuilder.group({
       email: [null],
       senha: [null]
@@ -27,14 +28,12 @@ export class LoginComponent implements OnInit {
 
     let login = this.form.value as LoginForm;
 
-    console.log(login);
-
     this.loginService.logar(login).subscribe({
       next: (response) => {
-          localStorage.setItem("data",response.data.token);
-          location.href = "/extracoes"
+        sessionStorage.setItem("token",response.data.token);
+        location.href = "/extracoes"
       },
-      error: (error) => console.log(error),
+      error: (error) => console.error(error),
     });
   }
 

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
-import { ExtracaoService } from '../services/extracao.service';
-import { Arquivo, Extracao } from '../model/extracao';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { StringUtils } from 'src/app/shared/utils/string-utils';
-import { EXTRACAO_LISTAGEM_ENVIO } from 'src/app/shared/utils/routes';
+
+import { Arquivo, Extracao } from '../model/extracao';
+import { ExtracaoService } from '../services/extracao.service';
 
 @Component({
   selector: 'app-cadastro-extracao',
@@ -13,58 +14,125 @@ import { EXTRACAO_LISTAGEM_ENVIO } from 'src/app/shared/utils/routes';
 })
 export class CadastroExtracaoComponent implements OnInit {
 
-    form: FormGroup;
+    form: UntypedFormGroup;
+
+    uploadedFiles: File[] = [];
 
     constructor(
-        private formBuilder: FormBuilder,
+        private formBuilder: UntypedFormBuilder,
         private location: Location,
         private extracaoService: ExtracaoService,
-        private stringUtils: StringUtils
+        private stringUtils: StringUtils,
+        private messageService: MessageService
     ) {
         this.form = this.formBuilder.group({
         titulo: [null],
         periodoLetivoTipo: [null],
         periodoLetivo: [null],
-        descricao: [null]
+        descricao: [null],
+        arquivoDescricao: [null],
+        arquivoAluno: [null]
         });
     }
 
-    alteraNomeArquivoSelecionado(_idInput: string, _idText: string): void {
+    ngOnInit(): void {
+    }
+
+    alteraNomeArquivoSelecionado(_idInput: string, _idText: string, _nome: string): void {
         let arquivo = (document.getElementById(_idInput) as HTMLInputElement).files?.item(0);
         let text = document.getElementById(_idText) as HTMLInputElement;
         if (arquivo) {
             text.textContent = this.stringUtils.truncate(arquivo.name, 20).toLowerCase();
         } else {
-            text.textContent = "Anexar Arquivo 1";
+            text.textContent = _nome;
         }
     }
 
     salvarExtracaoEvent(): void {
-        // if (this.form.status !== 'VALID') return;
-
         let extracao = this.form.value as Extracao;
 
-        let primeiroArquivo = (document.getElementById("primeiroArquivo") as HTMLInputElement).files?.item(0);
-        if (primeiroArquivo) {
-            let arquivo: Arquivo = {
-                conteudo: primeiroArquivo
-            }
-            extracao.arquivo = arquivo;
+        if (this.uploadedFiles.length < 2) {
+          this.openAlert("error", "É Preciso Enviar dois arquivos!", "");
+          return;
         }
 
+        const arquivos: Arquivo[] = [];
+
+        this.uploadedFiles.forEach(file => {
+          let arquivo: Arquivo = {conteudo: file}
+          arquivos.push(arquivo);
+        })
+
+        extracao.arquivosMultipartFile = arquivos;
+
         this.extracaoService.salvarExtracao(extracao).subscribe({
-            next: (response) => {
-                console.log(response)
-                window.location.href = EXTRACAO_LISTAGEM_ENVIO
-            },
-            error: (error) => console.log(error),
+          next: () => {
+            this.form.reset();
+            this.clearFilesViewList();
+            this.openAlert("success", "Extração Cadastrada!", "");
+          },
+          error: (error) => console.error(error),
         });
-    }
+      }
 
-    voltarButtonEvent(): void {
+      voltarButtonEvent(): void {
         this.location.back();
+      }
+
+    openAlert(_severity: string, _summary: string, _detail: string) {
+      this.messageService.add({severity: _severity, summary: _summary, detail: _detail});
     }
 
-    ngOnInit(): void {
+    onChoose(event: any) {
+      if (event.files.length > 2) {
+        this.clearFilesViewList();
+        this.openAlert("error", "Permitido máximo de 2(dois) arquivos.", "")
+        return;
+      }
+
+      const array = [];
+      for (let file of event.files) {
+          array.push(file);
+      }
+      this.uploadedFiles = array;
+      this.atualizarButtonAnexarArquivo();
+      this.openAlert("info", "Arquivo Carregado", event.files[0].name);
     }
-}
+
+    onClear() {
+      this.uploadedFiles = [];
+      this.atualizarButtonAnexarArquivo();
+    }
+
+    onRemove(event: any) {
+      const index = this.uploadedFiles.indexOf(event.file, 0);
+      if (index > -1) {
+        this.uploadedFiles.splice(index, 1);
+      }
+      this.atualizarButtonAnexarArquivo();
+    }
+
+    onValidarForm(): boolean {
+      return this.form.invalid || this.uploadedFiles.length < 2;
+    }
+
+    getElementByXpath(path: string) {
+      return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    }
+
+    atualizarButtonAnexarArquivo() {
+      const buttonUpload = this.getElementByXpath("/html/body/app-root/app-cadastro-extracao/form/p-fileupload/div/div[1]/span") as HTMLSpanElement;
+      if (this.uploadedFiles.length >= 2) {
+        buttonUpload.style.display = "none";
+      } else {
+        buttonUpload.style.display = "inline-flex";
+      }
+    }
+
+    clearFilesViewList() {
+      const buttonClean = this.getElementByXpath("/html/body/app-root/app-cadastro-extracao/form/p-fileupload/div/div[1]/p-button/button") as HTMLButtonElement;
+      setTimeout(() => {
+        buttonClean.click();
+      }, 0.5);
+    }
+  }
