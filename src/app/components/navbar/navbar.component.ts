@@ -36,4 +36,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  navigatePageDashboardDisciplina() {
+    this.router.navigate(['dashboard-disciplina']);
+  }
+
 }

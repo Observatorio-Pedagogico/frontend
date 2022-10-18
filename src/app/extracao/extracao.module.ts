@@ -8,25 +8,28 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { ChartModule } from 'primeng/chart';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
+import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 
 import { AlertModule } from '../components/alert/alert.module';
+import { DashboardDisciplinaComponent } from '../disciplina/dashboard-disciplina/dashboard-disciplina.component';
 import { AppMaterialModule } from '../shared/app-material/app-material.module';
 import { CadastroExtracaoComponent } from './cadastro-extracao/cadastro-extracao.component';
 import { DetalhesExtracaoComponent } from './detalhes-extracao/detalhes-extracao.component';
 import { ExtracaoRoutingModule } from './extracao-routing.module';
 import { ListagemExtracoesComponent } from './listagem-extracoes/listagem-extracoes.component';
-import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
     CadastroExtracaoComponent,
     ListagemExtracoesComponent,
-    DetalhesExtracaoComponent
+    DetalhesExtracaoComponent,
+    DashboardDisciplinaComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +50,8 @@ import { PaginatorModule } from 'primeng/paginator';
     MatMenuModule,
     ConfirmPopupModule,
     ToastModule,
-    PaginatorModule
+    PaginatorModule,
+    ChartModule
   ]
 })
 export class ExtracaoModule { }

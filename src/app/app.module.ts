@@ -31,6 +31,7 @@ import { ListagemStatusEnvioComponent } from './extracao/listagem-status-envio/l
 import { ErrorInterceptorService } from './shared/utils/services/error-interceptor.service';
 import { GerenciarUsuariosComponent } from './usuario/gerenciar-usuarios/gerenciar-usuarios.component';
 import { SolicitacoesUsuariosComponent } from './usuario/solicitacoes-usuarios/solicitacoes-usuarios.component';
+import { DashboardDisciplinaComponent } from './disciplina/dashboard-disciplina/dashboard-disciplina.component';
 
 @NgModule({
   declarations: [

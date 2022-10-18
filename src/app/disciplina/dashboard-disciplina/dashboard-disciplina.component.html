@@ -1,0 +1,22 @@
+<div class="flex p-5 justify-between">
+  <h1 class="text-3xl">Dashboard de Disciplina</h1>
+</div>
+
+<div class="grid grid-cols-2 place-content-center gap-10">
+  <div class="card">
+    <!-- grafico sexo barra -->
+    <p-chart type="bar" [data]="basicDataSexo"></p-chart>
+  </div>
+  <div class="card">
+    <!-- grafico situacao disciplina linha -->
+    <p-chart type="line" [data]="basicDataSituacaoDisciplina"></p-chart>
+  </div>
+  <div class="card">
+    <!-- grafico situacao alunos barra -->
+    <p-chart type="bar" [data]="basicDataSituacaoAlunos"></p-chart>
+  </div>
+  <div class="card">
+    <!-- grafico notas disciplinas barra -->
+    <p-chart type="bar" [data]="basicDataNotasDisciplinas"></p-chart>
+  </div>
+</div>
