@@ -1,11 +1,22 @@
-export interface ConjuntoDados {
+export interface ConjuntoDadosResponse {
   legenda: string;
   dados: number[];
 }
 
-export interface Dashboard {
+export interface DashboardResponse {
   legendas: string[];
-  conjuntoDados: ConjuntoDados[];
+  conjuntoDados: ConjuntoDadosResponse[];
+}
+
+export interface DataSets {
+  label: string;
+  backgroundColor: string;
+  data: number[];
+}
+
+export interface Dashboard {
+  labels: string[];
+  datasets: DataSets[];
 }
 
 

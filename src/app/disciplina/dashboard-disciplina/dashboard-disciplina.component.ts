@@ -1,4 +1,6 @@
+import { Dashboard, DashboardResponse, DataSets } from './../../shared/interfaces/dashboard';
 import { Component, OnInit } from '@angular/core';
+import { DashboardDisciplinaService } from '../services/dashboard-disciplina.service';
 
 @Component({
   selector: 'app-dashboard-disciplina',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardDisciplinaComponent implements OnInit {
 
-  basicDataSexo: any;
+  dashboardSexo!: Dashboard;
 
   basicDataSituacaoAlunos: any;
 
@@ -17,7 +19,11 @@ export class DashboardDisciplinaComponent implements OnInit {
 
   basicOptions: any;
 
-  constructor() { }
+  colors: string[] = ['#FC803F', '#DE103F', '#A91DF4',
+      '#1027DE', '#36E2FF', '#3F4A8D', '#61AC0B', '#1BA14D', '#EA7D81',
+      '#F3A1F4', '#274C41', '#EB3F21', '#D10A03', '#49791D', '#32274B'];
+
+  constructor(private dashboardService: DashboardDisciplinaService) { }
 
   ngOnInit(): void {
     this.montarGraficoSexo();
@@ -27,7 +33,7 @@ export class DashboardDisciplinaComponent implements OnInit {
   }
 
   montarGraficoSexo() {
-    this.basicDataSexo = {
+   /*  this.basicDataSexo = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
           {
@@ -41,7 +47,14 @@ export class DashboardDisciplinaComponent implements OnInit {
               data: [28, 48, 40, 19, 86, 27, 90]
           }
       ]
-    };
+    }; */
+    this.dashboardService.gerarDashboardSexo().subscribe({
+      next: (next) => {
+        this.dashboardSexo = this.converterObject(next.data);
+      }
+    })
+
+
   }
 
   montarGraficoSituacaoAlunos() {
@@ -144,5 +157,90 @@ export class DashboardDisciplinaComponent implements OnInit {
       ]
     };
   }
+
+  converterObject(dashboardResponse: DashboardResponse): Dashboard {
+    let dataSets: DataSets[] = [];
+    dashboardResponse.conjuntoDados.forEach(element => {
+      let background = '#73797F';
+      if (element.legenda === 'FEMININO') {
+        background = '#F959C3';
+      } else if (element.legenda === 'MASCULINO') {
+        background = '#56B3FC';
+      }
+
+      dataSets.push({
+        backgroundColor: background,
+        label: element.legenda,
+        data: element.dados
+      })
+
+    });
+
+    return {
+      datasets: dataSets,
+      labels: dashboardResponse.legendas
+    }
+
+  }
+
+  // converterObject(dashboardResponse: DashboardResponse): Dashboard {
+  //   let dataSets: DataSets[] = [];
+  //   let index: number = 0;
+  //   let randomColor = this.randomColor(dashboardResponse.conjuntoDados.length);
+  //   dashboardResponse.conjuntoDados.forEach(element => {
+  //     /* let background = '#73797F'; */
+  //     let background = randomColor[index];
+  //     if (element.legenda === 'FEMININO') {
+  //       // background = '#F959C3';
+  //       background = randomColor[index];
+  //     } else if (element.legenda === 'MASCULINO') {
+  //       // background = '#56B3FC';
+  //       background = randomColor[index];
+  //     }
+
+  //     dataSets.push({
+  //       backgroundColor: background,
+  //       label: element.legenda,
+  //       data: element.dados
+  //     })
+
+  //     index = index+1;
+  //   });
+
+  //   return {
+  //     datasets: dataSets,
+  //     labels: dashboardResponse.legendas
+  //   }
+
+  // }
+
+  randomColor(qtdCores: number) {
+    let coresAleatorias = this.shuffle(this.colors);
+    let arrayAux: string[] = [];
+    for (let index = 0; index < qtdCores; index++) {
+      arrayAux[index] = coresAleatorias[index];
+    }
+    return arrayAux;
+  }
+
+  shuffle(array: string[]) {
+    let i = array.length,
+        j = 0,
+        temp;
+
+    while (i--) {
+
+        j = Math.floor(Math.random() * (i+1));
+
+        // swap randomly chosen element with current element
+        temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+
+    }
+
+    return array;
+  }
+
 
 }
