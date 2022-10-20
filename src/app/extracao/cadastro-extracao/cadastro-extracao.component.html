@@ -9,15 +9,6 @@
       <input type="number" matInput placeholder="Período Letivo" formControlName="periodoLetivo" required>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Tipo do Período</mat-label>
-      <mat-select formControlName="periodoLetivoTipo" required>
-        <mat-option value="BIMESTRE">Bimestre</mat-option>
-        <mat-option value="TRIMESTE">Trimestre</mat-option>
-        <mat-option value="SEMESTRE">Semestre</mat-option>
-      </mat-select>
-    </mat-form-field>
-
     <p-fileUpload class="col-start-1 col-end-4" id="uploadFile" name="demo[]" [showUploadButton]="false" chooseLabel="Anexar" styleClass="classe" cancelLabel="Limpar" [previewWidth]="200"
             [multiple]="true" accept=".xls, .xlsx" [maxFileSize]="1000000000"  (onSelect)="onChoose($event)" (onClear)="onClear()" (onRemove)="onRemove($event)">
     </p-fileUpload>

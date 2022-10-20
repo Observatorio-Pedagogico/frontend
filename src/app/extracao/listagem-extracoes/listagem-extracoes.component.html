@@ -6,7 +6,7 @@
 <p-table #dt [loading]="loading" [value]="extracoes" dataKey="id" styleClass="p-datatable-extracao" [rowHover]="true" styleClass="p-datatable-extracao"
     responsiveLayout="scroll"
     [filterDelay]="0">
-    
+
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="id">
@@ -36,13 +36,6 @@
                             </p-dropdown>
                         </ng-template>
                     </p-columnFilter>
-                </div>
-            </th>
-            <th pSortableColumn="periodoLetivo">
-                <div class="flex justify-content-between align-items-center">
-                    Período
-                    <p-sortIcon field="periodoLetivo"></p-sortIcon>
-                    <p-columnFilter type="text" field="periodoLetivo" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="dataCadastro">
@@ -75,10 +68,6 @@
             <td>
                 <span class="p-column-title">status</span>
                 <span [class]="'extracao-badge status-' + extracao.status">{{extracao.status}}</span>
-            </td>
-            <td>
-                <span class="p-column-title">periodoLetivo</span>
-                {{extracao.periodoLetivo}}
             </td>
             <td>
                 <span class="p-column-title">dataCadastro</span>

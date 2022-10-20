@@ -1,9 +1,36 @@
 <div class="flex p-5 justify-between">
-  <h1 class="text-3xl">Dashboard de Disciplina</h1>
+  <h1 class="text-3xl">Dashboard Geral</h1>
 </div>
 
-<div class="grid grid-cols-2 place-content-center gap-10 p-2 m-2 rounded-md bg-[#F0EFEE]">
-  <div class="card border-4 border-[#5EC270]">
+<div class="grid font-bold p-2 m-2 mt-5 rounded-md gap-1 bg-[#F0EFEE]">
+  <mat-accordion>
+    <mat-expansion-panel hideToggle class="flex justify-between">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="font-semibold text-xl uppercase">
+          Filtros
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field appearance="fill">
+        <mat-label>Período</mat-label>
+        <mat-select [formControl]="formFiltro" multiple>
+          <mat-select-trigger>
+            {{formFiltro.value?.[0] || ''}}
+            <span *ngIf="(formFiltro.value?.length || 0) > 1" class="example-additional-selection">
+              (+{{(formFiltro.value?.length || 0) - 1}} {{formFiltro.value?.length === 2 ? 'outro' : 'outros'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let periodo of periodos" [value]="periodo">{{periodo}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div >
+        <button class="p-2 border-solid border-[#000] border-2 rounded-md" (click)="aplicarFiltro()">Aplicar</button>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div class="grid grid-cols-2 place-content-center gap-10 p-2 m-2 mb-5 rounded-md bg-[#F0EFEE]">
+  <div class="card border-4 rounded-md border-[#5EC270]">
     <!-- grafico sexo barra -->
     <h5 class="font-semibold p-1 text-center bg-[#5EC270]">Total de alunos por sexo</h5>
     <p-chart type="bar" [data]="dashboardSexo"></p-chart>
@@ -22,7 +49,7 @@
   </div>
 </div>
 
-<div class="grid font-bold p-2 m-2 mt-5 rounded-md gap-1 bg-[#F0EFEE]">
+<!-- <div class="grid font-bold p-2 m-2 mt-5 rounded-md gap-1 bg-[#F0EFEE]">
   <h1 class="text-3xl mb-4">Informações</h1>
   <p>Código: </p>
   <p>Nome: </p>
@@ -33,123 +60,63 @@
   <p>Pior Nota: </p>
   <p>Média Geral: </p>
   <p>Número de Alunos: </p>
+</div> -->
+
+<div class="flex p-5 justify-between">
+  <h1 class="text-3xl">Disciplinas</h1>
 </div>
 
-<p-table  #dt dataKey="id" styleClass="p-datatable-extracao" [rowHover]="true" styleClass="p-datatable-extracao"
+<p-table #dt dataKey="id" [value]="disciplinasResumidas" styleClass="p-datatable-extracao" [rowHover]="true"
     responsiveLayout="scroll"
     [filterDelay]="0">
     <div ></div>
     <ng-template pTemplate="header" class="h-32 scrollbar scrollbar-thumb-gray-900 scrollbar-track-red-600">
         <tr>
-            <th pSortableColumn="id">
+            <th>
                 <div class="flex justify-content-between align-items-center">
-                    Matrícula
-                    <p-sortIcon field="id"></p-sortIcon>
-                    <p-columnFilter type="text" field="id" display="menu" class="ml-auto"></p-columnFilter>
+                    id
                 </div>
             </th>
-            <th pSortableColumn="titulo">
+            <th>
                 <div class="flex justify-content-between align-items-center">
                     Nome
-                    <p-sortIcon field="titulo"></p-sortIcon>
-                    <p-columnFilter type="text" field="titulo" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
             </th>
-            <th pSortableColumn="periodoLetivo">
+            <th>
                 <div class="flex justify-content-between align-items-center">
-                    Situação
-                    <p-sortIcon field="periodoLetivo"></p-sortIcon>
-                    <p-columnFilter type="text" field="periodoLetivo" display="menu" class="ml-auto"></p-columnFilter>
+                    Príodo Letivo
                 </div>
             </th>
-            <th pSortableColumn="dataCadastro">
+            <th>
                 <div class="flex justify-content-between align-items-center">
-                    Período
-                    <p-sortIcon field="dataCadastro"></p-sortIcon>
-                    <p-columnFilter type="date" field="dataCadastro" display="menu" class="ml-auto"></p-columnFilter>
+                    Ação
                 </div>
             </th>
-            <th pSortableColumn="ultimaDataHoraAtualizacao">
-                <div class="flex justify-content-between align-items-center">
-                    Nota 1
-                    <p-sortIcon field="ultimaDataHoraAtualizacao"></p-sortIcon>
-                    <p-columnFilter type="date" field="ultimaDataHoraAtualizacao" display="menu" class="ml-auto"></p-columnFilter>
-                </div>
-            </th>
-            <th pSortableColumn="ultimaDataHoraAtualizacao">
-                <div class="flex justify-content-between align-items-center">
-                    Nota 2
-                    <p-sortIcon field="ultimaDataHoraAtualizacao"></p-sortIcon>
-                    <p-columnFilter type="date" field="ultimaDataHoraAtualizacao" display="menu" class="ml-auto"></p-columnFilter>
-                </div>
-            </th>
-            <th pSortableColumn="ultimaDataHoraAtualizacao">
-                <div class="flex justify-content-between align-items-center">
-                    Nota 3
-                    <p-sortIcon field="ultimaDataHoraAtualizacao"></p-sortIcon>
-                    <p-columnFilter type="date" field="ultimaDataHoraAtualizacao" display="menu" class="ml-auto"></p-columnFilter>
-                </div>
-            </th>
-            <th pSortableColumn="ultimaDataHoraAtualizacao">
-                <div class="flex justify-content-between align-items-center">
-                    Média
-                    <p-sortIcon field="ultimaDataHoraAtualizacao"></p-sortIcon>
-                    <p-columnFilter type="date" field="ultimaDataHoraAtualizacao" display="menu" class="ml-auto"></p-columnFilter>
-                </div>
-            </th>
-            <th pSortableColumn="ultimaDataHoraAtualizacao">
-                <div class="flex justify-content-between align-items-center">
-                    Frequência
-                    <p-sortIcon field="ultimaDataHoraAtualizacao"></p-sortIcon>
-                    <p-columnFilter type="date" field="ultimaDataHoraAtualizacao" display="menu" class="ml-auto"></p-columnFilter>
-                </div>
-            </th>
-            <th style="width: 8rem"></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-extracao>
+    <ng-template pTemplate="body" let-disciplinasResumidas>
         <tr class="p-selectable-row">
             <td>
-                <span class="p-column-title">codigo</span>
-                {{extracao.id}}
+                <span class="p-column-title">id</span>
+                {{disciplinasResumidas.id}}
             </td>
             <td>
-                <span class="p-column-title">titulo</span>
-                {{extracao.titulo}}
+                <span class="p-column-title">Nome</span>
+                {{disciplinasResumidas.nome}}
             </td>
             <td>
-                <span class="p-column-title">status</span>
-                <span [class]="'extracao-badge status-' + extracao.status">{{extracao.status}}</span>
+                <span class="p-column-title">Periodo Letivo</span>
+                {{disciplinasResumidas.periodoLetivo}}
             </td>
             <td>
-                <span class="p-column-title">periodoLetivo</span>
-                {{extracao.periodoLetivo}}
+                <span class="p-column-title">Ação</span>
             </td>
-            <td>
-                <span class="p-column-title">dataCadastro</span>
-                {{extracao.dataCadastro | date: 'dd/MM/yyyy'}}
-            </td>
-            <td>
-                <span class="p-column-title">ultimaDataHoraAtualizacao</span>
-                {{extracao.ultimaDataHoraAtualizacao | date: 'dd/MM/yyyy'}}
-            </td>
-           <!--  <td style="text-align: center">
-              <p-toast></p-toast>
-
-              <p-confirmPopup></p-confirmPopup>
-
-              <button mat-button title="Ações" [matMenuTriggerFor]="menu" pButton type="button" class="p-button-success p-button-rounded p-button-text p-button-lg" icon="pi pi-cog"></button>
-              <mat-menu class="text-center" #menu="matMenu">
-                <button mat-menu-item>Visualizar<mat-icon class="flex text-center px-1">remove_red_eye</mat-icon></button>
-                <button *ngIf="extracao.status === 'ATIVA'" [id]="extracao.id" mat-menu-item (click)="cancel($event)">Cancelar<mat-icon class="flex text-center px-1">cancel</mat-icon></button>
-                <button *ngIf="extracao.status === 'CANCELADA'" [id]="extracao.id" mat-menu-item (click)="ativar($event)">Ativar<mat-icon class="flex text-center px-1">check_circle</mat-icon></button>
-              </mat-menu>
-            </td> -->
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="8">Nenhuma extração encontrada!</td>
+            <td colspan="8">Nenhuma disciplina encontrada!</td>
         </tr>
     </ng-template>
 </p-table>
+<p-paginator (onPageChange)="montarPaginacao($event)" [rows]="pageSize" [totalRecords]="totalElements" [rowsPerPageOptions]="[5, 10, 25, 50]"></p-paginator>

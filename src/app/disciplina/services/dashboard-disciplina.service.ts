@@ -13,9 +13,10 @@ export class DashboardDisciplinaService {
 
   private readonly DASHBOARD_SEXO = '/dashboard/sexo';
 
-  constructor(private httpClient: HttpClient,private router:Router, private loginService: LoginService) { }
+  constructor(private httpClient: HttpClient, private loginService: LoginService) { }
 
-  gerarDashboardSexo() {
-    return this.httpClient.get<ResponseBody<DashboardResponse>>(URL_BASE.concat(this.DASHBOARD_SEXO), {headers: this.loginService.criarHeaderAuth()});
+  gerarDashboardSexo(parametros: string) {
+    return this.httpClient.get<ResponseBody<DashboardResponse>>(URL_BASE.concat(this.DASHBOARD_SEXO).concat(parametros), {headers: this.loginService.criarHeaderAuth()});
   }
+
 }
