@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardDisciplinaService } from '../services/dashboard-disciplina.service';
 import { FormControl } from '@angular/forms';
 import { DisciplinaService } from '../services/disciplina.service';
+import { ConjuntoDadosResponse } from '../../shared/interfaces/dashboard';
 
 @Component({
   selector: 'app-dashboard-disciplina',
@@ -11,6 +12,8 @@ import { DisciplinaService } from '../services/disciplina.service';
   styleUrls: ['./dashboard-disciplina.component.css']
 })
 export class DashboardDisciplinaComponent implements OnInit {
+
+  loading: boolean = true;
 
   dashboardSexo!: Dashboard;
 
@@ -38,9 +41,9 @@ export class DashboardDisciplinaComponent implements OnInit {
 
   parametrosDisciplinas: string = `?page=${this.pageIndex}&size=${this.pageSize}&sort=periodoLetivo,nome,asc`;
 
-  colors: string[] = ['#FC803F', '#DE103F', '#A91DF4',
-      '#1027DE', '#36E2FF', '#3F4A8D', '#61AC0B', '#1BA14D', '#EA7D81',
-      '#F3A1F4', '#274C41', '#EB3F21', '#D10A03', '#49791D', '#32274B'];
+  colors: string[] = ['#5103a0', '#00ffbb', '#af086a',
+      '#2409ef', '#e89612', '#b111dd', '#de103f', '#58e222', '#00470d',
+      '#f959c3', '#0070b9', '#c29564', '#5f5f5f', '#ffff00', '#f9a2cb'];
 
   constructor(private dashboardService: DashboardDisciplinaService,
               private disciplinaService: DisciplinaService) { }
@@ -48,48 +51,22 @@ export class DashboardDisciplinaComponent implements OnInit {
   ngOnInit(): void {
     this.montarFiltros();
     this.montar();
+    this.loading = false;
   }
 
   montarGraficoSexo() {
     this.dashboardService.gerarDashboardSexo(this.parametrosDashboards).subscribe({
       next: (next) => {
-        this.dashboardSexo = this.converterObject(next.data);
+        this.dashboardSexo = this.converterObjectSexo(next.data);
       }
     })
   }
 
   montarGraficoSituacaoAlunos() {
-    this.basicDataSituacaoAlunos = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'Matriculados',
-          backgroundColor: '#82DE5E',
-          data: [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-              label: 'Aprovados',
-              backgroundColor: '#0035BF',
-              data: [28, 48, 40, 19, 86, 27, 90]
-            },
-            {
-              label: 'Reprovados',
-              backgroundColor: '#F60027',
-              data: [28, 48, 40, 19, 86, 27, 90]
-            },
-            {
-              label: 'Trancamentos',
-              backgroundColor: '#73655D',
-              data: [28, 48, 40, 19, 86, 27, 90]
-          },
-          {
-              label: 'Evasões',
-              backgroundColor: '#35302C',
-              data: [28, 48, 40, 19, 86, 27, 90]
-            },
-          ]
-        };
-      }
+    this.dashboardService.gerarDashboardSituacaoAlunos(this.parametrosDashboards).subscribe({
+      next: (next) => this.basicDataSituacaoAlunos = this.converterObject(next.data)
+    })
+  }
 
       montarGraficoSituacaoDisciplina() {
         this.basicDataSituacaoDisciplina = {
@@ -159,22 +136,25 @@ export class DashboardDisciplinaComponent implements OnInit {
       };
     }
 
-    converterObject(dashboardResponse: DashboardResponse): Dashboard {
+    gerarCorDashboardSexo(conjunto: ConjuntoDadosResponse) {
+      if (conjunto.legenda === 'FEMININO') {
+        return '#F959C3';
+      } else if (conjunto.legenda === 'MASCULINO') {
+        return '#56B3FC';
+      }
+      return '#73797F';
+    }
+
+    converterObjectSexo(dashboardResponse: DashboardResponse): Dashboard {
       let dataSets: DataSets[] = [];
       dashboardResponse.conjuntoDados.forEach(element => {
-        let background = '#73797F';
-        if (element.legenda === 'FEMININO') {
-          background = '#F959C3';
-        } else if (element.legenda === 'MASCULINO') {
-          background = '#56B3FC';
-        }
+        let background = this.gerarCorDashboardSexo(element);
 
         dataSets.push({
           backgroundColor: background,
           label: element.legenda,
           data: element.dados
         })
-
       });
 
       return {
@@ -184,36 +164,27 @@ export class DashboardDisciplinaComponent implements OnInit {
 
     }
 
-    // converterObject(dashboardResponse: DashboardResponse): Dashboard {
-      //   let dataSets: DataSets[] = [];
-      //   let index: number = 0;
-      //   let randomColor = this.randomColor(dashboardResponse.conjuntoDados.length);
-      //   dashboardResponse.conjuntoDados.forEach(element => {
-        //     /* let background = '#73797F'; */
-        //     let background = randomColor[index];
-        //     if (element.legenda === 'FEMININO') {
-          //       // background = '#F959C3';
-          //       background = randomColor[index];
-          //     } else if (element.legenda === 'MASCULINO') {
-            //       // background = '#56B3FC';
-            //       background = randomColor[index];
-            //     }
+    converterObject(dashboardResponse: DashboardResponse): Dashboard {
+      let dataSets: DataSets[] = [];
+      let index: number = 0;
+      let cores: string[] = this.randomColor(dashboardResponse.conjuntoDados.length);
+      dashboardResponse.conjuntoDados.forEach(element => {
+        let background = cores[index];
 
-            //     dataSets.push({
-              //       backgroundColor: background,
-              //       label: element.legenda,
-              //       data: element.dados
-              //     })
+        dataSets.push({
+          backgroundColor: background,
+          label: element.legenda,
+          data: element.dados
+        })
+        index = index + 1;
+      });
 
-              //     index = index+1;
-              //   });
+      return {
+        datasets: dataSets,
+        labels: dashboardResponse.legendas
+      }
 
-              //   return {
-                //     datasets: dataSets,
-                //     labels: dashboardResponse.legendas
-                //   }
-
-                // }
+    }
 
     randomColor(qtdCores: number) {
       let coresAleatorias = this.shuffle(this.colors);
@@ -281,10 +252,6 @@ export class DashboardDisciplinaComponent implements OnInit {
       this.pageSize = event.rows;
       this.pageIndex = event.page;
       this.montarTabelaDisciplinas();
-      // window.scrollTo({
-      //     top: 0,
-      //     behavior: 'smooth'
-      // });
     }
 
     montar() {
