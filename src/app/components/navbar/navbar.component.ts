@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from './navbar.service';
 import { EnvelopeFuncionario, Funcionario, TipoFuncionario } from '../../shared/interfaces/login';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-navbar',
@@ -38,6 +39,11 @@ export class NavbarComponent implements OnInit {
 
   navigatePageDashboardDisciplina() {
     this.router.navigate(['dashboard-disciplina']);
+    (this.getElementByXpath('/html/body/app-root/app-navbar/mat-toolbar/a') as HTMLButtonElement).click();
+  }
+
+  getElementByXpath(path: string) {
+    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   }
 
 }

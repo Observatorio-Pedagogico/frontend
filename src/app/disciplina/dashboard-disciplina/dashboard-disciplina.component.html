@@ -1,10 +1,11 @@
+<div *ngIf="!loading">
 <div class="flex p-5 justify-between">
   <h1 class="text-3xl">Dashboard Geral</h1>
 </div>
 
 <div class="grid font-bold p-2 m-2 mt-5 rounded-md gap-1 bg-[#F0EFEE]">
   <mat-accordion>
-    <mat-expansion-panel hideToggle class="flex justify-between">
+    <mat-expansion-panel hideToggle #hideToggle class="flex justify-between">
       <mat-expansion-panel-header>
         <mat-panel-title class="font-semibold text-xl uppercase">
           Filtros
@@ -22,8 +23,9 @@
           <mat-option *ngFor="let periodo of periodos" [value]="periodo">{{periodo}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <div >
-        <button class="p-2 border-solid border-[#000] border-2 rounded-md" (click)="aplicarFiltro()">Aplicar</button>
+      <div class="grid justify-items-end">
+        <button *ngIf="hideToggle._getExpandedState() === 'expanded'" class="p-2 border-solid border-[#000] border-2 rounded-md uppercase" (click)="aplicarFiltro()">Aplicar</button>
+
       </div>
     </mat-expansion-panel>
   </mat-accordion>
@@ -35,8 +37,9 @@
     <h5 class="font-semibold p-1 text-center bg-[#5EC270] capitalize">total de alunos por sexo</h5>
     <p-chart type="bar" [data]="dashboardSexo"></p-chart>
   </div>
-  <div class="card">
+  <div class="card border-4 rounded-md border-[#5EC270] capitalize">
     <!-- grafico situacao disciplina linha -->
+    <h5 class="font-semibold p-1 text-center bg-[#5EC270] capitalize">Situação das notas por período</h5>
     <p-chart type="line" [data]="basicDataSituacaoDisciplina"></p-chart>
   </div>
   <div class="card border-4 rounded-md border-[#5EC270]">
@@ -50,10 +53,6 @@
   </div>
 </div>
 
-<div *ngIf="loading" class="grid justify-items-center uploader-status">
-  <mat-spinner></mat-spinner>
-  <span class="mt-5 text-xl font-thin">Carregando Dashboard . . .</span>
-</div>
 
 <!-- <div class="grid font-bold p-2 m-2 mt-5 rounded-md gap-1 bg-[#F0EFEE]">
   <h1 class="text-3xl mb-4">Informações</h1>
@@ -73,74 +72,80 @@
 </div>
 
 <p-table #dt dataKey="id" [value]="disciplinasResumidas" styleClass="p-datatable-extracao" [rowHover]="true"
-    responsiveLayout="scroll"
-    [filterDelay]="0">
-    <div ></div>
-    <ng-template pTemplate="header" class="h-32 scrollbar scrollbar-thumb-gray-900 scrollbar-track-red-600">
-        <tr>
-            <th>
-                <div class="flex justify-content-between align-items-center">
-                    Código
+responsiveLayout="scroll"
+[filterDelay]="0">
+<div ></div>
+<ng-template pTemplate="header" class="h-32 scrollbar scrollbar-thumb-gray-900 scrollbar-track-red-600">
+  <tr>
+    <th>
+      <div class="flex justify-content-between align-items-center">
+        Código
+      </div>
+    </th>
+    <th>
+      <div class="flex justify-content-between align-items-center">
+        Nome
                 </div>
             </th>
             <th>
-                <div class="flex justify-content-between align-items-center">
-                    Nome
-                </div>
+              <div class="flex justify-content-between align-items-center">
+                Carga horária
+              </div>
             </th>
             <th>
-                <div class="flex justify-content-between align-items-center">
-                    Carga horária
-                </div>
+              <div class="flex justify-content-between align-items-center">
+                Período Matriz
+              </div>
             </th>
             <th>
-                <div class="flex justify-content-between align-items-center">
-                    Período Matriz
-                </div>
+              <div class="flex justify-content-between align-items-center">
+                Período Letivo
+              </div>
             </th>
             <th>
-                <div class="flex justify-content-between align-items-center">
-                    Período Letivo
-                </div>
+              <div class="flex justify-content-between align-items-center">
+                Ação
+              </div>
             </th>
-            <th>
-                <div class="flex justify-content-between align-items-center">
-                    Ação
-                </div>
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-disciplinasResumidas>
-        <tr class="p-selectable-row">
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-disciplinasResumidas>
+          <tr class="p-selectable-row">
             <td>
-                <span class="p-column-title">Código</span>
-                {{disciplinasResumidas.codigo}}
+              <span class="p-column-title">Código</span>
+              {{disciplinasResumidas.codigo}}
             </td>
             <td>
-                <span class="p-column-title">Nome</span>
-                {{disciplinasResumidas.nome}}
+              <span class="p-column-title">Nome</span>
+              {{disciplinasResumidas.nome}}
             </td>
             <td>
-                <span class="p-column-title">Carga Horária</span>
-                {{disciplinasResumidas.cargaHoraria}} hrs
+              <span class="p-column-title">Carga Horária</span>
+              {{disciplinasResumidas.cargaHoraria}} hrs
             </td>
             <td>
-                <span class="p-column-title">Periodo Matriz</span>
-                {{disciplinasResumidas.periodoMatriz}}º
+              <span class="p-column-title">Periodo Matriz</span>
+              {{disciplinasResumidas.periodoMatriz}}º
             </td>
             <td>
-                <span class="p-column-title">Periodo Letivo</span>
-                {{disciplinasResumidas.periodoLetivo}}
+              <span class="p-column-title">Periodo Letivo</span>
+              {{disciplinasResumidas.periodoLetivo}}
             </td>
             <td>
-                <span class="p-column-title">Ação</span>
+              <span class="p-column-title">Ação</span>
+              <button><mat-icon class="flex text-center px-1 text-4xl" [id]="disciplinasResumidas.id" (click)="viewDisciplina($event)">pageview</mat-icon></button>
             </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="emptymessage">
-        <tr>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
             <td colspan="8">Nenhuma disciplina encontrada!</td>
-        </tr>
-    </ng-template>
-</p-table>
-<p-paginator (onPageChange)="montarPaginacao($event)" [rows]="pageSize" [totalRecords]="totalElements" [rowsPerPageOptions]="[5, 10, 25, 50]"></p-paginator>
+          </tr>
+        </ng-template>
+      </p-table>
+      <p-paginator (onPageChange)="montarPaginacao($event)" [rows]="pageSize" [totalRecords]="totalElements" [rowsPerPageOptions]="[5, 10, 25, 50]"></p-paginator>
+      </div>
+      <div *ngIf="loading" class="grid justify-items-center uploader-status mt-10 p-40 bg-[#c1c1c1] bg-opacity-40">
+        <mat-spinner></mat-spinner>
+        <span class="mt-5 text-xl font-thin">Carregando Dashboard . . .</span>
+      </div>

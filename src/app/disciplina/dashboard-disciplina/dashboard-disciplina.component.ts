@@ -73,13 +73,6 @@ export class DashboardDisciplinaComponent implements OnInit {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
           datasets: [
             {
-              label: 'Média',
-              data: [20, 35, 75, 79, 66, 41, 13],
-              fill: false,
-              borderColor: '#E4BE1D',
-              tension: .4
-            },
-            {
               label: 'Taxa de Frequência',
               data: [65, 59, 80, 81, 56, 55, 40],
               fill: false,
@@ -98,6 +91,13 @@ export class DashboardDisciplinaComponent implements OnInit {
               data: [15, 19, 29, 30, 22, 38, 40],
               fill: false,
               borderColor: '#B1181F',
+              tension: .4
+            },
+            {
+              label: 'Média',
+              data: [20, 35, 75, 79, 66, 41, 13],
+              fill: false,
+              borderColor: '#E4BE1D',
               tension: .4
             },
           ]
@@ -212,6 +212,10 @@ export class DashboardDisciplinaComponent implements OnInit {
       }
 
       return array;
+    }
+
+    viewDisciplina(event: any) {
+      let idDisciplina: number = event.srcElement.id;
     }
 
     montarFiltros() {
