@@ -1,12 +1,11 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { ConfirmationService } from 'primeng/api';
 import { firstValueFrom } from 'rxjs';
 import { EXTRACAO_NOVA_EXTRACAO } from 'src/app/shared/utils/routes';
+
+import { AlertComponent } from '../../components/alert/alert/alert.component';
 import { ExtracaoResumido } from '../model/extracao';
 import { ExtracaoService } from '../services/extracao.service';
-import { ConfirmationService, MessageService, PrimeNGConfig } from 'primeng/api';
-import { AlertComponent } from '../../components/alert/alert/alert.component';
 
 @Component({
   selector: 'app-listagem-extracoes',
@@ -49,7 +48,7 @@ export class ListagemExtracoesComponent implements OnInit {
     await firstValueFrom(this.extracaoService.listarExtracao(argumentos))
     .then(response => {
       this.extracoes = response.data.content;
-      this.totalElements = response.data.totalElements;      
+      this.totalElements = response.data.totalElements;
     });
     this.loading = false;
   }

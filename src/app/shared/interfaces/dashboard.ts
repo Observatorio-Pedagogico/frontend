@@ -10,7 +10,9 @@ export interface DashboardResponse {
 
 export interface DataSets {
   label: string;
-  backgroundColor: string;
+  backgroundColor?: string;
+  borderColor?: string;
+  tension?: number;
   data: number[];
 }
 

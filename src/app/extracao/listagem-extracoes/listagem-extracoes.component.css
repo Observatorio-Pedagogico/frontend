@@ -22,6 +22,11 @@
   color: #256029;
 }
 
+.extracao-badge.status-ERRO {
+  background-color: #e73c3c;
+  color: #ffffff;
+}
+
 :host ::ng-deep .p-paginator .p-paginator-current {
     margin-left: auto;
   }
