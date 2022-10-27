@@ -20,6 +20,8 @@ export class DashboardDisciplinaComponent implements OnInit {
 
   loading: boolean = true;
 
+  pageNotFound: boolean = false;
+
   ignorarReprovadosPorFalta: string | null = 'false';
 
   dashboardSexo!: Dashboard;
@@ -60,34 +62,37 @@ export class DashboardDisciplinaComponent implements OnInit {
               private disciplinaService: DisciplinaService,
               private downlaodService: DownloadServiceService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.montarFiltros();
     this.montar();
-    this.loading = false;
+    // this.loading = false;
   }
 
-  montarGraficoSexo() {
-    this.dashboardService.gerarDashboardSexo(this.parametrosDashboards).subscribe({
+   montarGraficoSexo() {
+     this.dashboardService.gerarDashboardSexo(this.parametrosDashboards).subscribe({
       next: (next) => {
         this.dashboardSexo = this.converterObjectSexo(next.data);
+      },
+      error: () => {
+        this.pageNotFound = true;
       }
     })
   }
 
-  montarGraficoSituacaoAlunos() {
-    this.dashboardService.gerarDashboardSituacaoAlunos(this.parametrosDashboards).subscribe({
+   montarGraficoSituacaoAlunos() {
+     this.dashboardService.gerarDashboardSituacaoAlunos(this.parametrosDashboards).subscribe({
       next: (next) => this.basicDataSituacaoAlunos = this.converterObject(next.data)
     })
   }
 
-  montarGraficoFrequenciaNota() {
-    this.dashboardService.gerarDashboardFrequenciaNota(this.parametrosDashboards).subscribe({
+   montarGraficoFrequenciaNota() {
+     this.dashboardService.gerarDashboardFrequenciaNota(this.parametrosDashboards).subscribe({
       next: (next) => this.basicDataFrequenciaNotas = this.converterObject(next.data)
     })
   }
 
-  montarGraficoNotasDisciplinas() {
-    this.dashboardService.gerarDashboardNotasDisciplinas(this.parametrosDashboards).subscribe({
+   montarGraficoNotasDisciplinas() {
+     this.dashboardService.gerarDashboardNotasDisciplinas(this.parametrosDashboards).subscribe({
       next: (next) => this.basicDataNotasDisciplinas = this.converterObject(next.data)
     })
   }
@@ -228,8 +233,7 @@ export class DashboardDisciplinaComponent implements OnInit {
 
     montarFiltros() {
       this.disciplinaService.listarPeriodos().subscribe({
-        next: (next) => this.periodos = next.data,
-        error: () => alert("Não foi possivel carregar os filtros")
+        next: (next) => this.periodos = next.data
       })
     }
 
@@ -243,13 +247,15 @@ export class DashboardDisciplinaComponent implements OnInit {
       this.montar();
     }
 
-    montarTabelaDisciplinas() {
-      this.disciplinaService.getDisciplinasResumidas(this.parametrosDisciplinas).subscribe({
+     montarTabelaDisciplinas() {
+       this.disciplinaService.getDisciplinasResumidas(this.parametrosDisciplinas).subscribe({
         next: (next) => {
           this.disciplinasResumidas = next.data.content;
           this.totalElements = next.data.totalElements;
         },
-        error: () => alert("Não foi possivel carregar as disciplinas")
+        complete: () => {
+          this.loading = false;
+        }
       })
     }
 

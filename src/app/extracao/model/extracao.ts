@@ -1,7 +1,6 @@
 export interface Extracao {
   id: number,
   titulo: string,
-  periodoLetivoTipo: string,
   arquivosMultipartFile: Arquivo[],
   descricao: string
 }

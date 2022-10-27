@@ -2,11 +2,7 @@
   <h1 class="text-3xl text-center m-6">Cadastro de Extração SUAP</h1>
   <form [formGroup]="form" class="bg-[#F0EFEE] grid gap-5 grid-cols-3 w-3/5 m-auto p-6 rounded-md border-double border-4 border-[#9EBE88]">
     <mat-form-field>
-      <input matInput placeholder="Titulo" formControlName="titulo" required>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input type="number" matInput placeholder="Período Letivo" formControlName="periodoLetivo" required>
+      <input class="w-full" matInput placeholder="Titulo" formControlName="titulo" required>
     </mat-form-field>
 
     <p-fileUpload class="col-start-1 col-end-4" id="uploadFile" name="demo[]" [showUploadButton]="false" chooseLabel="Anexar" styleClass="classe" cancelLabel="Limpar" [previewWidth]="200"
