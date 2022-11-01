@@ -38,7 +38,12 @@ export class NavbarComponent implements OnInit {
   }
 
   navigatePageDashboardDisciplina() {
-    this.router.navigate(['dashboard-disciplina']);
+    this.router.navigate(['dashboard-geral']);
+    (this.getElementByXpath('/html/body/app-root/app-navbar/mat-toolbar/a') as HTMLButtonElement).click();
+  }
+
+  navigatePageExtracoes() {
+    this.router.navigate(['/']);
     (this.getElementByXpath('/html/body/app-root/app-navbar/mat-toolbar/a') as HTMLButtonElement).click();
   }
 

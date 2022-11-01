@@ -26,7 +26,7 @@
         </mat-form-field>
 
         <mat-form-field class="mx-1 w-60" appearance="fill">
-          <mat-label class="capitalize">exibir reprovados por falta?</mat-label>
+          <mat-label class="capitalize">ignorar reprovados por falta?</mat-label>
           <mat-select [formControl]="formFiltroAlunosReprovadosPorFalta">
             <mat-option [value]="true">Sim</mat-option>
             <mat-option [value]="false">Não</mat-option>
@@ -132,7 +132,7 @@
         <td>
           <span class="p-column-title">Ação</span>
           <button>
-            <mat-icon class="flex text-center px-1 text-4xl" [id]="disciplinasResumidas.id"
+            <mat-icon class="flex text-center px-1 text-4xl" [id]="disciplinasResumidas.codigo + '-' + disciplinasResumidas.periodoLetivo + '-' + disciplinasResumidas.id"
               (click)="viewDisciplina($event)">pageview</mat-icon>
           </button>
         </td>
@@ -147,7 +147,7 @@
   <p-paginator (onPageChange)="montarPaginacao($event)" [rows]="pageSize" [totalRecords]="totalElements"
     [rowsPerPageOptions]="[5, 10, 25, 50]"></p-paginator>
 </div>
-<div *ngIf="loading" class="grid justify-items-center uploader-status mt-10 p-40 bg-[#c1c1c1] bg-opacity-40">
+<div *ngIf="loading && !pageNotFound" class="grid justify-items-center uploader-status mt-10 p-40 bg-[#c1c1c1] bg-opacity-40">
   <mat-spinner></mat-spinner>
   <span class="mt-5 text-xl font-thin">Carregando Dashboard . . .</span>
 </div>

@@ -9,7 +9,7 @@ import { LoginService } from '../../authenticacao/login.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardDisciplinaService {
+export class DashboardService {
 
   private readonly DASHBOARD_SEXO = '/dashboard/sexo';
 

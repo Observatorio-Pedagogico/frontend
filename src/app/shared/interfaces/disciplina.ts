@@ -1,3 +1,4 @@
+import { AlunoResumido } from './aluno';
 export interface DisciplinaResumido {
    id: number;
    codigo: string;
@@ -5,4 +6,5 @@ export interface DisciplinaResumido {
    nome: string;
    periodoMatriz: string;
    periodoLetivo: string;
+   alunos: AlunoResumido[]
 }

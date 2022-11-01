@@ -24,14 +24,13 @@ import { CadastrarUsuarioComponent } from './authenticacao/cadastrar-usuario/cad
 import { LoginComponent } from './authenticacao/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { DetalhesDisciplinaComponent } from './disciplina/detalhes-disciplina/detalhes-disciplina.component';
+import { DisciplinaRoutingModule } from './disciplina/disciplina-routing.module';
 import { ListagemDisciplinasComponent } from './disciplina/listagem-disciplinas/listagem-disciplinas.component';
 import { ExtracaoModule } from './extracao/extracao.module';
 import { ListagemStatusEnvioComponent } from './extracao/listagem-status-envio/listagem-status-envio.component';
 import { ErrorInterceptorService } from './shared/utils/services/error-interceptor.service';
 import { GerenciarUsuariosComponent } from './usuario/gerenciar-usuarios/gerenciar-usuarios.component';
 import { SolicitacoesUsuariosComponent } from './usuario/solicitacoes-usuarios/solicitacoes-usuarios.component';
-import { DashboardDisciplinaComponent } from './disciplina/dashboard-disciplina/dashboard-disciplina.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { DashboardDisciplinaComponent } from './disciplina/dashboard-disciplina/
     NavbarComponent,
     FooterComponent,
     ListagemDisciplinasComponent,
-    DetalhesDisciplinaComponent,
     ListagemAlunosComponent,
     DetalhesAlunoComponent,
     SolicitacoesUsuariosComponent,
@@ -52,6 +50,7 @@ import { DashboardDisciplinaComponent } from './disciplina/dashboard-disciplina/
   imports: [
     BrowserModule,
     AppRoutingModule,
+    DisciplinaRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatTableModule,

@@ -23,13 +23,15 @@ import { CadastroExtracaoComponent } from './cadastro-extracao/cadastro-extracao
 import { DetalhesExtracaoComponent } from './detalhes-extracao/detalhes-extracao.component';
 import { ExtracaoRoutingModule } from './extracao-routing.module';
 import { ListagemExtracoesComponent } from './listagem-extracoes/listagem-extracoes.component';
+import { DetalhesDisciplinaComponent } from '../disciplina/detalhes-disciplina/detalhes-disciplina.component';
 
 @NgModule({
   declarations: [
     CadastroExtracaoComponent,
     ListagemExtracoesComponent,
     DetalhesExtracaoComponent,
-    DashboardDisciplinaComponent
+    DashboardDisciplinaComponent,
+    DetalhesDisciplinaComponent
   ],
   imports: [
     CommonModule,

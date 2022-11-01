@@ -24,4 +24,10 @@ export class DisciplinaService {
     return this.httpClient.get<ResponsePagina<DisciplinaResumido[]>>(URL_BASE.concat(this.DISCIPLINA_RESUMIDO).concat(parametros), {headers: this.loginService.criarHeaderAuth()});
   }
 
+  getDisciplina(idDisciplina: string) {
+    console.log(idDisciplina);
+
+    return this.httpClient.get<ResponseBody<DisciplinaResumido>>(URL_BASE.concat("/disciplina/").concat(idDisciplina), {headers: this.loginService.criarHeaderAuth()});
+  }
+
 }
