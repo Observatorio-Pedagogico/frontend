@@ -5,7 +5,6 @@
     <p>Código: {{disciplina.codigo}}</p>
     <p>Carga Horária: {{disciplina.cargaHoraria + ' horas'}}</p>
     <p>Professor: Chico Bestafera</p>
-    <p>Periodo: {{disciplina.periodoLetivo}}</p>
     <p>Situação na Matriz: {{disciplina.periodoMatriz + 'º Período'}}</p>
     <p>Total de Alunos: {{disciplina.alunos.length}}</p>
   </div>
@@ -31,7 +30,7 @@
                 'outros'}})
               </span>
             </mat-select-trigger>
-            <mat-option *ngFor="let periodo of periodos" [value]="periodo">{{periodo}}</mat-option>
+            <mat-option [id]="'periodo-checkbox-option-' + periodo" *ngFor="let periodo of periodos" [value]="periodo">{{periodo}}</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -73,5 +72,76 @@
       <p-chart type="bar" #chart4 [data]="disciplinaDashboardNotasDisciplinas" [responsive]="true"></p-chart>
     </div>
   </div>
+  <div class="flex p-5 justify-between">
+    <h1 class="text-3xl">Disciplinas</h1>
+  </div>
+
+  <p-table #dt dataKey="id" selectionMode="single" [value]="alunosResumidos" styleClass="p-datatable-extracao"
+    [rowHover]="true" responsiveLayout="scroll" [filterDelay]="0">
+    <div></div>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            Matrícula
+          </div>
+        </th>
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            Nome
+          </div>
+        </th>
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            Sexo
+          </div>
+        </th>
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            CRE
+          </div>
+        </th>
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            Ação
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-alunosResumidas>
+      <tr class="p-selectable-row" [pSelectableRow]="alunosResumidas">
+        <td>
+          <span class="p-column-title">Código</span>
+          {{alunosResumidas.matricula}}
+        </td>
+        <td class="capitalize">
+          <span class="p-column-title">Nome</span>
+          {{alunosResumidas.nome.toLowerCase()}}
+        </td>
+        <td>
+          <span class="p-column-title">Carga Horária</span>
+          {{alunosResumidas.sexo}}
+        </td>
+        <td>
+          <span class="p-column-title">Periodo Matriz</span>
+          {{alunosResumidas.cre}}
+        </td>
+        <td>
+          <span class="p-column-title">Ação</span>
+          <button>
+            <mat-icon class="flex text-center px-1 text-4xl text-[#57C7D4]" [id]="alunosResumidas.codigo + '-' + alunosResumidas.periodoLetivo + '-' + alunosResumidas.id"
+              >pageview</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8">Nenhuma disciplina encontrada!</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-paginator (onPageChange)="montarPaginacao($event)" [rows]="pageSize" [totalRecords]="totalElements"
+    [rowsPerPageOptions]="[5, 10, 25, 50]"></p-paginator>
 
 </div>

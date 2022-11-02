@@ -16,8 +16,8 @@ export class DisciplinaService {
 
   constructor(private httpClient: HttpClient, private loginService: LoginService) { }
 
-  listarPeriodos() {
-    return this.httpClient.get<ResponseBody<string[]>>(URL_BASE.concat(this.DISCIPLINA_PERIODOS), {headers: this.loginService.criarHeaderAuth()});
+  listarPeriodos(parametros: string) {
+    return this.httpClient.get<ResponseBody<string[]>>(URL_BASE.concat(this.DISCIPLINA_PERIODOS).concat(parametros), {headers: this.loginService.criarHeaderAuth()});
   }
 
   getDisciplinasResumidas(parametros: string) {
@@ -25,8 +25,6 @@ export class DisciplinaService {
   }
 
   getDisciplina(idDisciplina: string) {
-    console.log(idDisciplina);
-
     return this.httpClient.get<ResponseBody<DisciplinaResumido>>(URL_BASE.concat("/disciplina/").concat(idDisciplina), {headers: this.loginService.criarHeaderAuth()});
   }
 

@@ -237,7 +237,7 @@ export class DashboardDisciplinaComponent implements OnInit {
   }
 
   montarFiltros() {
-    this.disciplinaService.listarPeriodos().subscribe({
+    this.disciplinaService.listarPeriodos('').subscribe({
       next: (next) => this.periodos = next.data
     })
   }

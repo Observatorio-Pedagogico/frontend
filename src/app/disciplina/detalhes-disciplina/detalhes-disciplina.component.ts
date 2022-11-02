@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { Dashboard, DashboardResponse, DataSets, ConjuntoDadosResponse } from '../../shared/interfaces/dashboard';
 import { DisciplinaService } from '../services/disciplina.service';
 import { DashboardService } from '../services/dashboard-disciplina.service';
+import { AlunoResumido } from '../../shared/interfaces/aluno';
+import { AlunoService } from '../services/aluno.service';
 
 @Component({
   selector: 'app-detalhes-disciplina',
@@ -12,12 +14,25 @@ import { DashboardService } from '../services/dashboard-disciplina.service';
 })
 export class DetalhesDisciplinaComponent implements OnInit {
 
-  disciplina!: DisciplinaResumido;
+  disciplina: DisciplinaResumido = {
+    codigo: '',
+    cargaHoraria: 0,
+    id: 0,
+    nome: '',
+    periodoLetivo: '',
+    periodoMatriz: '',
+    alunos: []
+  };
+
+  loading: boolean = true;
 
   pageNotFound!: boolean;
 
+  alunosResumidos: AlunoResumido[] = [];
+
   constructor(private disciplinaService: DisciplinaService,
-              private dashboardService: DashboardService) { }
+    private dashboardService: DashboardService,
+    private alunoService: AlunoService) { }
 
   ignorarAusencia: string | null = 'false';
 
@@ -35,24 +50,27 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   parametrosDashboards: string = '';
 
+  totalElements: number = 0;
+
   pageSize: number = 10;
 
   pageIndex: number = 0;
 
   codigoDisciplinas?: string[] = [];
 
-  parametrosDisciplinas: string = `?page=${this.pageIndex}&size=${this.pageSize}&sort=periodoLetivo,nome,asc`;
+  parametrosAlunos: string = '';
 
   periodos: string[] = [];
 
 
   colors: string[] = ['#5103a0', '#00ffbb', '#af086a',
-      '#2409ef', '#e89612', '#b111dd', '#de103f', '#58e222', '#00470d',
-      '#f959c3', '#0070b9', '#c29564', '#5f5f5f', '#ffff00', '#f9a2cb'];
+    '#2409ef', '#e89612', '#b111dd', '#de103f', '#58e222', '#00470d',
+    '#f959c3', '#0070b9', '#c29564', '#5f5f5f', '#ffff00', '#f9a2cb'];
 
   ngOnInit(): void {
     this.codigoDisciplinas = sessionStorage.getItem('codigoDisciplina')?.split("-");
     this.parametrosDashboards = `?codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.codigoDisciplinas![1]}`;
+    this.parametrosAlunos = `?page=${this.pageIndex}&size=${this.pageSize}&codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.codigoDisciplinas![1]}&sort=nome,asc`;
     this.injetarDisciplina(this.codigoDisciplinas![2]);
     this.montarFiltros();
     this.montar();
@@ -62,9 +80,6 @@ export class DetalhesDisciplinaComponent implements OnInit {
     this.disciplinaService.getDisciplina(idDisciplina).subscribe({
       next: (next) => {
         this.disciplina = next.data;
-      },
-      complete: () => {
-          console.log(this.disciplina);
       }
     })
   }
@@ -75,8 +90,8 @@ export class DetalhesDisciplinaComponent implements OnInit {
     } else {
       this.ignorarAusencia = 'false';
     }
-    this.parametrosDashboards = `?periodoLetivo=${this.formFiltroPeriodo.value!.toString().replace(/[^[]]/gi,'')}&ignorarAusencia=${this.ignorarAusencia}&codigo=${this.codigoDisciplinas}`;
-    this.parametrosDisciplinas = `?page=${this.pageIndex}&size=${this.pageSize}&periodoLetivo=${this.formFiltroPeriodo.value!.toString().replace(/[^[]]/gi,'')}&sort=periodoLetivo,nome,asc`
+    this.parametrosDashboards = `?periodoLetivo=${this.formFiltroPeriodo.value!.toString().replace(/[^[]]/gi, '')}&ignorarAusencia=${this.ignorarAusencia}&codigo=${this.codigoDisciplinas}`;
+    this.parametrosAlunos = `?page=${this.pageIndex}&size=${this.pageSize}&codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.formFiltroPeriodo.value!.toString().replace(/[^[]]/gi, '')}&sort=periodoLetivo,nome,asc`;
     this.montar();
   }
 
@@ -119,12 +134,12 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   shuffle(array: string[]) {
     let i = array.length,
-    j = 0,
-    temp;
+      j = 0,
+      temp;
 
     while (i--) {
 
-      j = Math.floor(Math.random() * (i+1));
+      j = Math.floor(Math.random() * (i + 1));
 
       // swap randomly chosen element with current element
       temp = array[i];
@@ -158,40 +173,68 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   }
 
-  montarFiltros() {
-    this.disciplinaService.listarPeriodos().subscribe({
-      next: (next) => this.periodos = next.data
+  montarPaginacao(event: any) {
+    this.pageSize = event.rows;
+    this.pageIndex = event.page;
+    this.parametrosAlunos = `?page=${this.pageIndex}&size=${this.pageSize}&codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.codigoDisciplinas![1]}&sort=nome,asc`;
+    this.montarTabelaAlunos();
+  }
+
+  montarTabelaAlunos() {
+    this.alunoService.getAlunosResumidos(this.parametrosAlunos).subscribe({
+      next: (next) => {
+        this.alunosResumidos = next.data.content;
+        this.totalElements = next.data.totalElements;
+      },
+      complete: () => {
+        this.loading = false;
+      }
     })
+  }
+
+  montarFiltros() {
+    this.disciplinaService.listarPeriodos(`?codigo=${this.codigoDisciplinas![0]}`).subscribe({
+      next: (next) => this.periodos = next.data
+    });
+  }
+
+
+  getElementByXpath(path: string) {
+    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   }
 
   montarGraficoSexo() {
     this.dashboardService.gerarDashboardSexo(this.parametrosDashboards).subscribe({
-     next: (next) => {
-       this.disciplinaDashboardSexo = this.converterObjectSexo(next.data);
-     },
-     error: () => {
-       this.pageNotFound = true;
-     }
-   })
- }
+      next: (next) => {
+        this.disciplinaDashboardSexo = this.converterObjectSexo(next.data);
+      },
+      error: () => {
+        this.pageNotFound = true;
+      }
+    })
+  }
 
   montarGraficoSituacaoAlunos() {
     this.dashboardService.gerarDashboardSituacaoAlunos(this.parametrosDashboards).subscribe({
-     next: (next) => this.disciplinaDashboardSituacaoAlunos = this.converterObject(next.data)
-   })
- }
+      next: (next) => this.disciplinaDashboardSituacaoAlunos = this.converterObject(next.data)
+    })
+  }
 
   montarGraficoFrequenciaNota() {
     this.dashboardService.gerarDashboardFrequenciaNota(this.parametrosDashboards).subscribe({
-     next: (next) => this.disciplinaDashboardFrequenciaNotas = this.converterObject(next.data)
-   })
- }
+      next: (next) => this.disciplinaDashboardFrequenciaNotas = this.converterObject(next.data)
+    })
+  }
 
   montarGraficoNotasDisciplinas() {
     this.dashboardService.gerarDashboardNotasDisciplinas(this.parametrosDashboards).subscribe({
-     next: (next) => this.disciplinaDashboardNotasDisciplinas = this.converterObject(next.data)
-   })
- }
+      next: (next) => this.disciplinaDashboardNotasDisciplinas = this.converterObject(next.data)
+    })
+  }
+
+  montarTabela() {
+    this.montarTabelaAlunos();
+  }
 
   montarGraficos() {
     this.montarGraficoSexo();
@@ -202,7 +245,7 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   montar() {
     this.montarGraficos();
-    // this.montarTabela();
+    this.montarTabela();
   }
 
 }

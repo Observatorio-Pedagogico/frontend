@@ -6,5 +6,5 @@ export interface DisciplinaResumido {
    nome: string;
    periodoMatriz: string;
    periodoLetivo: string;
-   alunos: AlunoResumido[]
+   alunos: AlunoResumido[];
 }
