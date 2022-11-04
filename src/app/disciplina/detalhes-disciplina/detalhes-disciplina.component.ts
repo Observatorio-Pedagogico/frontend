@@ -50,6 +50,8 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   parametrosDashboards: string = '';
 
+  parametrosAlunos: string = '';
+
   totalElements: number = 0;
 
   pageSize: number = 10;
@@ -58,7 +60,6 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   codigoDisciplinas?: string[] = [];
 
-  parametrosAlunos: string = '';
 
   periodos: string[] = [];
 
@@ -90,8 +91,9 @@ export class DetalhesDisciplinaComponent implements OnInit {
     } else {
       this.ignorarAusencia = 'false';
     }
-    this.parametrosDashboards = `?periodoLetivo=${this.formFiltroPeriodo.value!.toString().replace(/[^[]]/gi, '')}&ignorarAusencia=${this.ignorarAusencia}&codigo=${this.codigoDisciplinas}`;
-    this.parametrosAlunos = `?page=${this.pageIndex}&size=${this.pageSize}&codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.formFiltroPeriodo.value!.toString().replace(/[^[]]/gi, '')}&sort=periodoLetivo,nome,asc`;
+
+    this.parametrosDashboards = `?periodoLetivo=${this.formFiltroPeriodo.value!.toString().replace(/[^[]]/gi, '')}&ignorarAusencia=${this.ignorarAusencia}&codigo=${this.codigoDisciplinas![0]}`;
+    this.parametrosAlunos = `?page=${this.pageIndex}&size=${this.pageSize}&codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.formFiltroPeriodo.value!.toString().replace(/[^[]]/gi, '')}&ignorarAusencia=${this.ignorarAusencia}&sort=nome,asc`;
     this.montar();
   }
 
@@ -176,7 +178,19 @@ export class DetalhesDisciplinaComponent implements OnInit {
   montarPaginacao(event: any) {
     this.pageSize = event.rows;
     this.pageIndex = event.page;
-    this.parametrosAlunos = `?page=${this.pageIndex}&size=${this.pageSize}&codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.codigoDisciplinas![1]}&sort=nome,asc`;
+    if (this.formFiltroAlunosReprovadosPorFalta.value !== '') {
+      this.ignorarAusencia = this.formFiltroAlunosReprovadosPorFalta.value;
+    } else {
+      this.ignorarAusencia = 'false';
+    }
+
+    let periodoLetivo: string = this.codigoDisciplinas![1];
+
+    if (this.formFiltroPeriodo.value !== null && this.formFiltroPeriodo.value !== '') {
+      periodoLetivo = this.formFiltroPeriodo.value?.toString();
+    }
+
+    this.parametrosAlunos = `?page=${this.pageIndex}&size=${this.pageSize}&codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${periodoLetivo}&ignorarAusencia=${this.ignorarAusencia}&sort=nome,asc`;
     this.montarTabelaAlunos();
   }
 
@@ -197,7 +211,6 @@ export class DetalhesDisciplinaComponent implements OnInit {
       next: (next) => this.periodos = next.data
     });
   }
-
 
   getElementByXpath(path: string) {
     return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
