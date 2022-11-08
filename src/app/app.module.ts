@@ -15,6 +15,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartModule } from 'primeng/chart';
+import { AlunoRoutingModule } from './aluno/aluno-routing.module';
 
 import { DetalhesAlunoComponent } from './aluno/detalhes-aluno/detalhes-aluno.component';
 import { ListagemAlunosComponent } from './aluno/listagem-alunos/listagem-alunos.component';
@@ -51,6 +53,7 @@ import { SolicitacoesUsuariosComponent } from './usuario/solicitacoes-usuarios/s
     BrowserModule,
     AppRoutingModule,
     DisciplinaRoutingModule,
+    AlunoRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatTableModule,
@@ -66,7 +69,8 @@ import { SolicitacoesUsuariosComponent } from './usuario/solicitacoes-usuarios/s
     MatListModule,
     FormsModule,
     ExtracaoModule,
-    MatCardModule
+    MatCardModule,
+    ChartModule
   ],
   providers: [DatePipe,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../../authenticacao/login.service';
-import { ResponsePagina } from '../../shared/interfaces/response';
+import { ResponsePagina, ResponseBody } from '../../shared/interfaces/response';
 import { AlunoResumido } from '../../shared/interfaces/aluno';
 import { URL_BASE } from '../../../environments/environment';
 
@@ -18,5 +18,8 @@ export class AlunoService {
     return this.httpClient.get<ResponsePagina<AlunoResumido[]>>(URL_BASE.concat(this.ALUNOS_RESUMIDOS).concat(parametros), {headers: this.loginService.criarHeaderAuth()});
   }
 
+  getAluno(idAluno: string) {
+    return this.httpClient.get<ResponseBody<AlunoResumido>>(URL_BASE.concat("/aluno/").concat(idAluno), {headers: this.loginService.criarHeaderAuth()});
+  }
 
 }

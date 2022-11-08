@@ -62,8 +62,7 @@
       <h5 class="font-semibold p-1 text-center bg-[#5EC270] capitalize">Notas das disciplinas por período</h5>
       <p-chart type="bar" #chart4 [data]="basicDataNotasDisciplinas" [responsive]="true"></p-chart>
     </div>
-    <img [src]="chartImg[2]" alt="" />
-    <!-- TODO descomentar para usar o botao de export <button (click)="export([chart1, chart2, chart3, chart4])">Export</button> -->
+    <button (click)="export([chart1, chart2, chart3, chart4])">Export</button>
   </div>
 
   <div class="flex p-5 justify-between">

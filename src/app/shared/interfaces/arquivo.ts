@@ -1,20 +1,19 @@
-export interface ArquivoSubParte {
+export interface PdfArquivoSubParte {
   conteudo: string;
   tituloConteudo?: string;
-  tipo: ArquivoSubParteTipo;
+  tipo: PdfArquivoSubParteTipo;
 }
 
-export interface ArquivoRequest {
-  subPartes: ArquivoSubParte[];
+export interface PdfArquivoRequest {
+  subPartes: PdfArquivoSubParte[];
 }
 
-export interface ArquivoResponse {
+export interface PdfArquivoResponse {
   conteudo: string;
 }
 
-export enum ArquivoSubParteTipo {
+export enum PdfArquivoSubParteTipo {
   TITULO,
   IMAGEM,
   TEXTO
 }
-

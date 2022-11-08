@@ -128,8 +128,8 @@
         </td>
         <td>
           <span class="p-column-title">Ação</span>
-          <button>
-            <mat-icon class="flex text-center px-1 text-4xl text-[#57C7D4]" [id]="alunosResumidas.codigo + '-' + alunosResumidas.periodoLetivo + '-' + alunosResumidas.id"
+          <button (click)="viewAluno($event)">
+            <mat-icon class="flex text-center px-1 text-4xl text-[#57C7D4]" [id]="alunosResumidas.id"
               >pageview</mat-icon>
           </button>
         </td>

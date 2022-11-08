@@ -1,1 +1,16 @@
-<p>detalhes-aluno works!</p>
+<div>
+  <div class="flex font-normal p-5 m-5 mt-5 rounded-md gap-1 bg-[#F0EFEE]">
+    <img class="w-52 mr-5 row-span-3 rounded-md" [ngClass]="aluno.sexo === 'MASCULINO' ? 'bg-cyan-600' : 'bg-[#ee67f3]'" [src]="aluno.sexo === 'MASCULINO' ? '../../../assets/img/avataaars-m.svg' : '../../../assets/img/avataaars-f.svg'" alt="" alt="">
+    <div class="grid gap-4">
+      <h1 class="text-3xl mb-3">Informações</h1>
+      <p>Matrícula: {{aluno.matricula}}</p>
+      <p>Nome: {{aluno.nome}}</p>
+      <p>Sexo: {{aluno.sexo}}</p>
+      <p>CRE: {{aluno.cre}}</p>
+    </div>
+    <p-chart type="doughnut" [data]="basicDataCreAluno" [style]="{'width': '25%'}"></p-chart>
+  </div>
+  <div class="flex p-5 justify-between">
+    <h1 class="text-3xl capitalize">dashboard alunos</h1>
+  </div>
+</div>

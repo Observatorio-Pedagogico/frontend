@@ -6,6 +6,7 @@ import { DisciplinaService } from '../services/disciplina.service';
 import { DashboardService } from '../services/dashboard-disciplina.service';
 import { AlunoResumido } from '../../shared/interfaces/aluno';
 import { AlunoService } from '../services/aluno.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalhes-disciplina',
@@ -32,7 +33,8 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   constructor(private disciplinaService: DisciplinaService,
     private dashboardService: DashboardService,
-    private alunoService: AlunoService) { }
+    private alunoService: AlunoService,
+    private router: Router) { }
 
   ignorarAusencia: string | null = 'false';
 
@@ -60,9 +62,7 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   codigoDisciplinas?: string[] = [];
 
-
   periodos: string[] = [];
-
 
   colors: string[] = ['#5103a0', '#00ffbb', '#af086a',
     '#2409ef', '#e89612', '#b111dd', '#de103f', '#58e222', '#00470d',
@@ -123,6 +123,13 @@ export class DetalhesDisciplinaComponent implements OnInit {
       return '#56B3FC';
     }
     return '#73797F';
+  }
+
+  viewAluno(event: any) {
+    let conteudo: string = '';
+    conteudo = event.srcElement.id;
+    sessionStorage.setItem('codigoAluno', conteudo);
+    this.router.navigate(['/dashboard-aluno'])
   }
 
   randomColor(qtdCores: number) {
