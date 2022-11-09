@@ -38,7 +38,7 @@ export class DashboardDisciplinaComponent implements OnInit {
 
   formFiltroPeriodo = new FormControl('');
 
-  formFiltroAlunosReprovadosPorFalta = new FormControl('');
+  formFiltroAusentes = new FormControl('');
 
   periodos: string[] = [];
 
@@ -177,8 +177,9 @@ export class DashboardDisciplinaComponent implements OnInit {
   export(charts: UIChart[]) {
     this.chartImg = [];
     charts.forEach(chart => {
-      this.chartImg.push(chart.getBase64Image());
+      this.chartImg.push(chart.getCanvas().toDataURL('image/png'));
     })
+
     let arquivoSubPartes: PdfArquivoSubParte[] = [];
     arquivoSubPartes.push({
       conteudo: 'Dashboard Geral',
@@ -186,9 +187,35 @@ export class DashboardDisciplinaComponent implements OnInit {
     });
 
     arquivoSubPartes.push({
-      conteudo: 'texto aqui',
-      tipo: PdfArquivoSubParteTipo.TEXTO
+      conteudo: 'Filtros',
+      tipo: PdfArquivoSubParteTipo.TITULO
     });
+
+    if (this.formFiltroPeriodo.value?.toString() === '') {
+      arquivoSubPartes.push({
+        conteudo: 'Períodos: '.concat("("+this.periodos.toString().replaceAll(',', ', ')+")"),
+        tipo: PdfArquivoSubParteTipo.TEXTO
+      });
+
+    } else {
+      arquivoSubPartes.push({
+        conteudo: 'Períodos: '.concat("("+this.formFiltroPeriodo.value!.toString().replaceAll(',', ', ')+")"),
+        tipo: PdfArquivoSubParteTipo.TEXTO
+      });
+    }
+
+    if (this.formFiltroAusentes.value === "") {
+      arquivoSubPartes.push({
+        conteudo: 'Ignorar Ausência(Reprovados por faltas, Trancados e Cancelados): '.concat("Não"),
+        tipo: PdfArquivoSubParteTipo.TEXTO
+      });
+
+    } else {
+      arquivoSubPartes.push({
+        conteudo: 'Ignorar Ausência(Reprovados por faltas, Trancados e Cancelados): '.concat((this.formFiltroAusentes.value) ? "Sim" : "Não"),
+        tipo: PdfArquivoSubParteTipo.TEXTO
+      });
+    }
 
     arquivoSubPartes.push({
       conteudo: this.chartImg[0],
@@ -217,12 +244,10 @@ export class DashboardDisciplinaComponent implements OnInit {
     let request: PdfArquivoRequest = {
       subPartes: arquivoSubPartes
     }
-    console.log(request);
 
     this.geradorPdfService.gerarPdf(request).subscribe({
       next:(next) => {
         let blob: Blob = this.downlaodService.base64toBlob(next.data.conteudo, 'application/pdf');
-        console.log(blob);
         let url = window.URL.createObjectURL(blob);
         window.open(url, '_blank', '');
       }
@@ -271,8 +296,8 @@ export class DashboardDisciplinaComponent implements OnInit {
   }
 
   aplicarFiltro() {
-    if (this.formFiltroAlunosReprovadosPorFalta.value !== '') {
-      this.ignorarAusencia = this.formFiltroAlunosReprovadosPorFalta.value;
+    if (this.formFiltroAusentes.value !== '') {
+      this.ignorarAusencia = this.formFiltroAusentes.value;
     } else {
       this.ignorarAusencia = 'false';
     }

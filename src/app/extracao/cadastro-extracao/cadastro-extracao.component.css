@@ -8,7 +8,7 @@
 }
 
 :host ::ng-deep p-fileupload div div.p-fileupload-content div div div div:nth-child(1) {
-  background-image: url(src/assets/xlsx_icon.svg);
+  background-image: url(src/assets/img/xlsx_icon.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 3rem;

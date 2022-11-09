@@ -26,8 +26,8 @@
         </mat-form-field>
 
         <mat-form-field class="mx-1 w-60" appearance="fill">
-          <mat-label class="capitalize">ignorar reprovados por falta?</mat-label>
-          <mat-select [formControl]="formFiltroAlunosReprovadosPorFalta">
+          <mat-label class="capitalize">ignorar ausentes?</mat-label>
+          <mat-select [formControl]="formFiltroAusentes">
             <mat-option [value]="true">Sim</mat-option>
             <mat-option [value]="false">Não</mat-option>
           </mat-select>
@@ -45,24 +45,26 @@
     <div class="card border-4 rounded-md border-[#5EC270]">
       <!-- grafico sexo barra -->
       <h5 class="font-semibold p-1 text-center bg-[#5EC270] capitalize">total de alunos por sexo</h5>
-      <p-chart type="bar" #chart1 [data]="dashboardSexo" [responsive]="true"></p-chart>
+      <p-chart type="bar" #chart1 [data]="dashboardSexo"></p-chart>
     </div>
     <div class="card border-4 rounded-md border-[#5EC270] capitalize">
       <!-- grafico situacao disciplina linha -->
       <h5 class="font-semibold p-1 text-center bg-[#5EC270] capitalize">Situação das notas por período</h5>
-      <p-chart type="bar" #chart2 [data]="basicDataFrequenciaNotas" [responsive]="true"></p-chart>
+      <p-chart type="bar" #chart2 [data]="basicDataFrequenciaNotas"></p-chart>
     </div>
     <div class="card border-4 rounded-md border-[#5EC270]">
       <!-- grafico situacao alunos barra -->
       <h5 class="font-semibold p-1 text-center bg-[#5EC270] capitalize">situação dos alunos por período</h5>
-      <p-chart type="bar" #chart3 [data]="basicDataSituacaoAlunos" [responsive]="true"></p-chart>
+      <p-chart type="bar" #chart3 [data]="basicDataSituacaoAlunos"></p-chart>
     </div>
     <div class="card border-4 rounded-md border-[#5EC270]">
       <!-- grafico notas disciplinas barra -->
       <h5 class="font-semibold p-1 text-center bg-[#5EC270] capitalize">Notas das disciplinas por período</h5>
-      <p-chart type="bar" #chart4 [data]="basicDataNotasDisciplinas" [responsive]="true"></p-chart>
+      <p-chart type="bar" #chart4 [data]="basicDataNotasDisciplinas"></p-chart>
     </div>
-    <button (click)="export([chart1, chart2, chart3, chart4])">Export</button>
+    <div class="flex justify-end col-span-full">
+      <button class="bg-[#dd412d] w-36 p-1 mb-3 mr-3 border-solid border-2 border-[#000] rounded-md text-sm text-white" (click)="export([chart1, chart2, chart3, chart4])">Exportar PDF <i class="pi pi-file-pdf "></i></button>
+    </div>
   </div>
 
   <div class="flex p-5 justify-between">

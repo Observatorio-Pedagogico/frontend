@@ -96,8 +96,6 @@ export class CadastroExtracaoComponent implements OnInit {
           this.uploadedFiles.add(file);
         }
       }
-      console.log(this.uploadedFiles);
-
       this.atualizarButtonAnexarArquivo();
       this.alertComponent.openAlert("info", "Arquivo Carregado", event.files[0].name);
     }
