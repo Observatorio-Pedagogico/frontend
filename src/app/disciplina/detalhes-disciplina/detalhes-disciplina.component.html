@@ -36,7 +36,7 @@
 
         <mat-form-field class="mx-1 w-60" appearance="fill">
           <mat-label class="capitalize">ignorar reprovados por falta?</mat-label>
-          <mat-select [formControl]="formFiltroAlunosReprovadosPorFalta">
+          <mat-select [formControl]="formFiltroAusentes">
             <mat-option [value]="true">Sim</mat-option>
             <mat-option [value]="false">Não</mat-option>
           </mat-select>
@@ -70,6 +70,9 @@
       <!-- grafico notas disciplinas barra -->
       <h5 class="font-semibold p-1 text-center bg-[#57C7D4] capitalize">Notas das disciplinas por período</h5>
       <p-chart type="bar" #chart4 [data]="disciplinaDashboardNotasDisciplinas" [responsive]="true"></p-chart>
+    </div>
+    <div class="flex justify-end col-span-full">
+      <button class="bg-[#dd412d] w-36 p-1 mb-3 mr-3 border-solid border-2 border-[#000] rounded-md text-sm text-white" (click)="export([chart1, chart2, chart3, chart4])">Exportar PDF <i class="pi pi-file-pdf "></i></button>
     </div>
   </div>
   <div class="flex p-5 justify-between">

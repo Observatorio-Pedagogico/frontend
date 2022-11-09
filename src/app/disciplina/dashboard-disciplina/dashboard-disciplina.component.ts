@@ -8,7 +8,7 @@ import { PdfArquivoRequest, PdfArquivoSubParteTipo } from '../../shared/interfac
 import { ConjuntoDadosResponse } from '../../shared/interfaces/dashboard';
 import { DashboardService } from '../services/dashboard-disciplina.service';
 import { DisciplinaService } from '../services/disciplina.service';
-import { DownloadServiceService } from '../services/download-service.service';
+import { DownloadService } from '../services/download.service';
 import { GeradorPdfService } from '../services/geradorPdf.service';
 import { Dashboard, DashboardResponse, DataSets } from './../../shared/interfaces/dashboard';
 import { DisciplinaResumido } from './../../shared/interfaces/disciplina';
@@ -62,14 +62,13 @@ export class DashboardDisciplinaComponent implements OnInit {
 
   constructor(private dashboardService: DashboardService,
     private disciplinaService: DisciplinaService,
-    private downlaodService: DownloadServiceService,
+    private downlaodService: DownloadService,
     private router: Router,
     private geradorPdfService: GeradorPdfService) { }
 
   ngOnInit() {
     this.montarFiltros();
     this.montar();
-    // this.loading = false;
   }
 
   montarGraficoSexo() {

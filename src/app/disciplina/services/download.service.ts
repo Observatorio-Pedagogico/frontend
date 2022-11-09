@@ -4,7 +4,7 @@ import * as saveAs from 'file-saver';
 @Injectable({
   providedIn: 'root'
 })
-export class DownloadServiceService {
+export class DownloadService {
 
   constructor() { }
 

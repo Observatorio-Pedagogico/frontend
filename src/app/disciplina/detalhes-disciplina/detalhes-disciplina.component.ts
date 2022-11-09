@@ -1,12 +1,18 @@
-import { DisciplinaResumido } from './../../shared/interfaces/disciplina';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Dashboard, DashboardResponse, DataSets, ConjuntoDadosResponse } from '../../shared/interfaces/dashboard';
-import { DisciplinaService } from '../services/disciplina.service';
-import { DashboardService } from '../services/dashboard-disciplina.service';
-import { AlunoResumido } from '../../shared/interfaces/aluno';
-import { AlunoService } from '../services/aluno.service';
 import { Router } from '@angular/router';
+import { UIChart } from 'primeng/chart';
+import { PdfArquivoSubParte, PdfArquivoSubParteTipo } from 'src/app/shared/interfaces/arquivo';
+
+import { AlunoResumido } from '../../shared/interfaces/aluno';
+import { PdfArquivoRequest } from '../../shared/interfaces/arquivo';
+import { ConjuntoDadosResponse, Dashboard, DashboardResponse, DataSets } from '../../shared/interfaces/dashboard';
+import { AlunoService } from '../services/aluno.service';
+import { DashboardService } from '../services/dashboard-disciplina.service';
+import { DisciplinaService } from '../services/disciplina.service';
+import { DownloadService } from '../services/download.service';
+import { GeradorPdfService } from '../services/geradorPdf.service';
+import { DisciplinaResumido } from './../../shared/interfaces/disciplina';
 
 @Component({
   selector: 'app-detalhes-disciplina',
@@ -31,16 +37,13 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   alunosResumidos: AlunoResumido[] = [];
 
-  constructor(private disciplinaService: DisciplinaService,
-    private dashboardService: DashboardService,
-    private alunoService: AlunoService,
-    private router: Router) { }
+  chartImg: string[] = [];
 
   ignorarAusencia: string | null = 'false';
 
   formFiltroPeriodo = new FormControl('');
 
-  formFiltroAlunosReprovadosPorFalta = new FormControl('');
+  formFiltroAusentes = new FormControl('');
 
   disciplinaDashboardSexo!: Dashboard;
 
@@ -68,6 +71,13 @@ export class DetalhesDisciplinaComponent implements OnInit {
     '#2409ef', '#e89612', '#b111dd', '#de103f', '#58e222', '#00470d',
     '#f959c3', '#0070b9', '#c29564', '#5f5f5f', '#ffff00', '#f9a2cb'];
 
+  constructor(private disciplinaService: DisciplinaService,
+    private dashboardService: DashboardService,
+    private alunoService: AlunoService,
+    private router: Router,
+    private geradorPdfService: GeradorPdfService,
+    private downlaodService: DownloadService) { }
+
   ngOnInit(): void {
     this.codigoDisciplinas = sessionStorage.getItem('codigoDisciplina')?.split("-");
     this.parametrosDashboards = `?codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.codigoDisciplinas![1]}`;
@@ -86,8 +96,8 @@ export class DetalhesDisciplinaComponent implements OnInit {
   }
 
   aplicarFiltro() {
-    if (this.formFiltroAlunosReprovadosPorFalta.value !== '') {
-      this.ignorarAusencia = this.formFiltroAlunosReprovadosPorFalta.value;
+    if (this.formFiltroAusentes.value !== '') {
+      this.ignorarAusencia = this.formFiltroAusentes.value;
     } else {
       this.ignorarAusencia = 'false';
     }
@@ -182,11 +192,91 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   }
 
+  export(charts: UIChart[]) {
+    this.chartImg = [];
+    charts.forEach(chart => {
+      this.chartImg.push(chart.getCanvas().toDataURL('image/png'));
+    })
+
+    let arquivoSubPartes: PdfArquivoSubParte[] = [];
+    arquivoSubPartes.push({
+      conteudo: 'Dashboard Disciplina: '.concat(this.disciplina.nome).concat("("+this.disciplina.codigo+")"),
+      tipo: PdfArquivoSubParteTipo.TITULO
+    });
+
+    arquivoSubPartes.push({
+      conteudo: 'Filtros',
+      tipo: PdfArquivoSubParteTipo.TITULO
+    });
+
+    if (this.formFiltroPeriodo.value?.toString() === '') {
+      arquivoSubPartes.push({
+        conteudo: 'Períodos: '.concat("(" + this.periodos.toString().replaceAll(',', ', ') + ")"),
+        tipo: PdfArquivoSubParteTipo.TEXTO
+      });
+
+    } else {
+      arquivoSubPartes.push({
+        conteudo: 'Períodos: '.concat("(" + this.formFiltroPeriodo.value!.toString().replaceAll(',', ', ') + ")"),
+        tipo: PdfArquivoSubParteTipo.TEXTO
+      });
+    }
+
+    if (this.formFiltroAusentes.value === "") {
+      arquivoSubPartes.push({
+        conteudo: 'Ignorar Ausência(Reprovados por faltas, Trancados e Cancelados): '.concat("Não"),
+        tipo: PdfArquivoSubParteTipo.TEXTO
+      });
+
+    } else {
+      arquivoSubPartes.push({
+        conteudo: 'Ignorar Ausência(Reprovados por faltas, Trancados e Cancelados): '.concat((this.formFiltroAusentes.value) ? "Sim" : "Não"),
+        tipo: PdfArquivoSubParteTipo.TEXTO
+      });
+    }
+
+    arquivoSubPartes.push({
+      conteudo: this.chartImg[0],
+      tituloConteudo: 'Total De Alunos Por Sexo',
+      tipo: PdfArquivoSubParteTipo.IMAGEM
+    });
+
+    arquivoSubPartes.push({
+      conteudo: this.chartImg[1],
+      tituloConteudo: 'Situação Das Notas Por Período',
+      tipo: PdfArquivoSubParteTipo.IMAGEM
+    });
+
+    arquivoSubPartes.push({
+      conteudo: this.chartImg[2],
+      tituloConteudo: 'Situação Dos Alunos Por Período',
+      tipo: PdfArquivoSubParteTipo.IMAGEM
+    });
+
+    arquivoSubPartes.push({
+      conteudo: this.chartImg[3],
+      tituloConteudo: 'Notas Das Disciplinas Por Período',
+      tipo: PdfArquivoSubParteTipo.IMAGEM
+    });
+
+    let request: PdfArquivoRequest = {
+      subPartes: arquivoSubPartes
+    }
+
+    this.geradorPdfService.gerarPdf(request).subscribe({
+      next: (next) => {
+        let blob: Blob = this.downlaodService.base64toBlob(next.data.conteudo, 'application/pdf');
+        let url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank', '');
+      }
+    });
+  }
+
   montarPaginacao(event: any) {
     this.pageSize = event.rows;
     this.pageIndex = event.page;
-    if (this.formFiltroAlunosReprovadosPorFalta.value !== '') {
-      this.ignorarAusencia = this.formFiltroAlunosReprovadosPorFalta.value;
+    if (this.formFiltroAusentes.value !== '') {
+      this.ignorarAusencia = this.formFiltroAusentes.value;
     } else {
       this.ignorarAusencia = 'false';
     }
