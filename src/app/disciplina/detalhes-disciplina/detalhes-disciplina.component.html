@@ -34,8 +34,8 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="mx-1 w-60" appearance="fill">
-          <mat-label class="capitalize">ignorar reprovados por falta?</mat-label>
+        <mat-form-field class="mx-1 w-1/2" appearance="fill">
+          <mat-label>Ignorar Ausentes? (Reprovado por Falta, Trancado e Cancelado)</mat-label>
           <mat-select [formControl]="formFiltroAusentes">
             <mat-option [value]="true">Sim</mat-option>
             <mat-option [value]="false">Não</mat-option>
@@ -76,7 +76,7 @@
     </div>
   </div>
   <div class="flex p-5 justify-between">
-    <h1 class="text-3xl">Disciplinas</h1>
+    <h1 class="text-3xl">Alunos</h1>
   </div>
 
   <p-table #dt dataKey="id" selectionMode="single" [value]="alunosResumidos" styleClass="p-datatable-extracao"

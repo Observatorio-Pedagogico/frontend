@@ -67,6 +67,8 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
   periodos: string[] = [];
 
+  periodosSelecionados: string[] = [];
+
   colors: string[] = ['#5103a0', '#00ffbb', '#af086a',
     '#2409ef', '#e89612', '#b111dd', '#de103f', '#58e222', '#00470d',
     '#f959c3', '#0070b9', '#c29564', '#5f5f5f', '#ffff00', '#f9a2cb'];
@@ -82,6 +84,7 @@ export class DetalhesDisciplinaComponent implements OnInit {
     this.codigoDisciplinas = sessionStorage.getItem('codigoDisciplina')?.split("-");
     this.parametrosDashboards = `?codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.codigoDisciplinas![1]}`;
     this.parametrosAlunos = `?page=${this.pageIndex}&size=${this.pageSize}&codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.codigoDisciplinas![1]}&sort=nome,asc`;
+    this.periodosSelecionados = [this.codigoDisciplinas![1]];
     this.injetarDisciplina(this.codigoDisciplinas![2]);
     this.montarFiltros();
     this.montar();
@@ -96,7 +99,7 @@ export class DetalhesDisciplinaComponent implements OnInit {
   }
 
   aplicarFiltro() {
-    if (this.formFiltroAusentes.value !== '') {
+    if (this.formFiltroAusentes.value?.length !== 0) {
       this.ignorarAusencia = this.formFiltroAusentes.value;
     } else {
       this.ignorarAusencia = 'false';
@@ -104,6 +107,10 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
     this.parametrosDashboards = `?periodoLetivo=${this.formFiltroPeriodo.value!.toString().replace(/[^[]]/gi, '')}&ignorarAusencia=${this.ignorarAusencia}&codigo=${this.codigoDisciplinas![0]}`;
     this.parametrosAlunos = `?page=${this.pageIndex}&size=${this.pageSize}&codigo=${this.codigoDisciplinas![0]}&periodoLetivo=${this.formFiltroPeriodo.value!.toString().replace(/[^[]]/gi, '')}&ignorarAusencia=${this.ignorarAusencia}&sort=nome,asc`;
+    if (this.formFiltroPeriodo.value !== null) {
+      this.periodosSelecionados = (this.formFiltroPeriodo.value.length === 0) ? this.periodos : [this.formFiltroPeriodo.value];
+    }
+
     this.montar();
   }
 
@@ -196,7 +203,7 @@ export class DetalhesDisciplinaComponent implements OnInit {
     this.chartImg = [];
     charts.forEach(chart => {
       this.chartImg.push(chart.getCanvas().toDataURL('image/png'));
-    })
+    });
 
     let arquivoSubPartes: PdfArquivoSubParte[] = [];
     arquivoSubPartes.push({
@@ -208,21 +215,21 @@ export class DetalhesDisciplinaComponent implements OnInit {
       conteudo: 'Filtros',
       tipo: PdfArquivoSubParteTipo.TITULO
     });
+    console.log('pdf ',this.periodos);
 
-    if (this.formFiltroPeriodo.value?.toString() === '') {
+    if (this.periodosSelecionados.length === 0) {
       arquivoSubPartes.push({
         conteudo: 'Períodos: '.concat("(" + this.periodos.toString().replaceAll(',', ', ') + ")"),
         tipo: PdfArquivoSubParteTipo.TEXTO
       });
-
     } else {
       arquivoSubPartes.push({
-        conteudo: 'Períodos: '.concat("(" + this.formFiltroPeriodo.value!.toString().replaceAll(',', ', ') + ")"),
+        conteudo: 'Períodos: '.concat("(" + this.periodosSelecionados.toString().replaceAll(',', ', ') + ")"),
         tipo: PdfArquivoSubParteTipo.TEXTO
       });
     }
 
-    if (this.formFiltroAusentes.value === "") {
+    if (this.formFiltroAusentes.value?.length === 0) {
       arquivoSubPartes.push({
         conteudo: 'Ignorar Ausência(Reprovados por faltas, Trancados e Cancelados): '.concat("Não"),
         tipo: PdfArquivoSubParteTipo.TEXTO
@@ -275,7 +282,7 @@ export class DetalhesDisciplinaComponent implements OnInit {
   montarPaginacao(event: any) {
     this.pageSize = event.rows;
     this.pageIndex = event.page;
-    if (this.formFiltroAusentes.value !== '') {
+    if (this.formFiltroAusentes.value?.length !== 0) {
       this.ignorarAusencia = this.formFiltroAusentes.value;
     } else {
       this.ignorarAusencia = 'false';
@@ -283,7 +290,7 @@ export class DetalhesDisciplinaComponent implements OnInit {
 
     let periodoLetivo: string = this.codigoDisciplinas![1];
 
-    if (this.formFiltroPeriodo.value !== null && this.formFiltroPeriodo.value !== '') {
+    if (this.formFiltroPeriodo.value !== null && this.formFiltroPeriodo.value.length !== 0) {
       periodoLetivo = this.formFiltroPeriodo.value?.toString();
     }
 

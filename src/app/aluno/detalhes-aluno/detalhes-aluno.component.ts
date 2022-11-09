@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlunoService } from 'src/app/disciplina/services/aluno.service';
 import { AlunoResumido } from 'src/app/shared/interfaces/aluno';
-import { DashboardResponse, Dashboard, DataSets } from '../../shared/interfaces/dashboard';
+
+import { DataSets } from '../../shared/interfaces/dashboard';
 
 @Component({
   selector: 'app-detalhes-aluno',
