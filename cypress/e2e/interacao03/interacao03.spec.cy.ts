@@ -30,7 +30,7 @@ context("vai para o dashboard", () => {
 
   it("Aplica filtro", () => {
     cy.get('#mat-expansion-panel-header-0').click()
-    cy.get('.mat-form-field.ng-tns-c90-15 > .mat-form-field-wrapper > .mat-form-field-flex').click()
+    cy.get('#selectperiodo').click()
     cy.get('#mat-option-4 > .mat-pseudo-checkbox').click()
     cy.get('.cdk-overlay-backdrop').click()
   })
