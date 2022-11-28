@@ -9,10 +9,12 @@ export interface LoginResponse {
 }
 
 export interface Funcionario {
+  id: string;
   matricula: string;
   email: string;
   nome: string;
   sexo: string;
+  ativo: boolean;
 }
 
 export interface EnvelopeFuncionario {

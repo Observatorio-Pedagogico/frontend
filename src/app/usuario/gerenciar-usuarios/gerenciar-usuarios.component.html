@@ -1,1 +1,164 @@
-<p>gerenciar-usuarios works!</p>
+<div>
+  <div class="flex p-5 justify-center">
+    <h1 class="text-3xl">Gerenciamento de Usuários</h1>
+    <div class="px-4 mx-3 flex justify-between items-center bg-[#F1B70D] rounded-full border-4 border-double opacity-80 border-[#000]">
+      <mat-icon class="scale-90">warning</mat-icon>
+      <p class="text-sm">acesso exclusivo (ADM)</p>
+    </div>
+  </div>
+  <div class="grid m-2 p-5 justify-center rounded-md">
+    <div class="flex p-3 justify-between bg-[#3abdf1] rounded-t-lg">
+      <h3 class="text-3xl">COPED</h3>
+    </div>
+    <p-table #dt dataKey="id" selectionMode="single" [value]="funcionariosCoped"
+      [rowHover]="true" responsiveLayout="scroll" [filterDelay]="0" class="border-4 border-[#3abdf1]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>
+            <div class="flex justify-content-between align-items-center">
+              Matrícula
+            </div>
+          </th>
+          <th>
+            <div class="flex justify-content-between align-items-center">
+              Nome
+            </div>
+          </th>
+          <th>
+            <div class="flex justify-content-between align-items-center">
+              E-mail Institucional
+            </div>
+          </th>
+          <th>
+            <div class="flex justify-content-between align-items-center">
+              Sexo
+            </div>
+          </th>
+          <th>
+            <div class="flex justify-content-between align-items-center">
+              Permitir acesso
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-funcionariosCoped>
+        <tr class="p-selectable-row" [pSelectableRow]="funcionariosCoped">
+          <td>
+            <span class="p-column-title">Matricula</span>
+            {{funcionariosCoped.matricula}}
+          </td>
+          <td>
+            <span class="p-column-title">Nome</span>
+            {{funcionariosCoped.nome}}
+          </td>
+          <td>
+            <span class="p-column-title">E-mail</span>
+            {{funcionariosCoped.email}}
+          </td>
+          <td>
+            <span class="p-column-title">Sexo</span>
+            {{funcionariosCoped.sexo}}
+          </td>
+          <td class="flex justify-center">
+            <span class="p-column-title">Ação</span>
+              <!-- <button title="permitir" class="p-2 hover:scale-125 flex justify-center items-center bg-green-500 text-white rounded-full" (click)="ativarFuncCoped(funcionariosCoped.id)">
+                <mat-icon>
+                  check
+                </mat-icon>
+              </button>
+              <button title="negar" class="p-2 hover:scale-125 ml-4 flex justify-center items-center bg-red-500 text-white rounded-full" (click)="desativarFuncCoped(funcionariosCoped.id)">
+                <mat-icon>
+                  close
+                </mat-icon>
+              </button> -->
+              <mat-slide-toggle [checked]="funcionariosCoped.ativo" (change)="onSlideToggle($event, funcionariosCoped.id, 'COPED')" color="primary"></mat-slide-toggle>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8" class="bg-[#51cece77]">Nenhuma solicitação foi enviada!</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-paginator (onPageChange)="montarPaginacaoCoped($event)" [rows]="pageSizeTabelaCoped" [totalRecords]="totalElementsTabelaCoped"
+    [rowsPerPageOptions]="[5, 10]"></p-paginator>
+
+  <div class="flex p-3 mt-10 justify-between bg-[#3abdf1] rounded-t-lg">
+    <h3 class="text-3xl">PROFESSORES</h3>
+  </div>
+  <p-table #dt dataKey="id" selectionMode="single" [value]="funcionariosProfessor" styleClass="p-datatable-extracao"
+    [rowHover]="true" responsiveLayout="scroll" [filterDelay]="0" class="border-4 border-[#3abdf1]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            Matrícula
+          </div>
+        </th>
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            Nome
+          </div>
+        </th>
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            E-mail Institucional
+          </div>
+        </th>
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            Sexo
+          </div>
+        </th>
+        <th>
+          <div class="flex justify-content-between align-items-center">
+            Permitir acesso
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-funcionariosProfessor>
+      <tr class="p-selectable-row" [pSelectableRow]="funcionariosProfessor">
+        <td>
+          <span class="p-column-title">Matricula</span>
+          {{funcionariosProfessor.matricula}}
+        </td>
+        <td>
+          <span class="p-column-title">Nome</span>
+          {{funcionariosProfessor.nome}}
+        </td>
+        <td>
+          <span class="p-column-title">E-mail</span>
+          {{funcionariosProfessor.email}}
+        </td>
+        <td>
+          <span class="p-column-title">Sexo</span>
+          {{funcionariosProfessor.sexo}}
+        </td>
+        <td class="flex justify-center">
+          <span class="p-column-title">Ação</span>
+            <!-- <button title="permitir" class="p-2 hover:scale-125 flex justify-center items-center bg-green-500 text-white rounded-full" (click)="ativarProfessor(funcionariosProfessor.id)">
+              <mat-icon>
+                check
+              </mat-icon>
+            </button>
+            <button title="negar" class="p-2 ml-4 hover:scale-125 flex justify-center items-center bg-red-500 text-white rounded-full" (click)="desativarProfessor(funcionariosProfessor.id)">
+              <mat-icon>
+                close
+              </mat-icon>
+            </button> -->
+            <mat-slide-toggle #toggle [checked]="funcionariosProfessor.ativo" (change)="onSlideToggle($event, funcionariosProfessor.id, 'PROFESSOR')" color="primary"></mat-slide-toggle>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" class="bg-[#51cece77]">Nenhuma solicitação foi enviada!</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-paginator (onPageChange)="montarPaginacaoProfessores($event)" [rows]="pageSizeTabelaProfessor" [totalRecords]="totalElementsTabelaProfessor"
+    [rowsPerPageOptions]="[5, 10]"></p-paginator>
+</div>
+</div>

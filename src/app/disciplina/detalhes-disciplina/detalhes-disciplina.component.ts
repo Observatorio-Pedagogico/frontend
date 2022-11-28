@@ -215,7 +215,6 @@ export class DetalhesDisciplinaComponent implements OnInit {
       conteudo: 'Filtros',
       tipo: PdfArquivoSubParteTipo.TITULO
     });
-    console.log('pdf ',this.periodos);
 
     if (this.periodosSelecionados.length === 0) {
       arquivoSubPartes.push({

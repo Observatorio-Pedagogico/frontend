@@ -18,6 +18,12 @@
               <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]">
                   Alunos
               </a>
+              <a mat-list-item *ngIf="envelopeFuncionario.tipoFuncionario.toString() === 'FUNCIONARIO_COPED'" class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]" (click)="navigatePageGerenciarUsuarios()">
+                  Gerenciamento de Usuários
+              </a>
+              <a mat-list-item *ngIf="envelopeFuncionario.tipoFuncionario.toString() === 'FUNCIONARIO_COPED'" class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]" (click)="navigatePageSolicitacoesUsuarios()">
+                  Solicitações de Usuários
+              </a>
             </div>
             <div class="flex justify-between p-3 bg-[rgb(18,107,34)] rounded-md">
               <img [ngClass]="envelopeFuncionario.funcionario.sexo === 'MASCULINO' ? 'bg-cyan-600' : 'bg-[#ee67f3]'" class="w-10 p-0.5 rounded-full" [src]="envelopeFuncionario.funcionario.sexo === 'MASCULINO' ? '../../../assets/img/icon-masculino.svg' : '../../../assets/img/icon-feminino.svg'" alt="">
