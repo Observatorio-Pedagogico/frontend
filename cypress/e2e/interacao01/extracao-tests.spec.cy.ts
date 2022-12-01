@@ -1,9 +1,9 @@
 /// <reference types="cypress"/>
 
-context("Cadastra e Loga na aplicacao", () => {
-  it("cadastra usuario com sucesso", () => {
-    cy.visit("localhost:4200/login")
-    cy.get('.mat-list-item-content').click()
+context("Loga na aplicacao", () => {
+  it("cadastra outro usuario coped", () => {
+    cy.visit("/login").wait(1000)
+    cy.get('body > app-root > app-login > div > div > form > a').click()
     cy.get('#matricula').type("201915020008")
     cy.get('#email').type("thauan.amorim@academico.ifpb.edu.br")
     cy.get('#senha').type("123456")
@@ -12,14 +12,12 @@ context("Cadastra e Loga na aplicacao", () => {
     cy.get('#tipo').select("COPED")
     cy.get('.submit-button').click()
     cy.get('[type="button"]').click()
-  } )
-
+  })
   it("Usuario logado com sucesso", () => {
     cy.get('[type="email"]').type('thauan.amorim@academico.ifpb.edu.br')
     cy.get('[type="password"]').type('123456')
     cy.get('button').click()
     cy.contains('Tabela de Extrações SUAP')
-
   } )
 })
 
@@ -30,6 +28,7 @@ context("Nova Extração", () => {
 })
 
 context("Cadastro Extracao", () => {
+  let titulo = "testando envio";
   it("validando campo titulo", () => {
     cy.get('input[type="file"]')
       .selectFile(
@@ -43,7 +42,7 @@ context("Cadastro Extracao", () => {
   } )
 
   it("validando campo descricao", () => {
-    cy.get('input[formControlName="titulo"]').type('testando envio')
+    cy.get('input[formControlName="titulo"]').type(titulo)
     cy.get('textarea[formControlName="descricao"]').clear()
     cy.get('button[type="submit"]').should('be.disabled');
   } )
@@ -63,5 +62,10 @@ context("Cadastro Extracao", () => {
         ],
         {force: true})
     cy.get('button[type="submit"]').click();
-  } )
+  })
+
+  it("volta para a tela de extrações cadastradas", () => {
+    cy.get('body > app-root > app-cadastro-extracao > form > div > button:nth-child(1)').click();
+    cy.get('#pr_id_4-table > tbody > tr > td:nth-child(2)').contains("testando envio")
+  })
 })
