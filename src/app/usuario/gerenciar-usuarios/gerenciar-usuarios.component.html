@@ -61,16 +61,6 @@
           </td>
           <td>
             <span class="p-column-title">Ação</span>
-              <!-- <button title="permitir" class="p-2 hover:scale-125 flex justify-center items-center bg-green-500 text-white rounded-full" (click)="ativarFuncCoped(funcionariosCoped.id)">
-                <mat-icon>
-                  check
-                </mat-icon>
-              </button>
-              <button title="negar" class="p-2 hover:scale-125 ml-4 flex justify-center items-center bg-red-500 text-white rounded-full" (click)="desativarFuncCoped(funcionariosCoped.id)">
-                <mat-icon>
-                  close
-                </mat-icon>
-              </button> -->
               <mat-slide-toggle [checked]="funcionariosCoped.ativo" (change)="onSlideToggle($event, funcionariosCoped.id, 'COPED')" color="primary"></mat-slide-toggle>
           </td>
         </tr>

@@ -3,7 +3,7 @@
     <button class="p-2 border-solid border-[#000] border-2 rounded-md" routerLink="nova-extracao">NOVA EXTRAÇÃO SUAP</button>
 </div>
 
-<p-table #dt [loading]="loading" [value]="extracoes" dataKey="id" styleClass="p-datatable-extracao" [rowHover]="true" styleClass="p-datatable-extracao"
+<p-table #dt [value]="extracoes" dataKey="id" styleClass="p-datatable-extracao" [rowHover]="true" styleClass="p-datatable-extracao"
     responsiveLayout="scroll"
     [filterDelay]="0">
 
@@ -91,7 +91,7 @@
             </td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="emptymessage">
+    <ng-template pTemplate="emptymessage" class="bg-[#51cece77]">
         <tr>
             <td colspan="8">Nenhuma extração encontrada!</td>
         </tr>

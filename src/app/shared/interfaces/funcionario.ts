@@ -58,14 +58,7 @@ export class MatOptionPersonalizado implements OnInit {
   async isSelected(): Promise<void> {
     await firstValueFrom(this.funcionarioService.getProfessor(this.idProfessor))
       .then(response => {
-        console.log('ttttrrrrrtttt');
-        console.log(response.data.disciplinas);
-        console.log(this.codigoDisciplina);
-
-        console.log(response.data.disciplinas.find(disciplinaProfessor => disciplinaProfessor.codigo === this.codigoDisciplina));
-
         let selected = response.data.disciplinas.find(disciplinaProfessor => disciplinaProfessor.codigo === this.codigoDisciplina) !== undefined;
-        console.log(selected);
         if (selected) {
            this.option.select();
         }
