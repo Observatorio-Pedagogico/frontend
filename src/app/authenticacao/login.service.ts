@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { URL_BASE } from '../../environments/environment';
-import { Funcionario, LoginForm, EnvelopeFuncionario } from '../shared/interfaces/login';
+import { LoginForm } from '../shared/interfaces/login';
 import { UsuarioCadastro } from './../shared/interfaces/cadastro';
 import { ResponsePagina, ResponseBody } from '../shared/interfaces/response';
+import { Funcionario } from '../shared/interfaces/funcionario';
 
 @Injectable({
   providedIn: 'root'
@@ -58,12 +59,6 @@ export class LoginService {
     .subscribe(resultado => {
       location.href = '/login';
     });
-  }
-
-  obterUsuarioLogado() {
-    const token = sessionStorage.getItem('token');
-    let header: HttpHeaders = new HttpHeaders({'token':`${token}`, 'Authorization': `Bearer ${token}`});
-    return this.httpClient.get<ResponseBody<EnvelopeFuncionario>>(URL_BASE.concat('/funcionario/token'), {headers:header});
   }
 
   getFuncionariosCopedEsperaCadastro(parametros: string) {

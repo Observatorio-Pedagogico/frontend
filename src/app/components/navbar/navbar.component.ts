@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 
 import { LoginService } from '../../authenticacao/login.service';
-import { EnvelopeFuncionario, TipoFuncionario } from '../../shared/interfaces/login';
+import { EnvelopeFuncionario, TipoFuncionario } from '../../shared/interfaces/funcionario';
+import { FuncionarioService } from '../../disciplina/services/funcionario.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,7 @@ export class NavbarComponent implements OnInit {
 
   envelopeFuncionario: EnvelopeFuncionario = {
     funcionario: {
-      id: '',
+      id: 0,
       email: '',
       matricula: '',
       nome: '',
@@ -30,10 +31,11 @@ export class NavbarComponent implements OnInit {
   };
 
   constructor(private router: Router,
+              private funcionarioService: FuncionarioService,
               private loginService: LoginService) { }
 
   ngOnInit(): void {
-    this.loginService.obterUsuarioLogado().subscribe(response => {
+    this.funcionarioService.obterUsuarioLogado().subscribe(response => {
       this.envelopeFuncionario = response.data;
     });
     this.montarItemsGerenciamento();

@@ -41,56 +41,57 @@ import { ErrorInterceptorService } from './shared/utils/services/error-intercept
 import { GerenciarUsuariosComponent } from './usuario/gerenciar-usuarios/gerenciar-usuarios.component';
 import { SolicitacoesUsuariosComponent } from './usuario/solicitacoes-usuarios/solicitacoes-usuarios.component';
 import { UsuarioRoutingModule } from './usuario/usuario-routing.module';
+import { MatOptionPersonalizado } from "./shared/interfaces/funcionario";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    ListagemDisciplinasComponent,
-    ListagemAlunosComponent,
-    DetalhesAlunoComponent,
-    SolicitacoesUsuariosComponent,
-    GerenciarUsuariosComponent,
-    LoginComponent,
-    ListagemStatusEnvioComponent,
-    CadastrarUsuarioComponent,
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    DisciplinaRoutingModule,
-    UsuarioRoutingModule,
-    AlunoRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatExpansionModule,
-    MatIconModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatSelectModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    FormsModule,
-    ExtracaoModule,
-    MatCardModule,
-    ChartModule,
-    MatTreeModule,
-    TableModule,
-    SplitButtonModule,
-    AlertModule,
-    PaginatorModule,
-    MatSlideToggleModule
-  ],
-  providers: [DatePipe,
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},
-    AlertComponent
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NavbarComponent,
+        FooterComponent,
+        ListagemDisciplinasComponent,
+        ListagemAlunosComponent,
+        DetalhesAlunoComponent,
+        SolicitacoesUsuariosComponent,
+        GerenciarUsuariosComponent,
+        LoginComponent,
+        ListagemStatusEnvioComponent,
+        CadastrarUsuarioComponent,
+        MatOptionPersonalizado
+    ],
+    providers: [DatePipe,
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+        AlertComponent
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        DisciplinaRoutingModule,
+        UsuarioRoutingModule,
+        AlunoRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatExpansionModule,
+        MatIconModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatSelectModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        FormsModule,
+        ExtracaoModule,
+        MatCardModule,
+        ChartModule,
+        MatTreeModule,
+        TableModule,
+        SplitButtonModule,
+        AlertModule,
+        PaginatorModule,
+        MatSlideToggleModule
+    ]
 })
 export class AppModule { }

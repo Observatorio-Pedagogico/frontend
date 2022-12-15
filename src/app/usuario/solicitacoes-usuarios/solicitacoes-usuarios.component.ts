@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Funcionario, EnvelopeFuncionario, TipoFuncionario } from '../../shared/interfaces/login';
 import { LoginService } from '../../authenticacao/login.service';
 import { Router } from '@angular/router';
+import { Funcionario, EnvelopeFuncionario } from '../../shared/interfaces/funcionario';
+import { FuncionarioService } from '../../disciplina/services/funcionario.service';
 
 @Component({
   selector: 'app-solicitacoes-usuarios',
@@ -34,6 +35,7 @@ export class SolicitacoesUsuariosComponent implements OnInit {
                                          `&sort=nome,asc`;
 
   constructor(private loginService: LoginService,
+              private funcionarioService: FuncionarioService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class SolicitacoesUsuariosComponent implements OnInit {
 
   validarUsuario() {
     let usuarioLogado: EnvelopeFuncionario;
-    this.loginService.obterUsuarioLogado().subscribe({
+    this.funcionarioService.obterUsuarioLogado().subscribe({
       next: (value) => {
         usuarioLogado = value.data;
       },

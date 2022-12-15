@@ -20,7 +20,6 @@ export class CadastrarUsuarioComponent implements OnInit {
   cadastrarUsuario(usuario: UsuarioCadastro) {
     this.loginService.cadastrarUsuario(usuario);
     this.alert.openAlert("success", "Cadastro Solicitado com Sucesso!", "");
-    alert('setTimeout');
   }
 
   onVoltar(): void {

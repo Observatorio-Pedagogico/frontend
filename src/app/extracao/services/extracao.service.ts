@@ -54,7 +54,7 @@ export class ExtracaoService {
       args+=element.concat('&');
     });
 
-    return args;
+    return args.substring(0, args.length-1);
   }
 
 }

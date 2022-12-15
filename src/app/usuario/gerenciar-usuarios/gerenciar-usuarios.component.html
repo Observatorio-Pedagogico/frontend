@@ -10,7 +10,7 @@
     <div class="flex p-3 justify-between bg-[#3abdf1] rounded-t-lg">
       <h3 class="text-3xl">COPED</h3>
     </div>
-    <p-table #dt dataKey="id" selectionMode="single" [value]="funcionariosCoped"
+    <p-table #dt dataKey="id" selectionMode="single" [value]="funcionariosCoped" styleClass="p-datatable-usuario"
       [rowHover]="true" responsiveLayout="scroll" [filterDelay]="0" class="border-4 border-[#3abdf1]">
       <ng-template pTemplate="header">
         <tr>
@@ -59,7 +59,7 @@
             <span class="p-column-title">Sexo</span>
             {{funcionariosCoped.sexo}}
           </td>
-          <td class="flex justify-center">
+          <td>
             <span class="p-column-title">Ação</span>
               <!-- <button title="permitir" class="p-2 hover:scale-125 flex justify-center items-center bg-green-500 text-white rounded-full" (click)="ativarFuncCoped(funcionariosCoped.id)">
                 <mat-icon>
@@ -87,7 +87,7 @@
   <div class="flex p-3 mt-10 justify-between bg-[#3abdf1] rounded-t-lg">
     <h3 class="text-3xl">PROFESSORES</h3>
   </div>
-  <p-table #dt dataKey="id" selectionMode="single" [value]="funcionariosProfessor" styleClass="p-datatable-extracao"
+  <p-table #dt dataKey="id" selectionMode="single" [value]="funcionariosProfessor" styleClass="p-datatable-usuario"
     [rowHover]="true" responsiveLayout="scroll" [filterDelay]="0" class="border-4 border-[#3abdf1]">
     <ng-template pTemplate="header">
       <tr>
@@ -111,6 +111,11 @@
             Sexo
           </div>
         </th>
+        <th title="Caso a disciplina não esteja listada, adicione uma nova extração">
+          <div class="flex justify-content-between align-items-center">
+            Disciplinas
+          </div>
+        </th>
         <th>
           <div class="flex justify-content-between align-items-center">
             Permitir acesso
@@ -118,7 +123,7 @@
         </th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-funcionariosProfessor>
+    <ng-template #templateFuncionarioProfessor pTemplate="body" let-funcionariosProfessor>
       <tr class="p-selectable-row" [pSelectableRow]="funcionariosProfessor">
         <td>
           <span class="p-column-title">Matricula</span>
@@ -136,19 +141,20 @@
           <span class="p-column-title">Sexo</span>
           {{funcionariosProfessor.sexo}}
         </td>
-        <td class="flex justify-center">
-          <span class="p-column-title">Ação</span>
-            <!-- <button title="permitir" class="p-2 hover:scale-125 flex justify-center items-center bg-green-500 text-white rounded-full" (click)="ativarProfessor(funcionariosProfessor.id)">
-              <mat-icon>
-                check
-              </mat-icon>
-            </button>
-            <button title="negar" class="p-2 ml-4 hover:scale-125 flex justify-center items-center bg-red-500 text-white rounded-full" (click)="desativarProfessor(funcionariosProfessor.id)">
-              <mat-icon>
-                close
-              </mat-icon>
-            </button> -->
+        <td>
+          <span class="p-column-title">Disciplinas</span>
+          <mat-form-field>
+            <mat-label>Disciplinas</mat-label>
+            <mat-select multiple>
+              <mat-option app-mat-option [idProfessor]="funcionariosProfessor.id" [codigoDisciplina]="disciplina.codigo" class="multiple-field-box" (onSelectionChange)="checkedDisciplina($event, funcionariosProfessor.id) " [id]="disciplina.codigo.toString()" [title]="disciplina.nome + ' ('+disciplina.codigo + ')'" *ngFor="let disciplina of disciplinasDisponiveis" [value]="disciplina.codigo">{{disciplina.nome + ' ('+disciplina.codigo + ')'}}</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </td>
+        <td>
+          <div class="flex justify-center">
             <mat-slide-toggle #toggle [checked]="funcionariosProfessor.ativo" (change)="onSlideToggle($event, funcionariosProfessor.id, 'PROFESSOR')" color="primary"></mat-slide-toggle>
+          </div>
         </td>
       </tr>
     </ng-template>

@@ -10,7 +10,7 @@
     <div class="flex p-3 justify-between bg-[#22C55E] rounded-t-lg">
       <h3 class="text-3xl">COPED</h3>
     </div>
-    <p-table #dt dataKey="id" selectionMode="single" [value]="funcionariosCoped"
+    <p-table #dt dataKey="id" selectionMode="single" [value]="funcionariosCoped" styleClass="p-datatable-usuario"
       [rowHover]="true" responsiveLayout="scroll" [filterDelay]="0" class="border-4 border-[#22C55E]">
       <ng-template pTemplate="header">
         <tr>
@@ -85,10 +85,16 @@
     <p-paginator (onPageChange)="montarPaginacaoCoped($event)" [rows]="pageSizeTabelaCoped" [totalRecords]="totalElementsTabelaCoped"
     [rowsPerPageOptions]="[5, 10]"></p-paginator>
 
-  <div class="flex p-3 mt-10 justify-between bg-[#22C55E] rounded-t-lg">
-    <h3 class="text-3xl">PROFESSORES</h3>
+  <div class="flex p-3 mt-10 justify-between items-center bg-[#22C55E] rounded-t-lg">
+    <h3 class="text-3xl mx-1">PROFESSORES</h3>
+    <!-- <mat-card class="text-sm w-1/2 border-solid border-4 border-[#c40707cc]"> -->
+      <div class="flex justify-items-center p-2 w-1/2 items-center border-solid border-4 border-[#EF4444] bg-white rounded-md">
+        <mat-icon class="scale-150 mx-3 text-[#F5C329]">warning</mat-icon>
+        <p style="margin-bottom: none;">Após permitir acesso para um professor(a), o admin precisa atribuir suas respectivas disciplinas em <a routerLink="/gerenciar-usuarios" class="underline-offset-2 font-semibold text-[#1c3cf0fa]">Gerenciamento de Usuários</a> </p>
+      </div>
+    <!-- </mat-card> -->
   </div>
-  <p-table #dt dataKey="id" selectionMode="single" [value]="funcionariosProfessor" styleClass="p-datatable-extracao"
+  <p-table #dt dataKey="id" selectionMode="single" [value]="funcionariosProfessor" styleClass="p-datatable-usuario"
     [rowHover]="true" responsiveLayout="scroll" [filterDelay]="0" class="border-4 border-[#22C55E]">
     <ng-template pTemplate="header">
       <tr>
