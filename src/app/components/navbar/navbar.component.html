@@ -6,8 +6,11 @@
         <mat-sidenav class="w-72" mode="side" opened fixedInViewport="true">
           <div class="h-full px-1 grid content-between bg-[#00420c]">
             <div class="grid gap-4 mt-2 px-2">
-              <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]">
+              <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]" (click)="navigatePageDashboardDisciplina()">
                   Dashboard
+              </a>
+              <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]" (click)="navigatePageExtracoes()">
+                  Extrações
               </a>
               <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]">
                   Disciplinas
@@ -15,12 +18,15 @@
               <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]">
                   Alunos
               </a>
-              <a mat-list-item class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]">
-                  Monitoramento
+              <a mat-list-item *ngIf="envelopeFuncionario.tipoFuncionario.toString() === 'FUNCIONARIO_COPED'" class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]" (click)="navigatePageGerenciarUsuarios()">
+                  Gerenciamento de Usuários
+              </a>
+              <a mat-list-item *ngIf="envelopeFuncionario.tipoFuncionario.toString() === 'FUNCIONARIO_COPED'" class="p-1 hover:bg-[#00420C] hover:text-white flex justify-center rounded-md cursor-pointer bg-[#ffffff]" (click)="navigatePageSolicitacoesUsuarios()">
+                  Solicitações de Usuários
               </a>
             </div>
             <div class="flex justify-between p-3 bg-[rgb(18,107,34)] rounded-md">
-              <img [ngClass]="envelopeFuncionario.funcionario.sexo === 'MASCULINO' ? 'bg-cyan-600' : 'bg-[#ee67f3]'" class="w-10 p-0.5 rounded-full" [src]="envelopeFuncionario.funcionario.sexo === 'MASCULINO' ? '../../../assets/icon-masculino.svg' : '../../../assets/icon-feminino.svg'" alt="">
+              <img [ngClass]="envelopeFuncionario.funcionario.sexo === 'MASCULINO' ? 'bg-cyan-600' : 'bg-[#ee67f3]'" class="w-10 p-0.5 rounded-full" [src]="envelopeFuncionario.funcionario.sexo === 'MASCULINO' ? '../../../assets/img/icon-masculino.svg' : '../../../assets/img/icon-feminino.svg'" alt="">
                 <div class="grid capitalize text-sm text-[#ffffffb9]">
                   <span class="break-all">{{ envelopeFuncionario.funcionario.nome }}</span>
                   <span class="font-light">{{ envelopeFuncionario.tipoFuncionario.replace('_', ' ') }}</span>
@@ -41,7 +47,7 @@
 
     <span>
       <a>
-        <img class="icon-logo" src="../../../assets/LogoObservatorioNavBar.svg" alt="Logo">
+        <img class="icon-logo cursor-pointer" src="../../../assets/img/LogoObservatorioNavBar.svg" routerLink="/" alt="Logo">
       </a>
     </span>
 

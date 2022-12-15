@@ -4,9 +4,9 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { StringUtils } from 'src/app/shared/utils/string-utils';
 
+import { AlertComponent } from '../../components/alert/alert/alert.component';
 import { Arquivo, Extracao } from '../model/extracao';
 import { ExtracaoService } from '../services/extracao.service';
-import { AlertComponent } from '../../components/alert/alert/alert.component';
 
 @Component({
   selector: 'app-cadastro-extracao',
@@ -18,7 +18,7 @@ export class CadastroExtracaoComponent implements OnInit {
 
     form: UntypedFormGroup;
 
-    uploadedFiles: File[] = [];
+    uploadedFiles = new Set<File>();
 
     constructor(
         private formBuilder: UntypedFormBuilder,
@@ -54,7 +54,7 @@ export class CadastroExtracaoComponent implements OnInit {
     salvarExtracaoEvent(): void {
         let extracao = this.form.value as Extracao;
 
-        if (this.uploadedFiles.length < 2) {
+        if (this.uploadedFiles.size < 2) {
           this.alertComponent.openAlert("error", "É Preciso Enviar dois arquivos!", "");
           return;
         }
@@ -91,30 +91,27 @@ export class CadastroExtracaoComponent implements OnInit {
         return;
       }
 
-      const array = [];
       for (let file of event.files) {
-          array.push(file);
+        if (!this.contains(file)) {
+          this.uploadedFiles.add(file);
+        }
       }
-      this.uploadedFiles = array;
       this.atualizarButtonAnexarArquivo();
       this.alertComponent.openAlert("info", "Arquivo Carregado", event.files[0].name);
     }
 
     onClear() {
-      this.uploadedFiles = [];
+      this.uploadedFiles.clear();
       this.atualizarButtonAnexarArquivo();
     }
 
     onRemove(event: any) {
-      const index = this.uploadedFiles.indexOf(event.file, 0);
-      if (index > -1) {
-        this.uploadedFiles.splice(index, 1);
-      }
+      this.uploadedFiles.delete(event.file);
       this.atualizarButtonAnexarArquivo();
     }
 
     onValidarForm(): boolean {
-      return this.form.invalid || this.uploadedFiles.length < 2;
+      return this.form.invalid || this.uploadedFiles.size < 2;
     }
 
     getElementByXpath(path: string) {
@@ -123,7 +120,7 @@ export class CadastroExtracaoComponent implements OnInit {
 
     atualizarButtonAnexarArquivo() {
       const buttonUpload = this.getElementByXpath("/html/body/app-root/app-cadastro-extracao/form/p-fileupload/div/div[1]/span") as HTMLSpanElement;
-      if (this.uploadedFiles.length >= 2) {
+      if (this.uploadedFiles.size >= 2) {
         buttonUpload.style.display = "none";
       } else {
         buttonUpload.style.display = "inline-flex";
@@ -135,5 +132,16 @@ export class CadastroExtracaoComponent implements OnInit {
       setTimeout(() => {
         buttonClean.click();
       }, 0.5);
+    }
+
+    contains(file: File) {
+      let flag = false;
+      this.uploadedFiles.forEach(element => {
+        if (element.name === file.name) {
+          flag = true;
+          return;
+        }
+      });
+      return flag;
     }
   }

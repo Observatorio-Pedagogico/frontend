@@ -3,10 +3,10 @@
     <button class="p-2 border-solid border-[#000] border-2 rounded-md" routerLink="nova-extracao">NOVA EXTRAÇÃO SUAP</button>
 </div>
 
-<p-table #dt [loading]="loading" [value]="extracoes" dataKey="id" styleClass="p-datatable-extracao" [rowHover]="true" styleClass="p-datatable-extracao"
+<p-table #dt [value]="extracoes" dataKey="id" styleClass="p-datatable-extracao" [rowHover]="true" styleClass="p-datatable-extracao"
     responsiveLayout="scroll"
     [filterDelay]="0">
-    
+
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="id">
@@ -36,13 +36,6 @@
                             </p-dropdown>
                         </ng-template>
                     </p-columnFilter>
-                </div>
-            </th>
-            <th pSortableColumn="periodoLetivo">
-                <div class="flex justify-content-between align-items-center">
-                    Período
-                    <p-sortIcon field="periodoLetivo"></p-sortIcon>
-                    <p-columnFilter type="text" field="periodoLetivo" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="dataCadastro">
@@ -77,10 +70,6 @@
                 <span [class]="'extracao-badge status-' + extracao.status">{{extracao.status}}</span>
             </td>
             <td>
-                <span class="p-column-title">periodoLetivo</span>
-                {{extracao.periodoLetivo}}
-            </td>
-            <td>
                 <span class="p-column-title">dataCadastro</span>
                 {{extracao.dataCadastro | date: 'dd/MM/yyyy'}}
             </td>
@@ -102,7 +91,7 @@
             </td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="emptymessage">
+    <ng-template pTemplate="emptymessage" class="bg-[#51cece77]">
         <tr>
             <td colspan="8">Nenhuma extração encontrada!</td>
         </tr>

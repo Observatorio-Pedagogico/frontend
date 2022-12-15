@@ -12,14 +12,19 @@
   vertical-align: middle;
 }
 
-.extracao-badge.status-CANCELADA {
-  background-color: #ffcdd2;
-  color: #c63737;
+.extracao-badge.status-PROCESSANDO {
+  background-color: #b7ceec;
+  color: #007fc4;
 }
 
 .extracao-badge.status-ATIVA {
   background-color: #c8e6c9;
   color: #256029;
+}
+
+.extracao-badge.status-ERRO {
+  background-color: #e73c3c;
+  color: #ffffff;
 }
 
 :host ::ng-deep .p-paginator .p-paginator-current {
@@ -62,7 +67,7 @@
   }
   :host ::ng-deep .p-datatable-extracao .p-datatable-tbody > tr > td .p-column-title {
     display: none;
-  }  
+  }
 
 @media screen and (max-width: 960px) {
   :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-thead > tr > th, :host ::ng-deep .p-datatable.p-datatable-extracao .p-datatable-tfoot > tr > td {

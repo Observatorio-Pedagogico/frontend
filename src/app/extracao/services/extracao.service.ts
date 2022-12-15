@@ -30,7 +30,6 @@ export class ExtracaoService {
     let formData = new FormData();
     formData.append("titulo", registro.titulo);
     formData.append("descricao", registro.descricao);
-    formData.append("periodoLetivo", registro.periodoLetivo);
     for (const arquivo of registro.arquivosMultipartFile) {
       formData.append("arquivosMultipartFile", arquivo.conteudo);
     }
@@ -55,7 +54,7 @@ export class ExtracaoService {
       args+=element.concat('&');
     });
 
-    return args;
+    return args.substring(0, args.length-1);
   }
 
 }
